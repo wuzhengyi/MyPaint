@@ -5,7 +5,9 @@ using System.Windows.Forms;
 
 namespace Painting
 {
-    enum CASE { NoOperation, dot, line, curve, roundness, ellipse, rectangle, pencil, fill, choose, choosed, panning };
+    enum CASE { NoOperation, dot, line, curve, roundness, ellipse,
+        rectangle, pencil, fill, choose, choosed, panning
+        };
     /*  no_operation：   无操作
      *  dot：            点
      *  line：           线
@@ -33,9 +35,11 @@ namespace Painting
         private CASE NowCase;
         private BREATH bh;
         private int x0, y0, x1, y1, x2, y2;
+        private Point p;
         private bool IsMouseDown, IsBack;
         private StepPaint Step = new StepPaint();
         private Bitmap ChoosedRegion;
+        private Button pictureBoxSize;
         
         //private Bitmap bmp;
         public Form1()
@@ -43,6 +47,19 @@ namespace Painting
             InitializeComponent();
         }
         
+        private void InitButton()
+        {
+            pictureBoxSize = new Button();
+            pictureBoxSize.Size = new Size(5, 5);
+            pictureBoxSize.Location = new Point(pictureBox.Width, pictureBox.Height);
+            pictureBox.Controls.Add(pictureBoxSize);
+            pictureBoxSize.MouseDown += PictureBoxSize_MouseDown;
+            pictureBoxSize.MouseMove += PictureBoxSize_MouseMove;
+            pictureBoxSize.MouseUp += PictureBoxSize_MouseUp;
+        }
+
+
+
         private void InitForm1()
         {
             color = Color.Black;
@@ -51,11 +68,11 @@ namespace Painting
             button_color.BackColor = color;
             IsMouseDown = IsBack = false;
             bh = BREATH.ss;
-            //pictureBox.Image = new Bitmap(2000, 2000);
             Bitmap b = new Bitmap(pictureBox.Width, pictureBox.Height);     //新建位图b1
             Graphics g1 = Graphics.FromImage(b);  //创建b1的Graphics
             g1.FillRectangle(Brushes.White, new Rectangle(0, 0, pictureBox.Width, pictureBox.Height));   //把b1涂成红色
             pictureBox.Image = b;
+            InitButton();
             Step.InitStep((Image)pictureBox.Image.Clone());
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -718,6 +735,35 @@ namespace Painting
             }
         }
 
+        private void PictureBoxSize_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (NowCase == CASE.choosed)
+                pictureBox.Image = Step.RefreshStep();
+            p = e.Location;
+        }
+        private void PictureBoxSize_MouseUp(object sender, MouseEventArgs e)
+        {
+            p = e.Location;
+        }
+
+        private void PictureBoxSize_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                this.pictureBoxSize.Location = new Point(this.pictureBoxSize.Left + (e.X - p.X), this.pictureBoxSize.Top + (e.Y - p.Y));
+            RefreshPicutreBoxSize();
+        }
+
+        private void RefreshPicutreBoxSize()
+        {
+            Bitmap NewImage = new Bitmap(pictureBoxSize.Location.X, pictureBoxSize.Location.Y);
+            Graphics g = Graphics.FromImage(NewImage);
+            g.Clear(color);
+            //绘制原图   
+            g.DrawImage(pictureBox.Image, 0, 0);
+            g.TranslateTransform(pictureBox.Image.Width, 0);
+            pictureBox.Image = NewImage;
+        }
+
         private void PanningChoosedRegion(int dx, int dy)
         {
             if (x1 + dx > 0 && x2 + dx < pictureBox.Width && y1 + dy > 0 && y2 + dy < pictureBox.Height) 
@@ -769,7 +815,6 @@ namespace Painting
                 PanningChoosedRegion(e.X - x0, e.Y - y0);
                 NowCase = CASE.NoOperation;
             }
-            
         }
 
 
