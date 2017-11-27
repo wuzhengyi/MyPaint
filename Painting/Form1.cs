@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace Painting
 {
     enum CASE { NoOperation, dot, line, curve, roundness, ellipse,
-        rectangle, pencil, fill, choose, choosed, panning
+        rectangle, pencil, fill, choose, chose, panning
         };
     /*  no_operation：   无操作
      *  dot：            点
@@ -18,7 +18,7 @@ namespace Painting
      *  pencil：         铅笔
      *  fill：           填充
      *  choose：         选择
-     *  choosed：        选择完毕
+     *  chose：        选择完毕
      *  panning：        平移
      */
     enum BREATH { ss, s, b, bb};
@@ -38,9 +38,10 @@ namespace Painting
         private Point p;
         private bool IsMouseDown, IsBack;
         private StepPaint Step = new StepPaint();
-        private Bitmap ChoosedRegion;
+        private Bitmap ChoseRegion;
         private Button pictureBoxSize;
-        
+        private Button ChoseSize;
+
         //private Bitmap bmp;
         public Form1()
         {
@@ -49,6 +50,7 @@ namespace Painting
         
         private void InitButton()
         {
+            //pictureBoxSize
             pictureBoxSize = new Button();
             pictureBoxSize.Size = new Size(5, 5);
             pictureBoxSize.Location = new Point(pictureBox.Width, pictureBox.Height);
@@ -56,15 +58,24 @@ namespace Painting
             pictureBoxSize.MouseDown += PictureBoxSize_MouseDown;
             pictureBoxSize.MouseMove += PictureBoxSize_MouseMove;
             pictureBoxSize.MouseUp += PictureBoxSize_MouseUp;
-        }
 
+            //ChoseSize           
+            ChoseSize = new Button();
+            ChoseSize.Size = new Size(5, 5);
+            ChoseSize.Location = new Point(x2, y2);
+            pictureBox.Controls.Add(ChoseSize);
+            ChoseSize.MouseDown += ChoseSize_MouseDown;
+            ChoseSize.MouseMove += ChoseSize_MouseMove;
+            ChoseSize.MouseUp += ChoseSize_MouseUp;
+            ChoseSize.Hide();
+        }
 
 
         private void InitForm1()
         {
             color = Color.Black;
             NowCase = CASE.NoOperation;
-            x0 = y0 = 0;
+            x0 = y0 = x1 = y1 = x2 = y2 = 0;
             button_color.BackColor = color;
             IsMouseDown = IsBack = false;
             bh = BREATH.ss;
@@ -213,7 +224,7 @@ namespace Painting
 
         private void DrawRectangle(int x0, int y0, int x1, int y1)
         {
-            if (NowCase == CASE.choose || NowCase==CASE.panning)
+            if (NowCase == CASE.choose || NowCase == CASE.panning || NowCase == CASE.chose) 
             {
                 DDADottedLine(x0, y0, x0, y1);
                 DDADottedLine(x0, y0, x1, y0);
@@ -509,7 +520,7 @@ namespace Painting
         }
         private void openfile_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.choosed)
+            if (NowCase == CASE.chose)
                 pictureBox.Image = Step.RefreshStep();
             openFileDialog1.InitialDirectory = "D:\\";            // 这里是初始的路径名
             openFileDialog1.Filter = "png文件|*.png|jpg文件|*.jpg|所有文件|*.*";  //设置打开文件的类型
@@ -529,7 +540,7 @@ namespace Painting
 
         private void savefile_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.choosed)
+            if (NowCase == CASE.chose)
                 pictureBox.Image = Step.RefreshStep();
             saveFileDialog1.InitialDirectory = "D:\\";            // 这里是初始的路径名
             saveFileDialog1.Filter = "png文件|*.png|jpg文件|*.jpg|所有文件|*.*";  //设置打开文件的类型
@@ -585,7 +596,8 @@ namespace Painting
             {
                 for (int j = y0; j < y1; j++)
                 {
-                    map.SetPixel(i, j, pic.GetPixel(i - x0, j - y0));
+                    if (i > 0 && i < map.Width && j > 0 && j < map.Height)
+                        map.SetPixel(i, j, pic.GetPixel(i - x0, j - y0));
                 }
             }
             pictureBox.Image = map;
@@ -593,12 +605,8 @@ namespace Painting
 
         private void button_back_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.choosed)
-            {
-                pictureBox.Image = Step.RefreshStep();
-                NowCase = CASE.NoOperation;
-            }
-                
+            CaseChange(CASE.NoOperation);
+
             if (!IsBack)
             {
                 Image temp = (Image)pictureBox.Image.Clone();
@@ -613,48 +621,34 @@ namespace Painting
 
         private void button_front_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.choosed)
-            {
-                pictureBox.Image = Step.RefreshStep();
-                NowCase = CASE.NoOperation;
-            }
+            CaseChange(CASE.NoOperation);
             if (!Step.StepIsFull())
                 pictureBox.Image = Step.PushStep();
         }
 
         private void button_line_Click_1(object sender, EventArgs e)//直线
         {
-            if (NowCase == CASE.choosed)
-                pictureBox.Image = Step.RefreshStep();
-            NowCase = CASE.line;
+            CaseChange(CASE.line);
         }
 
         private void button_dot_Click(object sender, EventArgs e)//点
         {
-            if (NowCase == CASE.choosed)
-                pictureBox.Image = Step.RefreshStep();
-            NowCase = CASE.dot;
+            CaseChange(CASE.dot);
         }
 
         private void button_pencil_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.choosed)
-                pictureBox.Image = Step.RefreshStep();
-            NowCase = CASE.pencil;
+            CaseChange(CASE.pencil);
         }
 
         private void button_ellipse_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.choosed)
-                pictureBox.Image = Step.RefreshStep();
-            NowCase = CASE.ellipse;
+            CaseChange(CASE.ellipse);
         }
 
         private void button_roundness_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.choosed)
-                pictureBox.Image = Step.RefreshStep();
-            NowCase = CASE.roundness;
+            CaseChange(CASE.roundness);
         }
 
         private void FillColor(Color c,int x1,int y1,int x2,int y2)
@@ -673,52 +667,38 @@ namespace Painting
 
         private void button_fill_Click(object sender, EventArgs e)
         {
-            if (NowCase != CASE.choosed)
+            if (NowCase != CASE.chose)
             {
                 NowCase = CASE.fill;
             }
             else
             {
-                pictureBox.Image = Step.RefreshStep();
+                CaseChange(CASE.NoOperation);
                 //在选择框内填充纯色
                 FillColor(color, x1, y1, x2, y2);
-
-                NowCase = CASE.NoOperation;
+                
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Button but = new Button();
-            but.Location = new Point(pictureBox.Image.Width-2,
-                pictureBox.Image.Height-2);
-            but.Size = new Size(5, 5);
-            pictureBox.Controls.Add(but);
         }
 
         private void button_rectangle_Click(object sender, EventArgs e)
         {
-            if(NowCase==CASE.choosed)
-                pictureBox.Image = Step.RefreshStep();
-            NowCase = CASE.rectangle;
+            CaseChange(CASE.rectangle);
         }
 
         private void button_choose_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.choosed)
-                pictureBox.Image = Step.RefreshStep();
-            NowCase = CASE.choose;
+            CaseChange(CASE.choose);
         }
 
         private void button_fillpic_Click(object sender, EventArgs e)
         {
-            if (NowCase != CASE.choosed)
+            if (NowCase != CASE.chose)
             {
                 MessageBox.Show("请先选择填充范围！");
             }
             else
             {
-                pictureBox.Image = Step.RefreshStep();
+                CaseChange(CASE.NoOperation);
                 openFileDialog1.InitialDirectory = "D:\\";            // 这里是初始的路径名
                 openFileDialog1.Filter = "png文件|*.png|jpg文件|*.jpg|所有文件|*.*";  //设置打开文件的类型
                 openFileDialog1.RestoreDirectory = true;              //设置是否还原当前目录
@@ -731,14 +711,23 @@ namespace Painting
                     Bitmap FilledPic = new Bitmap(path);
                     FillPic(FilledPic, x1, y1, x2, y2);
                 }
-                NowCase = CASE.NoOperation;
             }
         }
 
+        private void CaseChange(CASE temp)
+        {
+            if (NowCase == CASE.chose)
+            {
+                pictureBox.Image = Step.RefreshStep();
+                ChoseSize.Hide();
+            }     
+            NowCase = temp;
+        }
         private void PictureBoxSize_MouseDown(object sender, MouseEventArgs e)
         {
-            if (NowCase == CASE.choosed)
-                pictureBox.Image = Step.RefreshStep();
+            CaseChange(CASE.NoOperation);
+            Image temp = (Image)pictureBox.Image.Clone();
+            Step.AddStep(temp);
             p = e.Location;
         }
         private void PictureBoxSize_MouseUp(object sender, MouseEventArgs e)
@@ -753,6 +742,38 @@ namespace Painting
             RefreshPicutreBoxSize();
         }
 
+
+        private void ChoseSize_MouseUp(object sender, MouseEventArgs e)
+        {
+            p = e.Location;
+        }
+
+        private void ChoseSize_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (NowCase == CASE.chose)
+            {
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                    this.ChoseSize.Location = new Point(this.ChoseSize.Left + (e.X - p.X), this.ChoseSize.Top + (e.Y - p.Y));
+                RefreshChoseSize();
+            }
+               
+        }
+
+        private void RefreshChoseSize()
+        {          
+            x2 = ChoseSize.Location.X;
+            y2 = ChoseSize.Location.Y;
+            pictureBox.Image = Step.RefreshStep();
+            DrawRectangle(x1, y1, x2, y2);
+           
+        }
+
+        private void ChoseSize_MouseDown(object sender, MouseEventArgs e)
+        {
+            p = e.Location;
+            
+        }
+
         private void RefreshPicutreBoxSize()
         {
             Bitmap NewImage = new Bitmap(pictureBoxSize.Location.X, pictureBoxSize.Location.Y);
@@ -764,12 +785,12 @@ namespace Painting
             pictureBox.Image = NewImage;
         }
 
-        private void PanningChoosedRegion(int dx, int dy)
+        private void PanningChoseRegion(int dx, int dy)
         {
+            FillColor(color, x1, y1, x2, y2);
             if (x1 + dx > 0 && x2 + dx < pictureBox.Width && y1 + dy > 0 && y2 + dy < pictureBox.Height) 
-            {
-                FillColor(color, x1, y1, x2, y2);
-                FillPic(ChoosedRegion, x1 + dx, y1 + dy, x2 + dx, y2 + dy);
+            {            
+                FillPic(ChoseRegion, x1 + dx, y1 + dy, x2 + dx, y2 + dy);
                 if(IsMouseDown)
                     DrawRectangle(x1 + dx, y1 + dy, x2 + dx - 1, y2 + dy - 1);
             }
@@ -795,24 +816,26 @@ namespace Painting
                 y2 = Math.Max(y0, e.Y);
                 y1 = Math.Min(y0, e.Y);
 
-                //将选择区域的图像保存至ChoosedRegion
+                //将选择区域的图像保存至ChoseRegion
                 pictureBox.Image = Step.RefreshStep();
-                ChoosedRegion = new Bitmap(x2 - x1, y2 - y1);
+                ChoseRegion = new Bitmap(x2 - x1, y2 - y1);
                 Bitmap map = new Bitmap(pictureBox.Image);
                 for (int i = x1; i < x2; i++)
                 {
                     for (int j = y1; j < y2; j++)
                     {
-                        ChoosedRegion.SetPixel(i - x1, j - y1, map.GetPixel(i, j));
+                        ChoseRegion.SetPixel(i - x1, j - y1, map.GetPixel(i, j));
                     }
                 }
                 DrawRectangle(x1, y1, x2, y2);
                 //更改NowCase
-                NowCase = CASE.choosed;
+                CaseChange(CASE.chose);
+                ChoseSize.Location = new Point(x2, y2);
+                ChoseSize.Show();
             }
             else if (NowCase == CASE.panning)
             {
-                PanningChoosedRegion(e.X - x0, e.Y - y0);
+                PanningChoseRegion(e.X - x0, e.Y - y0);
                 NowCase = CASE.NoOperation;
             }
         }
@@ -853,7 +876,7 @@ namespace Painting
                             DrawRectangle(x0, y0, e.X, e.Y);
                             break;
                         case CASE.panning:
-                            PanningChoosedRegion(e.X - x0, e.Y - y0);
+                            PanningChoseRegion(e.X - x0, e.Y - y0);
                             break;
                         default:
                             break;
@@ -874,7 +897,7 @@ namespace Painting
             x0 = e.X;
             y0 = e.Y;
 
-            if (NowCase != CASE.choosed)
+            if (NowCase != CASE.chose)
             {
                 Image temp = (Image)pictureBox.Image.Clone();
                 Step.AddStep(temp);
@@ -895,7 +918,7 @@ namespace Painting
                     FillColor(pointStack, map, map.GetPixel(x0, y0), x0, y0);
                     pictureBox.Image = map;
                     break;
-                case CASE.choosed:
+                case CASE.chose:
                     if (PointInRectangle(x0, y0))
                     {
                         NowCase = CASE.panning;
