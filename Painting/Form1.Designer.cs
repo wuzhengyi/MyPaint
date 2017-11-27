@@ -75,6 +75,7 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -509,6 +510,7 @@
             this.tableLayoutPanel3.Controls.Add(this.button_line, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_dot, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.rectangle, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button1, 1, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(98, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
@@ -699,6 +701,16 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(58, 41);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(49, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -777,6 +789,7 @@
         private System.Windows.Forms.Button rectangle;
         private System.Windows.Forms.Button savefile;
         private System.Windows.Forms.Button fillpic;
+        private System.Windows.Forms.Button button1;
     }
 
     

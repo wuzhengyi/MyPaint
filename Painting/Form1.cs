@@ -35,6 +35,7 @@ namespace Painting
         private int x0, y0, x1, y1, x2, y2;
         private bool IsMouseDown, IsBack;
         private StepPaint Step = new StepPaint();
+        private Bitmap ChoosedRegion;
         
         //private Bitmap bmp;
         public Form1()
@@ -195,19 +196,20 @@ namespace Painting
 
         private void DrawRectangle(int x0, int y0, int x1, int y1)
         {
-            if (NowCase != CASE.choose)
-            {
-                DDALine(x0, y0, x0, y1);
-                DDALine(x0, y0, x1, y0);
-                DDALine(x1, y0, x1, y1);
-                DDALine(x0, y1, x1, y1);
-            }
-           else
+            if (NowCase == CASE.choose || NowCase==CASE.panning)
             {
                 DDADottedLine(x0, y0, x0, y1);
                 DDADottedLine(x0, y0, x1, y0);
                 DDADottedLine(x1, y0, x1, y1);
                 DDADottedLine(x0, y1, x1, y1);
+            }
+           else
+            {
+                DDALine(x0, y0, x0, y1);
+                DDALine(x0, y0, x1, y0);
+                DDALine(x1, y0, x1, y1);
+                DDALine(x0, y1, x1, y1);
+                
             }
         }
 
@@ -528,7 +530,7 @@ namespace Painting
 
         private bool PointInRectangle(int x,int y)
         {
-            if (x >= x0 && x <= x1 && y >= y0 && y <= y1)
+            if (x >= x1 && x <= x2 && y >= y1 && y <= y2)
                 return true;
             else
                 return false;
@@ -540,7 +542,7 @@ namespace Painting
             while (pointStack.Count != 0)
             {
                 temp = pointStack.Pop();
-                if (temp.x < 0 || temp.y < 0 || temp.x > map.Width || temp.y > map.Height || temp.x > pictureBox.Width || temp.y > pictureBox.Height) 
+                if (temp.x < 0 || temp.y < 0 || temp.x >= map.Width || temp.y >= map.Height || temp.x >= pictureBox.Width || temp.y >= pictureBox.Height) 
                     continue;
                 if (map.GetPixel(temp.x, temp.y) == OldColor && map.GetPixel(temp.x, temp.y) != color)
                 {
@@ -638,6 +640,20 @@ namespace Painting
             NowCase = CASE.roundness;
         }
 
+        private void FillColor(Color c,int x1,int y1,int x2,int y2)
+        {
+            //在矩形内填充纯色
+            Bitmap map = new Bitmap(pictureBox.Image);
+            for (int i = x1; i < x2; i++)
+            {
+                for (int j = y1; j < y2; j++)
+                {
+                    map.SetPixel(i, j, color);
+                }
+            }
+            pictureBox.Image = map;
+        }
+
         private void button_fill_Click(object sender, EventArgs e)
         {
             if (NowCase != CASE.choosed)
@@ -648,18 +664,19 @@ namespace Painting
             {
                 pictureBox.Image = Step.RefreshStep();
                 //在选择框内填充纯色
-                Bitmap map = new Bitmap(pictureBox.Image);
-                for (int i = x0; i < x1; i++)
-                {
-                    for (int j = y0; j < y1; j++)
-                    {
-                        map.SetPixel(i, j, color);
-                    }
-                }
-                pictureBox.Image = map;
+                FillColor(color, x1, y1, x2, y2);
 
                 NowCase = CASE.NoOperation;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Button but = new Button();
+            but.Location = new Point(pictureBox.Image.Width-2,
+                pictureBox.Image.Height-2);
+            but.Size = new Size(5, 5);
+            pictureBox.Controls.Add(but);
         }
 
         private void button_rectangle_Click(object sender, EventArgs e)
@@ -695,10 +712,22 @@ namespace Painting
                     path = openFileDialog1.FileName;
                     //MessageBox.Show(path);                            //显示该路径名
                     Bitmap FilledPic = new Bitmap(path);
-                    FillPic(FilledPic, x0, y0, x1, y1);
+                    FillPic(FilledPic, x1, y1, x2, y2);
                 }
                 NowCase = CASE.NoOperation;
             }
+        }
+
+        private void PanningChoosedRegion(int dx, int dy)
+        {
+            if (x1 + dx > 0 && x2 + dx < pictureBox.Width && y1 + dy > 0 && y2 + dy < pictureBox.Height) 
+            {
+                FillColor(color, x1, y1, x2, y2);
+                FillPic(ChoosedRegion, x1 + dx, y1 + dy, x2 + dx, y2 + dy);
+                if(IsMouseDown)
+                    DrawRectangle(x1 + dx, y1 + dy, x2 + dx - 1, y2 + dy - 1);
+            }
+            
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)//鼠标左键松开
@@ -713,10 +742,32 @@ namespace Painting
             }
 
             if (NowCase == CASE.choose)
-            {
+            {                
+                //(x1,y1),(x2,y2)为选择区域的左上角与右下角
+                x2 = Math.Max(x0, e.X);
+                x1 = Math.Min(x0, e.X);
+                y2 = Math.Max(y0, e.Y);
+                y1 = Math.Min(y0, e.Y);
+
+                //将选择区域的图像保存至ChoosedRegion
+                pictureBox.Image = Step.RefreshStep();
+                ChoosedRegion = new Bitmap(x2 - x1, y2 - y1);
+                Bitmap map = new Bitmap(pictureBox.Image);
+                for (int i = x1; i < x2; i++)
+                {
+                    for (int j = y1; j < y2; j++)
+                    {
+                        ChoosedRegion.SetPixel(i - x1, j - y1, map.GetPixel(i, j));
+                    }
+                }
+                DrawRectangle(x1, y1, x2, y2);
+                //更改NowCase
                 NowCase = CASE.choosed;
-                x1 = e.X;
-                y1 = e.Y;
+            }
+            else if (NowCase == CASE.panning)
+            {
+                PanningChoosedRegion(e.X - x0, e.Y - y0);
+                NowCase = CASE.NoOperation;
             }
             
         }
@@ -739,14 +790,8 @@ namespace Painting
                 else
                 {
                     pictureBox.Image = Step.RefreshStep();
-                    //pictureBox.Refresh();
                     switch (NowCase)
                     {
-                        case CASE.NoOperation:
-                            break;
-                        case CASE.dot:
-                            //drawPixel(e.X, e.Y);
-                            break;
                         case CASE.line:
                             DDALine(x0, y0, e.X, e.Y);
                             //BresenhamLine(x1, y1, e.X, e.Y);
@@ -762,8 +807,8 @@ namespace Painting
                         case CASE.choose:
                             DrawRectangle(x0, y0, e.X, e.Y);
                             break;
-                        case CASE.choosed:
-                            //if()
+                        case CASE.panning:
+                            PanningChoosedRegion(e.X - x0, e.Y - y0);
                             break;
                         default:
                             break;
@@ -774,38 +819,50 @@ namespace Painting
             
         }
 
+
+
+
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
 
             //设置起点
+            x0 = e.X;
+            y0 = e.Y;
+
             if (NowCase != CASE.choosed)
             {
-                x0 = e.X;
-                y0 = e.Y;
-            }
-            else
+                Image temp = (Image)pictureBox.Image.Clone();
+                Step.AddStep(temp);
+            }            
+
+            switch (NowCase)
             {
-
-            }
-            Image temp = (Image)pictureBox.Image.Clone();
-            Step.AddStep(temp);
-            //pictureBox.Image = temp;
-            
-
-            if (NowCase == CASE.fill)
-            {
-                Bitmap map = new Bitmap(pictureBox.Image);
-                Stack<point> pointStack = new Stack<point>();
-                point tempPoint = new point();
-                tempPoint.x = x0;
-                tempPoint.y = y0;
-                pointStack.Push(tempPoint);
-                FillColor(pointStack, map, map.GetPixel(x0, y0), x0, y0);
-                pictureBox.Image = map;
-            }
-            else if(NowCase == CASE.dot)
-                drawPixel(x0, y0);
-
+                case CASE.dot:
+                    drawPixel(x0, y0);
+                    break;
+                case CASE.fill:
+                    Bitmap map = new Bitmap(pictureBox.Image);
+                    Stack<point> pointStack = new Stack<point>();
+                    point tempPoint = new point();
+                    tempPoint.x = x0;
+                    tempPoint.y = y0;
+                    pointStack.Push(tempPoint);
+                    FillColor(pointStack, map, map.GetPixel(x0, y0), x0, y0);
+                    pictureBox.Image = map;
+                    break;
+                case CASE.choosed:
+                    if (PointInRectangle(x0, y0))
+                    {
+                        NowCase = CASE.panning;
+                    }
+                    else
+                    {
+                        //设定为旋转
+                    }
+                    break;
+                default:
+                    break;
+            }              
 
             //标记鼠标摁下
             IsMouseDown = true;
