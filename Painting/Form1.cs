@@ -760,10 +760,12 @@ namespace Painting
         }
 
         private void RefreshChoseSize()
-        {          
+        {
+            pictureBox.Image = Step.RefreshStep();
+            FillColor(color, x1, y1, x2, y2);
             x2 = ChoseSize.Location.X;
             y2 = ChoseSize.Location.Y;
-            pictureBox.Image = Step.RefreshStep();
+            FillPic(ImageOperation.SetBitmapSize(ChoseRegion, x2 - x1, y2 - y1), x1, y1, x2, y2);
             DrawRectangle(x1, y1, x2, y2);
            
         }
