@@ -10,46 +10,62 @@ namespace Painting
 {
     partial class Form1
     {
+        
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)//鼠标左键松开
         {
+            RefreshPictureBox();
             if (IsMouseDown)
                 IsMouseDown = false;
 
-            if (IsBack)
+            switch (NowCase)
             {
-                Step.RemoveNullStep();
-                IsBack = false;
-            }
-
-            if (NowCase == CASE.choose)
-            {
-                //(x1,y1),(x2,y2)为选择区域的左上角与右下角
-                x2 = Math.Max(x0, e.X);
-                x1 = Math.Min(x0, e.X);
-                y2 = Math.Max(y0, e.Y);
-                y1 = Math.Min(y0, e.Y);
-
-                //将选择区域的图像保存至ChoseRegion
-                pictureBox.Image = Step.RefreshStep();
-                ChoseRegion = new Bitmap(x2 - x1, y2 - y1);
-                Bitmap map = new Bitmap(pictureBox.Image);
-                for (int i = x1; i < x2; i++)
-                {
-                    for (int j = y1; j < y2; j++)
-                    {
-                        ChoseRegion.SetPixel(i - x1, j - y1, map.GetPixel(i, j));
-                    }
-                }
-                DrawRectangle(x1, y1, x2, y2);
-                //更改NowCase
-                CaseChange(CASE.chose);
-                ChoseSize.Location = new Point(x2, y2);
-                ChoseSize.Show();
-            }
-            else if (NowCase == CASE.panning)
-            {
-                PanningChoseRegion(e.X - x0, e.Y - y0);
-                NowCase = CASE.NoOperation;
+                case CASE.NoOperation:
+                    break;
+                case CASE.dot:
+                    Dot t = new Painting.Dot();
+                    t.InitDot(pictureBox, color, e.X, e.Y);
+                    t.Draw();
+                    OperaStep.AddStep(t);
+                    break;
+                case CASE.line:
+                    Line l = new Line();
+                    l.InitLine(pictureBox, color, x0, y0, e.X, e.Y);
+                    l.Draw();
+                    OperaStep.AddStep(l);
+                    break;
+                case CASE.roundness:
+                    Roundness r = new Roundness();
+                    r.InitRoundness(pictureBox, color, (int)Math.Sqrt((x0 - e.X) * (x0 - e.X) + (y0 - e.Y) * (y0 - e.Y)) / 2, (x0 + e.X) / 2, (y0 + e.Y) / 2);
+                    r.Draw();
+                    OperaStep.AddStep(r);
+                    break;
+                case CASE.ellipse:
+                    Ellipse ee = new Ellipse();
+                    ee.InitEllipse(pictureBox, color, Math.Abs((x0 - e.X) / 2), Math.Abs((y0 - e.Y) / 2), (x0 + e.X) / 2, (y0 + e.Y) / 2);
+                    ee.Draw();
+                    OperaStep.AddStep(ee);
+                    break;
+                case CASE.rectangle:
+                    Rect re = new Rect();
+                    re.InitRectangle(pictureBox, color, x0, y0, e.X, e.Y);
+                    re.Draw();
+                    OperaStep.AddStep(re);
+                    break;
+                case CASE.pencil:
+                    break;
+                case CASE.fill:
+                    FillCr f = new FillCr();
+                    f.InitFillCr(pictureBox, color, x0, y0);
+                    f.Draw();
+                    break;
+                case CASE.choose:
+                    break;
+                case CASE.chose:
+                    break;
+                case CASE.panning:
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -57,46 +73,52 @@ namespace Painting
         {
             if (IsMouseDown)
             {
-                if (NowCase == CASE.dot)
-                {
-                    drawPixel(e.X, e.Y);
-                }
-                else if (NowCase == CASE.pencil)
-                {
-                    DDALine(x0, y0, e.X, e.Y);
-                    x0 = e.X;
-                    y0 = e.Y;
-                }
-                else
-                {
-                    pictureBox.Image = Step.RefreshStep();
-                    switch (NowCase)
-                    {
-                        case CASE.line:
-                            DDALine(x0, y0, e.X, e.Y);
-                            //BresenhamLine(x1, y1, e.X, e.Y);
-                            //MidpointLine(x1, y1, e.X, e.Y);
-                            break;
-                        case CASE.roundness:
-                            BresenhamCircle((int)Math.Sqrt((x0 - e.X) * (x0 - e.X) + (y0 - e.Y) * (y0 - e.Y)) / 2, (x0 + e.X) / 2, (y0 + e.Y) / 2);
-                            break;
-                        case CASE.ellipse:
-                            Bresenhamellipse(Math.Abs((x0 - e.X) / 2), Math.Abs((y0 - e.Y) / 2), (x0 + e.X) / 2, (y0 + e.Y) / 2);
-                            break;
-                        case CASE.rectangle:
-                        case CASE.choose:
-                            DrawRectangle(x0, y0, e.X, e.Y);
-                            break;
-                        case CASE.panning:
-                            PanningChoseRegion(e.X - x0, e.Y - y0);
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                pictureBox.Image = FrontImage.Clone() as Image;
 
+                switch (NowCase)
+                {
+                    case CASE.NoOperation:
+                        break;
+                    case CASE.dot:
+                        Dot t = new Painting.Dot();
+                        t.InitDot(pictureBox, color, e.X, e.Y);
+                        t.Draw();
+                        OperaStep.AddStep(t);
+                        break;
+                    case CASE.line:
+                        Line l = new Line();
+                        l.InitLine(pictureBox, color, x0, y0, e.X, e.Y);
+                        l.Draw();
+                        break;
+                    case CASE.roundness:
+                        Roundness r = new Roundness();
+                        r.InitRoundness(pictureBox, color, (int)Math.Sqrt((x0 - e.X) * (x0 - e.X) + (y0 - e.Y) * (y0 - e.Y)) / 2, (x0 + e.X) / 2, (y0 + e.Y) / 2);
+                        r.Draw();
+                        break;
+                    case CASE.ellipse:
+                        Ellipse ee = new Ellipse();
+                        ee.InitEllipse(pictureBox, color, Math.Abs((x0 - e.X) / 2), Math.Abs((y0 - e.Y) / 2), (x0 + e.X) / 2, (y0 + e.Y) / 2);
+                        ee.Draw();
+                        break;
+                    case CASE.rectangle:
+                        Rect re = new Rect();
+                        re.InitRectangle(pictureBox, color, x0, y0, e.X, e.Y);
+                        re.Draw();
+                        break;
+                    case CASE.pencil:
+                        break;
+                    case CASE.fill:
+                        break;
+                    case CASE.choose:
+                        break;
+                    case CASE.chose:
+                        break;
+                    case CASE.panning:
+                        break;
+                    default:
+                        break;
+                }
             }
-
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -106,36 +128,16 @@ namespace Painting
             x0 = e.X;
             y0 = e.Y;
 
-            if (NowCase != CASE.chose)
-            {
-                Image temp = (Image)pictureBox.Image.Clone();
-                Step.AddStep(temp);
-            }
+            FrontImage = pictureBox.Image.Clone() as Image;
 
             switch (NowCase)
             {
                 case CASE.dot:
-                    drawPixel(x0, y0);
-                    break;
-                case CASE.fill:
-                    Bitmap map = new Bitmap(pictureBox.Image);
-                    Stack<point> pointStack = new Stack<point>();
-                    point tempPoint = new point();
-                    tempPoint.x = x0;
-                    tempPoint.y = y0;
-                    pointStack.Push(tempPoint);
-                    FillColor(pointStack, map, map.GetPixel(x0, y0), x0, y0);
-                    pictureBox.Image = map;
-                    break;
-                case CASE.chose:
-                    if (PointInRectangle(x0, y0))
-                    {
-                        NowCase = CASE.panning;
-                    }
-                    else
-                    {
-                        //设定为旋转
-                    }
+                    //drawPixel(x0, y0);
+                    Dot t = new Painting.Dot();
+                    t.InitDot(pictureBox, color, x0, y0);
+                    t.Draw();
+                    OperaStep.AddStep(t);
                     break;
                 default:
                     break;
@@ -143,6 +145,12 @@ namespace Painting
 
             //标记鼠标摁下
             IsMouseDown = true;
+        }
+        
+        private void RefreshPictureBox()
+        {
+            pictureBox.Image = (Image)Backgroud.Clone();
+            OperaStep.DrawOperation();
         }
 
     }

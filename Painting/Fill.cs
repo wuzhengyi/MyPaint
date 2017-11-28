@@ -9,30 +9,6 @@ namespace Painting
 {
     partial class Form1
     {
-        private void FillColor(Stack<point> pointStack, Bitmap map, Color OldColor, int x, int y)
-        {
-            point temp;
-            while (pointStack.Count != 0)
-            {
-                temp = pointStack.Pop();
-                if (temp.x < 0 || temp.y < 0 || temp.x >= map.Width || temp.y >= map.Height || temp.x >= pictureBox.Width || temp.y >= pictureBox.Height)
-                    continue;
-                if (map.GetPixel(temp.x, temp.y) == OldColor && map.GetPixel(temp.x, temp.y) != color)
-                {
-                    map.SetPixel(temp.x, temp.y, color);
-                    temp.x++;
-                    pointStack.Push(temp);
-                    temp.x -= 2;
-                    pointStack.Push(temp);
-                    temp.x++;
-                    temp.y++;
-                    pointStack.Push(temp);
-                    temp.y -= 2;
-                    pointStack.Push(temp);
-                }
-            }
-
-        }
 
         private void FillColor(Color c, int x1, int y1, int x2, int y2)
         {

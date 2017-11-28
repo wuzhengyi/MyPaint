@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Painting
 {
-    enum CASE { NoOperation, dot, line, curve, roundness, ellipse,
+    enum CASE { NoOperation, dot, line, roundness, ellipse,
         rectangle, pencil, fill, choose, chose, panning
         };
     /*  no_operation：   无操作
@@ -38,9 +38,18 @@ namespace Painting
         private Point p;
         private bool IsMouseDown, IsBack;
         private StepPaint Step = new StepPaint();
-        private Bitmap ChoseRegion;
+        private Image FrontImage;
         private Button pictureBoxSize;
         private Button ChoseSize;
+
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            //重绘之前操作
+            //OperaStep.DrawOperation();
+        }
+
+        private OperationStep OperaStep = new OperationStep();
+        private Image Backgroud;
 
         //private Bitmap bmp;
         public Form1()
@@ -83,9 +92,10 @@ namespace Painting
             Graphics g1 = Graphics.FromImage(b);  //创建b1的Graphics
             g1.FillRectangle(Brushes.White, new Rectangle(0, 0, pictureBox.Width, pictureBox.Height));   //把b1涂成红色
             pictureBox.Image = b;
+            Backgroud = (Image)b.Clone();
             InitButton();
-            Step.InitStep((Image)pictureBox.Image.Clone());
 
+            
         }
         private void Form1_Load(object sender, EventArgs e)
         {
