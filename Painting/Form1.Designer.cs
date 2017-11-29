@@ -77,6 +77,7 @@ namespace Painting
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.cut = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -573,8 +574,8 @@ namespace Painting
             // 
             // button_dot
             // 
-            this.button_dot.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.button_dot.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_dot.Location = new System.Drawing.Point(58, 3);
             this.button_dot.Name = "button_dot";
@@ -605,9 +606,10 @@ namespace Painting
             this.tableLayoutPanel7.ColumnCount = 2;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Controls.Add(this.fillpic, 0, 1);
-            this.tableLayoutPanel7.Controls.Add(this.choose, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.choose, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.fill, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.cut, 1, 1);
+            this.tableLayoutPanel7.Controls.Add(this.fillpic, 0, 1);
             this.tableLayoutPanel7.Location = new System.Drawing.Point(961, 3);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 2;
@@ -701,6 +703,19 @@ namespace Painting
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // cut
+            // 
+            this.cut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cut.Location = new System.Drawing.Point(80, 41);
+            this.cut.Name = "cut";
+            this.cut.Size = new System.Drawing.Size(72, 33);
+            this.cut.TabIndex = 17;
+            this.cut.Text = "裁剪";
+            this.cut.UseVisualStyleBackColor = true;
+            this.cut.Click += new System.EventHandler(this.button_cut_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -784,6 +799,7 @@ namespace Painting
         private System.Windows.Forms.Button rectangle;
         private System.Windows.Forms.Button savefile;
         private System.Windows.Forms.Button fillpic;
+        private System.Windows.Forms.Button cut;
     }
 
     

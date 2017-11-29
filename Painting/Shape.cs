@@ -55,7 +55,7 @@ namespace Painting
             br.Dispose();
         }
 
-        public static void drawPixel(PictureBox pictureBox,int x, int y, Color cr)//画点
+        public static void drawPixel(PictureBox pictureBox, int x, int y, Color cr)//画点
         {
             Brush br = new SolidBrush(cr);
             Graphics.FromImage(pictureBox.Image).FillRectangle(br, x, y, 1, 1);
@@ -146,8 +146,8 @@ namespace Painting
                     d += delta1;
                 }
                 drawPixel(x, y);
-            } /* while */
-        }/* MidpointLine */
+            }
+        }
 
         private void DrawRectangle(int x0, int y0, int x1, int y1)
         {
@@ -167,52 +167,6 @@ namespace Painting
 
             }
         }
-
-
-        //private void DDALine(int x1, int y1, int x2, int y2, Color cr)
-        //{
-        //    double dx, dy, e, x, y;
-        //    dx = x2 - x1;
-        //    dy = y2 - y1;
-        //    e = (Math.Abs(dx) > Math.Abs(dy)) ? Math.Abs(dx) : Math.Abs(dy);
-        //    dx /= e; dy /= e;
-        //    x = x1;
-        //    y = y1;
-        //    for (int i = 1; i <= e; i++)
-        //    {
-        //        drawPixel((int)(x + 0.5), (int)(y + 0.5), cr);
-        //        x += dx;
-        //        y += dy;
-        //    }
-        //}
-
-        //private void MidpointCircle2(int R, int xc, int yc)
-        //{
-        //    int x, y, deltax, deltay, d;
-        //    x = 0; y = R; d = 1 - R;
-        //    deltax = 3;
-        //    deltay = 5 - R - R;
-        //    drawPixel(x + xc, y + yc);
-        //    while (x < y)
-        //    {
-        //        if (d < 0)
-        //        {
-        //            d += deltax;
-        //            deltax += 2;
-        //            deltay += 2;
-        //            x++;
-        //        }
-        //        else
-        //        {
-        //            d += deltay;
-        //            deltax += 2;
-        //            deltay += 4;
-        //            x++;
-        //            y--;
-        //        }
-        //        drawPixel(x + xc, y + yc);
-        //    }
-        //}
 
         private void BresenhamCircle(int R, int xc, int yc)
         {
@@ -243,53 +197,6 @@ namespace Painting
 
         private void Bresenhamellipse(int rx, int ry, int xc, int yc)
         {
-            /* double的版本 所以有点卡
-             
-            double x, y, p, t1, t2;
-            x = 0; y = ry;
-            p = ry * ry - rx * rx * ry + rx * rx / 4;
-            t1 = 0;
-            t2 = 2 * rx * rx * y;
-            for (; ry * ry * x < rx * rx * y; x++)
-            {
-                drawPixel((int)(x + xc), (int)(y + yc));
-                drawPixel((int)(x + xc), (int)(-y + yc));
-                drawPixel((int)(-x + xc), (int)(y + yc));
-                drawPixel((int)(-x + xc), (int)(-y + yc));
-                t1 += 2 * ry * ry;
-                if (p >= 0)
-                {
-                    y--;
-                    t2 -= 2 * rx * rx;
-                    p += t1 - t2 + ry * ry;
-                }
-                else
-                {
-                    p += t1 + ry * ry;
-                }
-            }
-            //我靠ppt这里面给错了？？？？我找了半天问题
-            p = (ry * (x + 0.5) * ry * (x + 0.5)) + rx * rx * (y - 1) * (y - 1) - rx * ry * rx * ry;
-            for (; y >= 0; y--)
-            {
-                drawPixel((int)(x + xc), (int)(y + yc));
-                drawPixel((int)(x + xc), (int)(-y + yc));
-                drawPixel((int)(-x + xc), (int)(y + yc));
-                drawPixel((int)(-x + xc), (int)(-y + yc));
-
-                t2 -= 2 * rx * rx;
-                if (p >= 0)
-                {
-                    p += rx * rx - t2;
-                }
-                else
-                {
-                    x++;
-                    t1 += 2 * ry * ry;
-                    p += rx * rx + t1 - t2;
-                }
-            }*/
-
             int x, y, p, t1, t2;
             int rx2 = rx * rx;
             int ry2 = ry * ry;
@@ -338,86 +245,8 @@ namespace Painting
             }
         }
 
-        //private void BresenhamCircle(int R, int xc, int yc, Color cr)
-        //{
-        //    int x, y, p;
-        //    x = 0; y = R;
-        //    p = 3 - 2 * R;
-        //    for (; x <= y; x++)
-        //    {
-        //        drawPixel(x + xc, y + yc, cr);
-        //        drawPixel(x + xc, -y + yc, cr);
-        //        drawPixel(y + xc, x + yc, cr);
-        //        drawPixel(y + xc, -x + yc, cr);
-        //        drawPixel(-x + xc, y + yc, cr);
-        //        drawPixel(-x + xc, -y + yc, cr);
-        //        drawPixel(-y + xc, x + yc, cr);
-        //        drawPixel(-y + xc, -x + yc, cr);
-
-        //        if (p >= 0)
-        //        {
-        //            p += 4 * (x - y) + 10;
-        //            y--;
-        //        }
-        //        else
-        //        {
-        //            p += 4 * x + 6;
-        //        }
-        //    }
-        //}
-
-        private bool PointInRectangle(int x, int y)
-        {
-            if (x >= x1 && x <= x2 && y >= y1 && y <= y2)
-                return true;
-            else
-                return false;
-        }
+        
 
     }
-    enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil};
-    abstract class Shape
-    {
-        protected ShapeType type;
-        protected int x, y;
-        protected PictureBox pictureBox;
-        public Color color;
-
-        public ShapeType GetShapeType()
-        {
-            return type;
-        }
-        public abstract void Draw();
-    }
-
-    class Dot : Shape
-    {
-        public Dot()
-        {
-            type = ShapeType.Dot;           
-        }
-
-        public void SetPictureBox(PictureBox pictureBox)
-        {
-            this.pictureBox = pictureBox;
-        }
-
-        public void SetColor(Color color)
-        {
-            this.color = color;
-        }
-
-        public void SetLocation(int x,int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-
-        public override void Draw()
-        {
-            Form1.drawPixel(pictureBox, x, y, color);
-        }
-
-    }
-
 }
+ 

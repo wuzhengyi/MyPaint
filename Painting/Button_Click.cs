@@ -225,6 +225,15 @@ namespace Painting
             }
         }
 
+        private void button_cut_Click(object sender, EventArgs e)
+        {
+            if (NowCase == CASE.chose)
+            {
+                pictureBox.Image = ChoseRegion.Clone() as Image;
+                Step.AddStep(pictureBox.Image.Clone());
+            }
+        }
+
         private void CaseChange(CASE temp)
         {
             if (NowCase == CASE.chose)

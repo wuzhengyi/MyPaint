@@ -40,6 +40,7 @@ namespace Painting
                         ChoseRegion.SetPixel(i - x1, j - y1, map.GetPixel(i, j));
                     }
                 }
+                //画选框虚线
                 DrawRectangle(x1, y1, x2, y2);
                 //更改NowCase
                 CaseChange(CASE.chose);
@@ -48,8 +49,20 @@ namespace Painting
             }
             else if (NowCase == CASE.panning)
             {
+                pictureBox.Image = Step.RefreshStep();
                 PanningChoseRegion(e.X - x0, e.Y - y0);
                 NowCase = CASE.NoOperation;
+
+                int dx = e.X - x0;
+                int dy = e.Y - y0;
+                x1 += dx;
+                x2 += dx;
+                y1 += dy;
+                y2 += dy;
+
+                
+                //ChoseSize.Location = new Point(x2, y2);
+                ChoseSize.Hide();
             }
         }
 
@@ -131,6 +144,7 @@ namespace Painting
                     if (PointInRectangle(x0, y0))
                     {
                         NowCase = CASE.panning;
+                        ChoseSize.Hide();
                     }
                     else
                     {

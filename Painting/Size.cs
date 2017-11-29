@@ -33,6 +33,12 @@ namespace Painting
         private void ChoseSize_MouseUp(object sender, MouseEventArgs e)
         {
             p = e.Location;
+            pictureBox.Image = Step.RefreshStep();
+            FillColor(color, x1, y1, x2, y2);
+            x2 = ChoseSize.Location.X;
+            y2 = ChoseSize.Location.Y;
+            FillPic(SetBitmapSize(ChoseRegion, x2 - x1, y2 - y1), x1, y1, x2, y2);
+            ChoseSize.Hide();
         }
 
         private void ChoseSize_MouseMove(object sender, MouseEventArgs e)
@@ -58,7 +64,7 @@ namespace Painting
             FillColor(color, x1, y1, x2, y2);
             x2 = ChoseSize.Location.X;
             y2 = ChoseSize.Location.Y;
-            FillPic(ImageOperation.SetBitmapSize(ChoseRegion, x2 - x1, y2 - y1), x1, y1, x2, y2);
+            FillPic(SetBitmapSize(ChoseRegion, x2 - x1, y2 - y1), x1, y1, x2, y2);
             DrawRectangle(x1, y1, x2, y2);
 
         }
@@ -72,6 +78,26 @@ namespace Painting
             g.DrawImage(pictureBox.Image, 0, 0);
             g.TranslateTransform(pictureBox.Image.Width, 0);
             pictureBox.Image = NewImage;
+        }
+
+        private bool PointInRectangle(int x, int y)
+        {
+            if (x >= x1 && x <= x2 && y >= y1 && y <= y2)
+                return true;
+            else
+                return false;
+        }
+
+        private void PanningChoseRegion(int dx, int dy)
+        {
+            FillColor(color, x1, y1, x2, y2);
+            if (x1 + dx > 0 && x2 + dx < pictureBox.Width && y1 + dy > 0 && y2 + dy < pictureBox.Height)
+            {
+                FillPic(ChoseRegion, x1 + dx, y1 + dy, x2 + dx, y2 + dy);
+                if (IsMouseDown)
+                    DrawRectangle(x1 + dx, y1 + dy, x2 + dx - 1, y2 + dy - 1);
+            }
+
         }
     }
 }

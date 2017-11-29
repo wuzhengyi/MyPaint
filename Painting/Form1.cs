@@ -39,6 +39,9 @@ namespace Painting
         private bool IsMouseDown, IsBack;
         private StepPaint Step = new StepPaint();
         private Bitmap ChoseRegion;
+
+
+
         private Button pictureBoxSize;
         private Button ChoseSize;
 
@@ -70,7 +73,6 @@ namespace Painting
             ChoseSize.Hide();
         }
 
-
         private void InitForm1()
         {
             color = Color.Black;
@@ -87,6 +89,7 @@ namespace Painting
             Step.InitStep((Image)pictureBox.Image.Clone());
 
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             InitForm1();
