@@ -16,8 +16,7 @@ namespace Painting
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form1 Paint = new Form1();
-            Application.Run(Paint);
+            Application.Run(new Form1());
             
         }
     }

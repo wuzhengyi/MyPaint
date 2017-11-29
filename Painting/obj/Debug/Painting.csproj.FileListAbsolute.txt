@@ -11,3 +11,4 @@ C:\Users\wzy\Documents\Visual Studio 2015\Projects\Painting\Painting\bin\Debug\P
 C:\Users\wzy\Documents\Visual Studio 2015\Projects\Painting\Painting\bin\Debug\Painting.application
 C:\Users\wzy\Documents\Visual Studio 2015\Projects\Painting\Painting\obj\Debug\Painting.exe.manifest
 C:\Users\wzy\Documents\Visual Studio 2015\Projects\Painting\Painting\obj\Debug\Painting.application
+C:\Users\wzy\documents\visual studio 2015\Projects\Painting\Painting\bin\Debug\IrisSkin2.dll

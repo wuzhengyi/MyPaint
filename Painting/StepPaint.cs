@@ -21,7 +21,6 @@ namespace Painting
         {
             this.Add(obj);
             StepImage_now++;
-            //((Image)obj).Save("E:\\1.png");
         }
 
         public void InitStep(Image obj)
@@ -38,12 +37,8 @@ namespace Painting
         {
             if (StepIsNull())
                 MessageBox.Show("StepImage_now == 0!");
-            else
-            {
-                StepImage_now--;    
-            }
+            StepImage_now--; 
             return (Image)(((Image)this[StepImage_now]).Clone());
-
         }
 
         public bool StepIsFull()
@@ -61,8 +56,8 @@ namespace Painting
 
         public Image RefreshStep()
         {
-            Image temp = (Image)((Image)this[StepImage_now]).Clone();
-            //this[StepImage_now] = temp;
+            Image temp = (Image)((Image)this[StepImage_now - 1]).Clone();
+            this[StepImage_now] = temp;
             return temp;
         }
 
@@ -79,70 +74,4 @@ namespace Painting
         //    fm.Show();
         //}
     }
-
-    class OperationStep : ArrayList
-    {
-        private int StepImage_now;
-
-        public void AddStep(Object obj)
-        {
-            this.Add(obj);
-            StepImage_now++;
-        }
-
-        public void InitStep()
-        {
-            this.Clear();
-            StepImage_now = -1;
-        }
-
-        public bool StepIsFirst()
-        {
-            return StepImage_now == -1;
-        }
-
-        public Shape BackStep()
-        {
-            if (StepIsFirst())
-            {
-                MessageBox.Show("StepImage_now == 0!");
-                return null;
-            }
-            else
-            {
-                return (Shape)this[StepImage_now--];
-            }
-
-        }
-
-        public bool StepIsLast()
-        {
-            return StepImage_now == this.Count - 1;
-        }
-
-        public Shape NextStep()
-        {
-            if (StepIsLast())
-            {
-                MessageBox.Show("StepImage_now is Last one");
-                return null;
-            }
-            else
-                return (Shape)this[StepImage_now++];
-        }
-
-        public void RemoveNullStep()
-        {
-            this.RemoveRange(StepImage_now + 1, this.Count - StepImage_now - 1);
-        }
-
-        public void DrawOperation()
-        {
-            for(int i = 0; i < StepImage_now; i++)
-            {
-                ((Shape)this[i]).Draw();
-            }
-        }
-    }
-
 }
