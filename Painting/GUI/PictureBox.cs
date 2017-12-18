@@ -52,7 +52,12 @@ namespace Painting
                     f.InitFillCr(pictureBox, color, x0, y0);
                     f.Draw();
                     break;
-                case CASE.choose:
+                case CASE.selected:
+                    if (selectedShape != null)
+                        selectedShape.unSelectShape();
+                    /*TODO:
+                     * 
+                     */
                     break;
                 case CASE.chose:
                     break;
@@ -97,7 +102,7 @@ namespace Painting
                         break;
                     case CASE.fill:
                         break;
-                    case CASE.choose:
+                    case CASE.selected:
                         break;
                     case CASE.chose:
                         break;
@@ -124,6 +129,14 @@ namespace Painting
 
             //标记鼠标摁下
             IsMouseDown = true;
+
+            if (NowCase == CASE.selected)
+            {
+                if (selectedShape != null)
+                {
+                    selectedShape.unSelectShape();
+                }
+            }
         }
         
         private void RefreshPictureBox()

@@ -17,7 +17,7 @@ namespace Painting
             SetPictureBox(pictureBox);
             SetColor(color);
             SetLocation(x, y);
-            visible = true;
+            InitShape();
         }
 
         public override void Draw()

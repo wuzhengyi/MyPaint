@@ -644,7 +644,7 @@ namespace Painting
             this.choose.TabIndex = 15;
             this.choose.Text = "选择";
             this.choose.UseVisualStyleBackColor = true;
-            this.choose.Click += new System.EventHandler(this.button_choose_Click);
+            this.choose.Click += new System.EventHandler(this.button_selected_Click);
             // 
             // fill
             // 

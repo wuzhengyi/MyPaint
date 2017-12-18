@@ -19,7 +19,7 @@ namespace Painting
             SetColor(color);
             SetLocation(x, y);
             this.r = r;
-            visible = true;
+            InitShape();
         }
         public override void Draw()
         {
@@ -32,14 +32,7 @@ namespace Painting
             p = 3 - 2 * r;
             for (; x <= y; x++)
             {
-                Form1.drawPixel(pictureBox, x + x0, y + y0, color);
-                Form1.drawPixel(pictureBox, x + x0, -y + y0, color);
-                Form1.drawPixel(pictureBox, y + x0, x + y0, color);
-                Form1.drawPixel(pictureBox, y + x0, -x + y0, color);
-                Form1.drawPixel(pictureBox, -x + x0, y + y0, color);
-                Form1.drawPixel(pictureBox, -x + x0, -y + y0, color);
-                Form1.drawPixel(pictureBox, -y + x0, x + y0, color);
-                Form1.drawPixel(pictureBox, -y + x0, -x + y0, color);
+                DrawPixel(x, x0, y, y0);
 
                 if (p >= 0)
                 {
@@ -50,6 +43,34 @@ namespace Painting
                 {
                     p += 4 * x + 6;
                 }
+            }
+        }
+
+        public void DrawPixel(int x,int x0,int y,int y0)
+        {
+            if (selected)
+            {
+                if (x % 10 < 5)
+                    return;
+                Form1.drawPixel(pictureBox, x + x0, y + y0, Color.Blue);
+                Form1.drawPixel(pictureBox, x + x0, -y + y0, Color.Blue);
+                Form1.drawPixel(pictureBox, y + x0, x + y0, Color.Blue);
+                Form1.drawPixel(pictureBox, y + x0, -x + y0, Color.Blue);
+                Form1.drawPixel(pictureBox, -x + x0, y + y0, Color.Blue);
+                Form1.drawPixel(pictureBox, -x + x0, -y + y0, Color.Blue);
+                Form1.drawPixel(pictureBox, -y + x0, x + y0, Color.Blue);
+                Form1.drawPixel(pictureBox, -y + x0, -x + y0, Color.Blue);
+            }
+            else
+            {
+                Form1.drawPixel(pictureBox, x + x0, y + y0, color);
+                Form1.drawPixel(pictureBox, x + x0, -y + y0, color);
+                Form1.drawPixel(pictureBox, y + x0, x + y0, color);
+                Form1.drawPixel(pictureBox, y + x0, -x + y0, color);
+                Form1.drawPixel(pictureBox, -x + x0, y + y0, color);
+                Form1.drawPixel(pictureBox, -x + x0, -y + y0, color);
+                Form1.drawPixel(pictureBox, -y + x0, x + y0, color);
+                Form1.drawPixel(pictureBox, -y + x0, -x + y0, color);
             }
         }
     }

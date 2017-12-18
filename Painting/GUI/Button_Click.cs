@@ -131,7 +131,7 @@ namespace Painting
             //TODO:撤销当前步骤
             OperaStep.BackStep();
             RefreshPictureBox();
-            IsBack = true;
+            IsBack=true;
         }
 
         private void button_front_Click(object sender, EventArgs e)
@@ -186,9 +186,9 @@ namespace Painting
             CaseChange(CASE.rectangle);
         }
 
-        private void button_choose_Click(object sender, EventArgs e)
+        private void button_selected_Click(object sender, EventArgs e)
         {
-            CaseChange(CASE.choose);
+            CaseChange(CASE.selected);
         }
 
         private void button_fillpic_Click(object sender, EventArgs e)

@@ -100,7 +100,6 @@
     <Compile Include="Shape\ShapeRectangle.cs" />
     <Compile Include="Shape\ShapeRoundness.cs" />
     <Compile Include="Shape\Shape.cs" />
-    <Compile Include="Shape\ShapeDot.cs" />
     <Compile Include="Function\Size.cs">
       <SubType>Form</SubType>
     </Compile>

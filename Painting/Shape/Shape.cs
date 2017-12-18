@@ -14,11 +14,13 @@ namespace Painting
     abstract class Shape
     {
         protected ShapeType type;
-        protected int x0, y0;
+        protected int x0, y0, x1, y1;
         protected PictureBox pictureBox;
         public Color color;
         public bool visible;
-        private int replaceid;
+        protected int replaceid;
+        protected bool selected;
+
         public ShapeType GetShapeType()
         {
             return type;
@@ -34,10 +36,34 @@ namespace Painting
             this.color = color;
         }
 
-        public void SetLocation(int x, int y)
+        public void SetLocation(int x0, int y0,int x1, int y1)
         {
-            this.x0 = x;
-            this.y0 = y;
+            this.x0 = x0;
+            this.y0 = y0;
+            this.x1 = x1;
+            this.y1 = y1;
+        }
+
+        public void InitShape()
+        {
+            selected = false;
+            visible = true;
+            replaceid = -1;
+        }
+
+        public void SelectShape()
+        {
+            selected = true;
+        }
+
+        public void unSelectShape()
+        {
+            selected = false;
+        }
+
+        private void DrawSelectArea()
+        {
+
         }
 
         public abstract void Draw();

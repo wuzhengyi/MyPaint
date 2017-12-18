@@ -19,7 +19,7 @@ namespace Painting
             br.Dispose();
         }
 
-        private void DDADottedLine(int x1, int y1, int x2, int y2)
+        public static void DDADottedLine(PictureBox pictureBox, int x1, int y1, int x2, int y2)
         {
             double dx, dy, e, x, y;
             dx = x2 - x1;
@@ -31,19 +31,19 @@ namespace Painting
             for (int i = 1; i <= e; i++)
             {
                 if (i % 10 < 5)
-                    //drawPixel((int)(x + 0.5), (int)(y + 0.5), Color.Blue);
+                    drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), Color.Blue);
                     x += dx;
                 y += dy;
             }
         }
 
-        private bool PointInRectangle(int x, int y)
+        /*private bool PointInRectangle(int x, int y)
         {
             if (x >= x1 && x <= x2 && y >= y1 && y <= y2)
                 return true;
             else
                 return false;
-        }
+        }*/
 
     }
 }

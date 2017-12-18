@@ -20,7 +20,7 @@ namespace Painting
             SetLocation(x0, y0);
             this.x1 = x1;
             this.y1 = y1;
-            visible = true;
+            InitShape();
         }
         public override void Draw()
         {

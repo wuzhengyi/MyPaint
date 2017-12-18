@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace Painting
 {
     enum CASE { NoOperation, dot, line, roundness, ellipse,
-        rectangle, pencil, fill, choose, chose, panning
+        rectangle, pencil, fill, selected, chose, panning
         };
     /*  no_operation：   无操作
      *  dot：            点
@@ -38,6 +38,7 @@ namespace Painting
         private Point p;
         private bool IsMouseDown, IsBack;
         private Image FrontImage;
+        private Shape selectedShape;
         //private Button pictureBoxSize;
         //private Button ChoseSize;
 
@@ -95,6 +96,7 @@ namespace Painting
             pictureBox.Image = b;
             Backgroud = (Image)b.Clone();
             InitButton();
+            selectedShape = null;
 
             
         }

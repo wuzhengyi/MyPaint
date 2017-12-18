@@ -21,7 +21,7 @@ namespace Painting
             SetLocation(x, y);
             Bitmap map = new Bitmap(pictureBox.Image.Clone() as Image);
             OldColor = map.GetPixel(x, y);
-            visible = true;
+            InitShape();
         }
         public override void Draw()
         {

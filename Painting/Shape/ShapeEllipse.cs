@@ -11,16 +11,16 @@ namespace Painting
 {
     class Ellipse : Shape
     {
-        int rx, ry;
-        public void InitEllipse(PictureBox pictureBox, Color color, int rx, int ry, int x, int y)
+        int x1, y1;
+        public void InitEllipse(PictureBox pictureBox, Color color, int x1, int y1, int x, int y)
         {
             type = ShapeType.Ellipse;
             SetPictureBox(pictureBox);
             SetColor(color);
             SetLocation(x, y);
-            this.rx = rx;
-            this.ry = ry;
-            visible = true;
+            this.x1 = x1;
+            this.y1 = y1;
+            InitShape();
         }
         public override void Draw()
         {
@@ -29,10 +29,10 @@ namespace Painting
                 return;
             }
             int x, y, p, t1, t2;
-            int rx2 = rx * rx;
-            int ry2 = ry * ry;
-            x = 0; y = ry;
-            p = ry2 - rx2 * ry + rx2 / 4;
+            int rx2 = x1 * x1;
+            int ry2 = y1 * y1;
+            x = 0; y = y1;
+            p = ry2 - rx2 * y1 + rx2 / 4;
             t1 = 0;
             t2 = 2 * rx2 * y;
             for (; ry2 * x < rx2 * y; x++)
