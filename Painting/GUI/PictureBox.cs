@@ -21,12 +21,6 @@ namespace Painting
             {
                 case CASE.NoOperation:
                     break;
-                case CASE.dot:
-                    Dot t = new Painting.Dot();
-                    t.InitDot(pictureBox, color, e.X, e.Y);
-                    t.Draw();
-                    OperaStep.AddStep(t);
-                    break;
                 case CASE.line:
                     Line l = new Line();
                     l.InitLine(pictureBox, color, x0, y0, e.X, e.Y);
@@ -79,12 +73,6 @@ namespace Painting
                 {
                     case CASE.NoOperation:
                         break;
-                    case CASE.dot:
-                        Dot t = new Painting.Dot();
-                        t.InitDot(pictureBox, color, e.X, e.Y);
-                        t.Draw();
-                        OperaStep.AddStep(t);
-                        break;
                     case CASE.line:
                         Line l = new Line();
                         l.InitLine(pictureBox, color, x0, y0, e.X, e.Y);
@@ -123,25 +111,16 @@ namespace Painting
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (IsBack)
+            {
+                OperaStep.RemoveNullStep();
+            }
 
             //设置起点
             x0 = e.X;
             y0 = e.Y;
 
             FrontImage = pictureBox.Image.Clone() as Image;
-
-            switch (NowCase)
-            {
-                case CASE.dot:
-                    //drawPixel(x0, y0);
-                    Dot t = new Painting.Dot();
-                    t.InitDot(pictureBox, color, x0, y0);
-                    t.Draw();
-                    OperaStep.AddStep(t);
-                    break;
-                default:
-                    break;
-            }
 
             //标记鼠标摁下
             IsMouseDown = true;

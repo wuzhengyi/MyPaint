@@ -7,7 +7,10 @@ namespace Painting
     class OperationStep : ArrayList
     {
         private int StepImage_now;
-
+        public OperationStep()
+        {
+            InitStep();
+        }
         public void AddStep(Object obj)
         {
             this.Add(obj);
@@ -55,12 +58,12 @@ namespace Painting
 
         public void RemoveNullStep()
         {
-            this.RemoveRange(StepImage_now + 1, this.Count - StepImage_now - 1);
+            this.RemoveRange(StepImage_now + 1, this.Count - StepImage_now - 1 );
         }
 
         public void DrawOperation()
         {
-            for(int i = 0; i < StepImage_now; i++)
+            for(int i = 0; i <= StepImage_now; i++)
             {
                 ((Shape)this[i]).Draw();
                 

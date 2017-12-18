@@ -131,6 +131,7 @@ namespace Painting
             //TODO:撤销当前步骤
             OperaStep.BackStep();
             RefreshPictureBox();
+            IsBack = true;
         }
 
         private void button_front_Click(object sender, EventArgs e)
