@@ -37,3 +37,16 @@ C:\Users\njucslab\Desktop\MyPaint\Painting\obj\Debug\Painting.Properties.Resourc
 C:\Users\njucslab\Desktop\MyPaint\Painting\obj\Debug\Painting.csproj.GenerateResource.Cache
 C:\Users\njucslab\Desktop\MyPaint\Painting\obj\Debug\Painting.exe.manifest
 C:\Users\njucslab\Desktop\MyPaint\Painting\obj\Debug\Painting.application
+E:\MyPaint\Painting\bin\Debug\Painting.exe.config
+E:\MyPaint\Painting\bin\Debug\Painting.exe.manifest
+E:\MyPaint\Painting\bin\Debug\Painting.application
+E:\MyPaint\Painting\bin\Debug\Painting.exe
+E:\MyPaint\Painting\bin\Debug\Painting.pdb
+E:\MyPaint\Painting\obj\Debug\Painting.csprojResolveAssemblyReference.cache
+E:\MyPaint\Painting\obj\Debug\Painting.Form1.resources
+E:\MyPaint\Painting\obj\Debug\Painting.Properties.Resources.resources
+E:\MyPaint\Painting\obj\Debug\Painting.csproj.GenerateResource.Cache
+E:\MyPaint\Painting\obj\Debug\Painting.exe.manifest
+E:\MyPaint\Painting\obj\Debug\Painting.application
+E:\MyPaint\Painting\obj\Debug\Painting.exe
+E:\MyPaint\Painting\obj\Debug\Painting.pdb

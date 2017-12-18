@@ -13,14 +13,14 @@ namespace Painting
     {
         Color OldColor;
         Bitmap map;
-        public void InitFillCr(PictureBox pictureBox, Color color, int x, int y)
+        public void InitFillCr(PictureBox pictureBox, Color color, int x0, int y0)
         {
             type = ShapeType.FillCr;
             SetPictureBox(pictureBox);
             SetColor(color);
-            SetLocation(x, y);
+            SetLocation(x0, y0, x0, y0);
             Bitmap map = new Bitmap(pictureBox.Image.Clone() as Image);
-            OldColor = map.GetPixel(x, y);
+            OldColor = map.GetPixel(x0, y0);
             InitShape();
         }
         public override void Draw()
@@ -52,6 +52,11 @@ namespace Painting
                 }
             }
             pictureBox.Image = map;
+        }
+
+        public override bool PointOnIt(int x, int y)
+        {
+            throw new NotImplementedException();
         }
     }
 }

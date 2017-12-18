@@ -11,15 +11,12 @@ namespace Painting
 {
     class Line : Shape
     {
-        int x1, y1;
         public void InitLine(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
         {
             type = ShapeType.Line;
             SetPictureBox(pictureBox);
             SetColor(color);
-            SetLocation(x0, y0);
-            this.x1 = x1;
-            this.y1 = y1;
+            SetLocation(x0, y0, x1, y1);
             InitShape();
         }
         public override void Draw()
@@ -38,10 +35,25 @@ namespace Painting
             y = y0;
             for (int i = 1; i <= e; i++)
             {
-                Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), color);
+                if(!selected)
+                    Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), color);
+                else if(i % 10 < 5)
+                    Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), Color.Blue);
+                
                 x += dx;
                 y += dy;
             }
+        }
+
+        public override bool PointOnIt(int x, int y)
+        {
+            Point a = new Point(x0, y0);
+            Point b = new Point(x1, y1);
+            Point c = new Point(x, y);
+            double lac = Form1.DistanceOfPoint(a, c);
+            double lbc = Form1.DistanceOfPoint(c, b);
+            double lab = Form1.DistanceOfPoint(a, b);
+            return (lac + lbc < lab + 0.05) ? true : false;
         }
     }
     

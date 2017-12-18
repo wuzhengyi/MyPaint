@@ -23,6 +23,16 @@ namespace Painting
             StepImage_now = -1;
         }
 
+        internal Shape SelectShape(int x0, int y0)
+        {
+            for (int i = 0; i <= StepImage_now; i++)
+            {
+                if (((Shape)this[i]).PointOnIt(x0, y0))
+                    return (Shape)this[i];
+            }
+            return null;
+        }
+
         public bool StepIsFirst()
         {
             return StepImage_now == -1;

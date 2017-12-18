@@ -13,6 +13,13 @@ namespace Painting
         
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)//鼠标左键松开
         {
+            if (NowCase == CASE.selected)
+            {
+                selectedShape = OperaStep.SelectShape(x0, y0);
+                if(selectedShape != null)
+                    selectedShape.SelectShape();
+            }
+
             RefreshPictureBox();
             if (IsMouseDown)
                 IsMouseDown = false;
@@ -29,7 +36,7 @@ namespace Painting
                     break;
                 case CASE.roundness:
                     Roundness r = new Roundness();
-                    r.InitRoundness(pictureBox, color, (int)Math.Sqrt((x0 - e.X) * (x0 - e.X) + (y0 - e.Y) * (y0 - e.Y)) / 2, (x0 + e.X) / 2, (y0 + e.Y) / 2);
+                    r.InitRoundness(pictureBox, color, x0, y0, e.X, e.Y);
                     r.Draw();
                     OperaStep.AddStep(r);
                     break;
@@ -53,8 +60,7 @@ namespace Painting
                     f.Draw();
                     break;
                 case CASE.selected:
-                    if (selectedShape != null)
-                        selectedShape.unSelectShape();
+                    
                     /*TODO:
                      * 
                      */
@@ -85,7 +91,7 @@ namespace Painting
                         break;
                     case CASE.roundness:
                         Roundness r = new Roundness();
-                        r.InitRoundness(pictureBox, color, (int)Math.Sqrt((x0 - e.X) * (x0 - e.X) + (y0 - e.Y) * (y0 - e.Y)) / 2, (x0 + e.X) / 2, (y0 + e.Y) / 2);
+                        r.InitRoundness(pictureBox, color, x0, y0, e.X, e.Y);
                         r.Draw();
                         break;
                     case CASE.ellipse:

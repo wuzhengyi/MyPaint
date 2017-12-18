@@ -67,6 +67,7 @@ namespace Painting
         }
 
         public abstract void Draw();
+        public abstract bool PointOnIt(int x,int y);
     }
 
     

@@ -12,13 +12,12 @@ namespace Painting
 
     class Rect : Shape
     {
-        int x1, y1;
         public void InitRectangle(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
         {
             type = ShapeType.Rectangle;
             SetPictureBox(pictureBox);
             SetColor(color);
-            SetLocation(x0, y0);
+            SetLocation(x0, y0, x1, y1);
             this.x1 = x1;
             this.y1 = y1;
             InitShape();
@@ -38,6 +37,11 @@ namespace Painting
             l.Draw();
             l.InitLine(pictureBox, color, x0, y1, x1, y1);
             l.Draw();
+        }
+
+        public override bool PointOnIt(int x, int y)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -19,6 +19,18 @@ namespace Painting
             br.Dispose();
         }
 
+        public static float DistanceOfPoint(Point a,Point b)
+        {
+            return (float)Math.Sqrt((a.X-b.X)* (a.X - b.X)+ (a.Y - b.Y)* (a.Y - b.Y));
+        }
+
+        public static bool MouseOnLine(Point a, Point b, Point c)
+        {
+            double lac = DistanceOfPoint(a, c);
+            double lbc = DistanceOfPoint(c, b);
+            double lab = DistanceOfPoint(a, b);
+            return (lac + lbc < lab + 0.05) ? true : false;
+        }
         public static void DDADottedLine(PictureBox pictureBox, int x1, int y1, int x2, int y2)
         {
             double dx, dy, e, x, y;

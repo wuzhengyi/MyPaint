@@ -11,15 +11,12 @@ namespace Painting
 {
     class Ellipse : Shape
     {
-        int x1, y1;
-        public void InitEllipse(PictureBox pictureBox, Color color, int x1, int y1, int x, int y)
+        public void InitEllipse(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
         {
             type = ShapeType.Ellipse;
             SetPictureBox(pictureBox);
             SetColor(color);
-            SetLocation(x, y);
-            this.x1 = x1;
-            this.y1 = y1;
+            SetLocation(x0, y0, x1, y1) ;
             InitShape();
         }
         public override void Draw()
@@ -75,6 +72,11 @@ namespace Painting
                     p += rx2 + t1 - t2;
                 }
             }
+        }
+
+        public override bool PointOnIt(int x, int y)
+        {
+            throw new NotImplementedException();
         }
     }
 

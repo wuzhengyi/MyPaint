@@ -12,13 +12,18 @@ namespace Painting
     class Roundness : Shape
     {
         int r;
-        public void InitRoundness(PictureBox pictureBox, Color color, int r, int x, int y)
+        int cx, cy;
+        public void InitRoundness(PictureBox pictureBox, Color color,int x0, int y0,int x1,int y1)
         {
             type = ShapeType.Roundness;
             SetPictureBox(pictureBox);
             SetColor(color);
-            SetLocation(x, y);
-            this.r = r;
+            SetLocation(x0, y0, x1, y1);
+            Point a = new Point(x0, y0);
+            Point b = new Point(x1, y1);
+            r = (int)Form1.DistanceOfPoint(a, b) / 2;
+            cx = (x0 + x1) / 2;
+            cy = (y0 + y1) / 2;
             InitShape();
         }
         public override void Draw()
@@ -32,7 +37,7 @@ namespace Painting
             p = 3 - 2 * r;
             for (; x <= y; x++)
             {
-                DrawPixel(x, x0, y, y0);
+                DrawPixel(x, cx, y, cy);
 
                 if (p >= 0)
                 {
@@ -46,32 +51,43 @@ namespace Painting
             }
         }
 
-        public void DrawPixel(int x,int x0,int y,int y0)
+        public void DrawPixel(int x,int cx,int y,int cy)
         {
             if (selected)
             {
                 if (x % 10 < 5)
                     return;
-                Form1.drawPixel(pictureBox, x + x0, y + y0, Color.Blue);
-                Form1.drawPixel(pictureBox, x + x0, -y + y0, Color.Blue);
-                Form1.drawPixel(pictureBox, y + x0, x + y0, Color.Blue);
-                Form1.drawPixel(pictureBox, y + x0, -x + y0, Color.Blue);
-                Form1.drawPixel(pictureBox, -x + x0, y + y0, Color.Blue);
-                Form1.drawPixel(pictureBox, -x + x0, -y + y0, Color.Blue);
-                Form1.drawPixel(pictureBox, -y + x0, x + y0, Color.Blue);
-                Form1.drawPixel(pictureBox, -y + x0, -x + y0, Color.Blue);
+                Form1.drawPixel(pictureBox, x + cx, y + cy, Color.Blue);
+                Form1.drawPixel(pictureBox, x + cx, -y + cy, Color.Blue);
+                Form1.drawPixel(pictureBox, y + cx, x + cy, Color.Blue);
+                Form1.drawPixel(pictureBox, y + cx, -x + cy, Color.Blue);
+                Form1.drawPixel(pictureBox, -x + cx, y + cy, Color.Blue);
+                Form1.drawPixel(pictureBox, -x + cx, -y + cy, Color.Blue);
+                Form1.drawPixel(pictureBox, -y + cx, x + cy, Color.Blue);
+                Form1.drawPixel(pictureBox, -y + cx, -x + cy, Color.Blue);
             }
             else
             {
-                Form1.drawPixel(pictureBox, x + x0, y + y0, color);
-                Form1.drawPixel(pictureBox, x + x0, -y + y0, color);
-                Form1.drawPixel(pictureBox, y + x0, x + y0, color);
-                Form1.drawPixel(pictureBox, y + x0, -x + y0, color);
-                Form1.drawPixel(pictureBox, -x + x0, y + y0, color);
-                Form1.drawPixel(pictureBox, -x + x0, -y + y0, color);
-                Form1.drawPixel(pictureBox, -y + x0, x + y0, color);
-                Form1.drawPixel(pictureBox, -y + x0, -x + y0, color);
+                Form1.drawPixel(pictureBox, x + cx, y + cy, color);
+                Form1.drawPixel(pictureBox, x + cx, -y + cy, color);
+                Form1.drawPixel(pictureBox, y + cx, x + cy, color);
+                Form1.drawPixel(pictureBox, y + cx, -x + cy, color);
+                Form1.drawPixel(pictureBox, -x + cx, y + cy, color);
+                Form1.drawPixel(pictureBox, -x + cx, -y + cy, color);
+                Form1.drawPixel(pictureBox, -y + cx, x + cy, color);
+                Form1.drawPixel(pictureBox, -y + cx, -x + cy, color);
             }
+        }
+
+        public override bool PointOnIt(int x, int y)
+        {
+            Point a = new Point(x, y);
+            Point b = new Point(cx, cy);
+            double d = Form1.DistanceOfPoint(a, b);
+            if (Math.Abs(d - r) < 1.5)
+                return true;
+            else
+                return false;
         }
     }
 }
