@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Painting
@@ -133,11 +129,15 @@ namespace Painting
         private void button_back_Click(object sender, EventArgs e)
         {
             //TODO:撤销当前步骤
+            OperaStep.BackStep();
+            RefreshPictureBox();
         }
 
         private void button_front_Click(object sender, EventArgs e)
         {
             //TODO:快进当前步骤
+            OperaStep.NextStep();
+            RefreshPictureBox();
         }
 
         private void button_line_Click_1(object sender, EventArgs e)//直线
@@ -220,7 +220,7 @@ namespace Painting
             {
                 //pictureBox.Image = Step.RefreshStep();
                 //TODO:初始化当前步骤
-                ChoseSize.Hide();
+                //ChoseSize.Hide();
             }
             NowCase = temp;
         }

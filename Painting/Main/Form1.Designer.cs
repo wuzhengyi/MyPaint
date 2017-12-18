@@ -65,7 +65,6 @@ namespace Painting
             this.Ellipse = new System.Windows.Forms.Button();
             this.button_roundness = new System.Windows.Forms.Button();
             this.button_line = new System.Windows.Forms.Button();
-            this.button_dot = new System.Windows.Forms.Button();
             this.rectangle = new System.Windows.Forms.Button();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.fillpic = new System.Windows.Forms.Button();
@@ -533,8 +532,7 @@ namespace Painting
             this.tableLayoutPanel3.Controls.Add(this.Ellipse, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_roundness, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_line, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button_dot, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.rectangle, 4, 0);
+            this.tableLayoutPanel3.Controls.Add(this.rectangle, 3, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(73, 2);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -549,7 +547,7 @@ namespace Painting
             this.Ellipse.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ellipse.Location = new System.Drawing.Point(84, 2);
+            this.Ellipse.Location = new System.Drawing.Point(43, 2);
             this.Ellipse.Margin = new System.Windows.Forms.Padding(2);
             this.Ellipse.Name = "Ellipse";
             this.Ellipse.Size = new System.Drawing.Size(37, 27);
@@ -563,7 +561,7 @@ namespace Painting
             this.button_roundness.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_roundness.Location = new System.Drawing.Point(43, 2);
+            this.button_roundness.Location = new System.Drawing.Point(2, 2);
             this.button_roundness.Margin = new System.Windows.Forms.Padding(2);
             this.button_roundness.Name = "button_roundness";
             this.button_roundness.Size = new System.Drawing.Size(37, 27);
@@ -577,7 +575,7 @@ namespace Painting
             this.button_line.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_line.Location = new System.Drawing.Point(125, 2);
+            this.button_line.Location = new System.Drawing.Point(84, 2);
             this.button_line.Margin = new System.Windows.Forms.Padding(2);
             this.button_line.Name = "button_line";
             this.button_line.Size = new System.Drawing.Size(37, 27);
@@ -586,29 +584,15 @@ namespace Painting
             this.button_line.UseVisualStyleBackColor = true;
             this.button_line.Click += new System.EventHandler(this.button_line_Click_1);
             // 
-            // button_dot
-            // 
-            this.button_dot.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_dot.Location = new System.Drawing.Point(2, 2);
-            this.button_dot.Margin = new System.Windows.Forms.Padding(2);
-            this.button_dot.Name = "button_dot";
-            this.button_dot.Size = new System.Drawing.Size(37, 27);
-            this.button_dot.TabIndex = 6;
-            this.button_dot.Text = "点";
-            this.button_dot.UseVisualStyleBackColor = true;
-            this.button_dot.Click += new System.EventHandler(this.button_dot_Click);
-            // 
             // rectangle
             // 
             this.rectangle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rectangle.Location = new System.Drawing.Point(166, 2);
+            this.rectangle.Location = new System.Drawing.Point(125, 2);
             this.rectangle.Margin = new System.Windows.Forms.Padding(2);
             this.rectangle.Name = "rectangle";
-            this.rectangle.Size = new System.Drawing.Size(39, 27);
+            this.rectangle.Size = new System.Drawing.Size(37, 27);
             this.rectangle.TabIndex = 11;
             this.rectangle.Text = "矩形";
             this.rectangle.UseVisualStyleBackColor = true;
@@ -786,7 +770,6 @@ namespace Painting
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button button_dot;
         private System.Windows.Forms.Button button_line;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;

@@ -38,8 +38,8 @@ namespace Painting
         private Point p;
         private bool IsMouseDown, IsBack;
         private Image FrontImage;
-        private Button pictureBoxSize;
-        private Button ChoseSize;
+        //private Button pictureBoxSize;
+        //private Button ChoseSize;
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {

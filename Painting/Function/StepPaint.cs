@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Painting
@@ -30,16 +25,15 @@ namespace Painting
             return StepImage_now == -1;
         }
 
-        public Shape BackStep()
+        public void BackStep()
         {
             if (StepIsFirst())
             {
-                MessageBox.Show("StepImage_now == 0!");
-                return null;
+                MessageBox.Show("ERROR: All Clear!");
             }
             else
             {
-                return (Shape)this[StepImage_now--];
+                StepImage_now--;
             }
 
         }
@@ -49,15 +43,14 @@ namespace Painting
             return StepImage_now == this.Count - 1;
         }
 
-        public Shape NextStep()
+        public void NextStep()
         {
             if (StepIsLast())
             {
-                MessageBox.Show("StepImage_now is Last one");
-                return null;
+                MessageBox.Show("ERROR: This Step Is Last One");
             }
             else
-                return (Shape)this[StepImage_now++];
+                StepImage_now++;
         }
 
         public void RemoveNullStep()
@@ -70,6 +63,7 @@ namespace Painting
             for(int i = 0; i < StepImage_now; i++)
             {
                 ((Shape)this[i]).Draw();
+                
             }
         }
     }
