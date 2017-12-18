@@ -14,7 +14,8 @@ namespace Painting
         {
             CaseChange(CASE.NoOperation);
             Image temp = (Image)pictureBox.Image.Clone();
-            Step.AddStep(temp);
+            //Step.AddStep(temp);
+            //TODO:存储当前步骤
             p = e.Location;
         }
 
@@ -54,7 +55,8 @@ namespace Painting
 
         private void RefreshChoseSize()
         {
-            pictureBox.Image = Step.RefreshStep();
+            //pictureBox.Image = Step.RefreshStep();
+            //TODO:更新当前步骤
             FillColor(color, x1, y1, x2, y2);
             x2 = ChoseSize.Location.X;
             y2 = ChoseSize.Location.Y;

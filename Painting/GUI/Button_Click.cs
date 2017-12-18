@@ -92,8 +92,7 @@ namespace Painting
         }
         private void openfile_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.chose)
-                pictureBox.Image = Step.RefreshStep();
+
             openFileDialog1.InitialDirectory = "D:\\";            // 这里是初始的路径名
             openFileDialog1.Filter = "png文件|*.png|jpg文件|*.jpg|所有文件|*.*";  //设置打开文件的类型
             openFileDialog1.RestoreDirectory = true;              //设置是否还原当前目录
@@ -103,8 +102,12 @@ namespace Painting
             {
                 path = openFileDialog1.FileName;
                 //MessageBox.Show(path);                            //显示该路径名
+                
                 pictureBox.ImageLocation = path;
-                Step.InitStep(Image.FromFile(path));
+                Backgroud = Image.FromFile(path);
+                //Backgroud = (Image)(pictureBox.Image).Clone();
+                //Step.InitStep(Image.FromFile(path));
+                //TODO:初始化当前步骤
             }
 
 
@@ -112,8 +115,7 @@ namespace Painting
 
         private void savefile_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.chose)
-                pictureBox.Image = Step.RefreshStep();
+
             saveFileDialog1.InitialDirectory = "D:\\";            // 这里是初始的路径名
             saveFileDialog1.Filter = "png文件|*.png|jpg文件|*.jpg|所有文件|*.*";  //设置打开文件的类型
             saveFileDialog1.RestoreDirectory = true;              //设置是否还原当前目录
@@ -130,25 +132,12 @@ namespace Painting
 
         private void button_back_Click(object sender, EventArgs e)
         {
-            CaseChange(CASE.NoOperation);
-
-            if (!IsBack)
-            {
-                Image temp = (Image)pictureBox.Image.Clone();
-                Step.AddStep(temp);
-                pictureBox.Image = temp;
-                IsBack = true;
-            }
-
-            if (!Step.StepIsNull())
-                pictureBox.Image = Step.PopStep();
+            //TODO:撤销当前步骤
         }
 
         private void button_front_Click(object sender, EventArgs e)
         {
-            CaseChange(CASE.NoOperation);
-            if (!Step.StepIsFull())
-                pictureBox.Image = Step.PushStep();
+            //TODO:快进当前步骤
         }
 
         private void button_line_Click_1(object sender, EventArgs e)//直线
@@ -229,7 +218,8 @@ namespace Painting
         {
             if (NowCase == CASE.chose)
             {
-                pictureBox.Image = Step.RefreshStep();
+                //pictureBox.Image = Step.RefreshStep();
+                //TODO:初始化当前步骤
                 ChoseSize.Hide();
             }
             NowCase = temp;

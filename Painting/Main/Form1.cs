@@ -37,7 +37,6 @@ namespace Painting
         private int x0, y0, x1, y1, x2, y2;
         private Point p;
         private bool IsMouseDown, IsBack;
-        private StepPaint Step = new StepPaint();
         private Image FrontImage;
         private Button pictureBoxSize;
         private Button ChoseSize;
@@ -59,6 +58,7 @@ namespace Painting
         
         private void InitButton()
         {
+            /*
             //pictureBoxSize
             pictureBoxSize = new Button();
             pictureBoxSize.Size = new Size(5, 5);
@@ -77,6 +77,7 @@ namespace Painting
             ChoseSize.MouseMove += ChoseSize_MouseMove;
             ChoseSize.MouseUp += ChoseSize_MouseUp;
             ChoseSize.Hide();
+            */
         }
 
 
