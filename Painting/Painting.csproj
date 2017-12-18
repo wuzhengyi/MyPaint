@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Painting</RootNamespace>
     <AssemblyName>Painting</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -28,6 +28,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,48 +78,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Button_Click.cs">
+    <Compile Include="GUI\Button_Click.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fill.cs">
+    <Compile Include="Function\Fill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageOperation.cs" />
-    <Compile Include="PictureBox.cs">
+    <Compile Include="GUI\PictureBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Shape.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Shape\Algorithm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Size.cs">
+    <Compile Include="Shape\ShapeEllipse.cs" />
+    <Compile Include="Shape\ShapeFill.cs" />
+    <Compile Include="Shape\ShapeRectangle.cs" />
+    <Compile Include="Shape\ShapeRoundness.cs" />
+    <Compile Include="Shape\Shape.cs" />
+    <Compile Include="Function\Size.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StepPaint.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Function\StepPaint.cs" />
+    <Compile Include="Main\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Main\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transformation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <EmbeddedResource Include="Form1.resx">
+    <Compile Include="Shape\ShapeLine.cs" />
+    <EmbeddedResource Include="Main\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="Painting_TemporaryKey.pfx" />
+    <None Include="lib\Painting_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -133,10 +136,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="background.png" />
+    <None Include="lib\background.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="breadth.png" />
+    <None Include="lib\breadth.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -149,6 +152,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

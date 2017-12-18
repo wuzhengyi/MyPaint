@@ -11,7 +11,7 @@ namespace Painting
 {
     partial class Form1
     {
-        public static void drawPixel(PictureBox pictureBox,int x, int y, Color cr)//画点
+        public static void drawPixel(PictureBox pictureBox, int x, int y, Color cr)//画点
         {
             Brush br = new SolidBrush(cr);
             Graphics.FromImage(pictureBox.Image).FillRectangle(br, x, y, 1, 1);
@@ -32,11 +32,11 @@ namespace Painting
             {
                 if (i % 10 < 5)
                     //drawPixel((int)(x + 0.5), (int)(y + 0.5), Color.Blue);
-                x += dx;
+                    x += dx;
                 y += dy;
             }
         }
-        
+
         private bool PointInRectangle(int x, int y)
         {
             if (x >= x1 && x <= x2 && y >= y1 && y <= y2)
@@ -46,14 +46,17 @@ namespace Painting
         }
 
     }
-    enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic};
+
+    enum ShapeType { Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic };
+
     abstract class Shape
     {
         protected ShapeType type;
         protected int x0, y0;
         protected PictureBox pictureBox;
         public Color color;
-
+        public bool visible;
+        private int replaceid;
         public ShapeType GetShapeType()
         {
             return type;
@@ -78,26 +81,12 @@ namespace Painting
         public abstract void Draw();
     }
 
-    class Dot : Shape
-    {
-        public void InitDot(PictureBox pictureBox, Color color, int x, int y)
-        {
-            type = ShapeType.Dot;
-            SetPictureBox(pictureBox);
-            SetColor(color);
-            SetLocation(x, y);
-        }
 
-        public override void Draw()
-        {
-            Form1.drawPixel(pictureBox, x0, y0, color);
-        }
-    }
 
-    class Line:Shape
+    class Line : Shape
     {
         int x1, y1;
-        public  void InitLine(PictureBox pictureBox, Color color, int x0, int y0,int x1,int y1)
+        public void InitLine(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
         {
             type = ShapeType.Line;
             SetPictureBox(pictureBox);
@@ -105,9 +94,15 @@ namespace Painting
             SetLocation(x0, y0);
             this.x1 = x1;
             this.y1 = y1;
+            visible = true;
         }
         public override void Draw()
         {
+            if (!visible)
+            {
+                return;
+            }
+
             double dx, dy, e, x, y;
             dx = x1 - x0;
             dy = y1 - y0;
@@ -124,7 +119,7 @@ namespace Painting
         }
     }
 
-    class Roundness :Shape
+    class Roundness : Shape
     {
         int r;
         public void InitRoundness(PictureBox pictureBox, Color color, int r, int x, int y)
@@ -137,6 +132,10 @@ namespace Painting
         }
         public override void Draw()
         {
+            if (!visible)
+            {
+                return;
+            }
             int x, y, p;
             x = 0; y = r;
             p = 3 - 2 * r;
@@ -178,6 +177,10 @@ namespace Painting
         }
         public override void Draw()
         {
+            if (!visible)
+            {
+                return;
+            }
             int x, y, p, t1, t2;
             int rx2 = rx * rx;
             int ry2 = ry * ry;
@@ -242,6 +245,10 @@ namespace Painting
         }
         public override void Draw()
         {
+            if (!visible)
+            {
+                return;
+            }
             Line l = new Line();
             l.InitLine(pictureBox, color, x0, y0, x0, y1);
             l.Draw();
@@ -269,6 +276,10 @@ namespace Painting
         }
         public override void Draw()
         {
+            if (!visible)
+            {
+                return;
+            }
             Point temp;
             Stack<Point> pointStack = new Stack<Point>();
             Point t = new Point(x0, y0);
