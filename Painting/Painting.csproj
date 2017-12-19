@@ -96,7 +96,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Shape\ShapeEllipse.cs" />
-    <Compile Include="Shape\ShapeFill.cs" />
     <Compile Include="Shape\ShapeRectangle.cs" />
     <Compile Include="Shape\ShapeRoundness.cs" />
     <Compile Include="Shape\Shape.cs" />

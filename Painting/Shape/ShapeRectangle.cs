@@ -29,19 +29,37 @@ namespace Painting
                 return;
             }
             Line l = new Line();
+            if (selected) l.SelectShape();
             l.InitLine(pictureBox, color, x0, y0, x0, y1);
+            if (selected) l.SelectShape();
             l.Draw();
             l.InitLine(pictureBox, color, x0, y0, x1, y0);
+            if (selected) l.SelectShape();
             l.Draw();
             l.InitLine(pictureBox, color, x1, y0, x1, y1);
+            if (selected) l.SelectShape();
             l.Draw();
             l.InitLine(pictureBox, color, x0, y1, x1, y1);
+            if (selected) l.SelectShape();
             l.Draw();
         }
 
         public override bool PointOnIt(int x, int y)
         {
-            throw new NotImplementedException();
+            Line a = new Line();
+            a.InitLine(pictureBox, color, x0, y0, x0, y1);
+            if (a.PointOnIt(x, y))
+                return true;
+            a.InitLine(pictureBox, color, x0, y0, x1, y0);
+            if (a.PointOnIt(x, y))
+                return true;
+            a.InitLine(pictureBox, color, x1, y0, x1, y1);
+            if (a.PointOnIt(x, y))
+                return true;
+            a.InitLine(pictureBox, color, x0, y1, x1, y1);
+            if (a.PointOnIt(x, y))
+                return true;
+            return false;
         }
     }
 }

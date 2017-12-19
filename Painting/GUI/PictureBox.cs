@@ -42,7 +42,7 @@ namespace Painting
                     break;
                 case CASE.ellipse:
                     Ellipse ee = new Ellipse();
-                    ee.InitEllipse(pictureBox, color, Math.Abs((x0 - e.X) / 2), Math.Abs((y0 - e.Y) / 2), (x0 + e.X) / 2, (y0 + e.Y) / 2);
+                    ee.InitEllipse(pictureBox, color, x0, y0, e.X, e.Y);
                     ee.Draw();
                     OperaStep.AddStep(ee);
                     break;
@@ -55,9 +55,6 @@ namespace Painting
                 case CASE.pencil:
                     break;
                 case CASE.fill:
-                    FillCr f = new FillCr();
-                    f.InitFillCr(pictureBox, color, x0, y0);
-                    f.Draw();
                     break;
                 case CASE.selected:
                     
@@ -96,7 +93,7 @@ namespace Painting
                         break;
                     case CASE.ellipse:
                         Ellipse ee = new Ellipse();
-                        ee.InitEllipse(pictureBox, color, Math.Abs((x0 - e.X) / 2), Math.Abs((y0 - e.Y) / 2), (x0 + e.X) / 2, (y0 + e.Y) / 2);
+                        ee.InitEllipse(pictureBox, color, x0, y0, e.X, e.Y);
                         ee.Draw();
                         break;
                     case CASE.rectangle:
