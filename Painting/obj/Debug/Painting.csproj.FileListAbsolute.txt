@@ -43,10 +43,10 @@ E:\MyPaint\Painting\bin\Debug\Painting.application
 E:\MyPaint\Painting\bin\Debug\Painting.exe
 E:\MyPaint\Painting\bin\Debug\Painting.pdb
 E:\MyPaint\Painting\obj\Debug\Painting.csprojResolveAssemblyReference.cache
-E:\MyPaint\Painting\obj\Debug\Painting.Form1.resources
 E:\MyPaint\Painting\obj\Debug\Painting.Properties.Resources.resources
 E:\MyPaint\Painting\obj\Debug\Painting.csproj.GenerateResource.Cache
 E:\MyPaint\Painting\obj\Debug\Painting.exe.manifest
 E:\MyPaint\Painting\obj\Debug\Painting.application
 E:\MyPaint\Painting\obj\Debug\Painting.exe
 E:\MyPaint\Painting\obj\Debug\Painting.pdb
+E:\MyPaint\Painting\obj\Debug\Painting.Form1.resources

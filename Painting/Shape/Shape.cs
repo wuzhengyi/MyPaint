@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Painting.GUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Painting
+namespace Painting.Shapes
 {
     enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic};
 
@@ -20,6 +21,8 @@ namespace Painting
         public bool visible;
         protected int replaceid;
         protected bool selected;
+        protected ControlSizeButton NWButton = new ControlSizeButton();
+        protected ControlSizeButton SEButton = new ControlSizeButton();
 
         public ShapeType GetShapeType()
         {
@@ -54,16 +57,26 @@ namespace Painting
         public void SelectShape()
         {
             selected = true;
+            NWButton.Show();
+            SEButton.Show();
         }
 
         public void unSelectShape()
         {
             selected = false;
+            NWButton.Hide();
+            SEButton.Hide();
         }
 
         private void DrawSelectArea()
         {
 
+        }
+
+        public void InitButton(MouseEventHandler up, MouseEventHandler down, MouseEventHandler move)
+        {
+            NWButton.InitButton(new Point(x0, y0), pictureBox, up, down, move);
+            SEButton.InitButton(new Point(x1, y1), pictureBox, up, down, move);
         }
 
         public abstract void Draw();

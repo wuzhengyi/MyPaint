@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
+using Painting.Shapes;
 
 namespace Painting
 {
     partial class Form1
     {
-        
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)//鼠标左键松开
         {
             if (NowCase == CASE.selected)
             {
                 selectedShape = OperaStep.SelectShape(x0, y0);
                 if(selectedShape != null)
+                {
                     selectedShape.SelectShape();
+                    selectedShape.InitButton(SelectedShapeSize_MouseUp,SelectedShapeSize_MouseDown, SelectedShapeSize_MouseMove);
+                }
+                    
             }
 
             RefreshPictureBox();
@@ -148,5 +147,17 @@ namespace Painting
             OperaStep.DrawOperation();
         }
 
+        public void SelectedShapeSize_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+        public void SelectedShapeSize_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+        public void SelectedShapeSize_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

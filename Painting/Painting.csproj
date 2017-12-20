@@ -84,6 +84,7 @@
     <Compile Include="Function\Fill.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GUI\ControlSizeButton.cs" />
     <Compile Include="GUI\PictureBox.cs">
       <SubType>Form</SubType>
     </Compile>

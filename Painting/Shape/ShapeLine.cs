@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Painting
+namespace Painting.Shapes
 {
     class Line : Shape
     {
@@ -18,7 +18,12 @@ namespace Painting
             SetColor(color);
             SetLocation(x0, y0, x1, y1);
             InitShape();
+            Point p0 = new Point(x0, y0);
+            
         }
+
+       
+
         public override void Draw()
         {
             if (!visible)
@@ -35,10 +40,19 @@ namespace Painting
             y = y0;
             for (int i = 1; i <= e; i++)
             {
-                if(!selected)
+                if (!selected)
+                {
                     Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), color);
-                else if(i % 10 < 5)
-                    Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), Color.Blue);
+                    NWButton.Hide();
+                    SEButton.Hide();
+                }
+                else
+                {
+                    if (i % 10 < 5)
+                        Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), Color.Blue);
+                    NWButton.Show();
+                    SEButton.Show();
+                }
                 
                 x += dx;
                 y += dy;
@@ -53,7 +67,7 @@ namespace Painting
             double lac = Form1.DistanceOfPoint(a, c);
             double lbc = Form1.DistanceOfPoint(c, b);
             double lab = Form1.DistanceOfPoint(a, b);
-            return (lac + lbc < lab + 0.05) ? true : false;
+            return (lac + lbc < lab + 0.25) ? true : false;
         }
     }
     

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Painting
+namespace Painting.Shapes
 {
     class Ellipse : Shape
     {
