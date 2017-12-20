@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Painting.exe" size="38872">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Painting.exe" size="38360">
       <assemblyIdentity name="Painting" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>H3uwRwxHO+XRd66E/SyEwk9eFZk+DAvtSMI8+mfgdrA=</dsig:DigestValue>
+        <dsig:DigestValue>iSNZhd4AdmTiSwNNZGMFDssgG4l7euqtfYgLKFP0w60=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

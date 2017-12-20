@@ -28,20 +28,11 @@ namespace Painting
 
         private void DrawPoint(int x, int y)
         {
-            if (selected && (x + y) % 10 < 5)
-            {
-                Form1.drawPixel(pictureBox, x + xc, y + yc, Color.Blue);
-                Form1.drawPixel(pictureBox, x + xc, -y + yc, Color.Blue);
-                Form1.drawPixel(pictureBox, -x + xc, y + yc, Color.Blue);
-                Form1.drawPixel(pictureBox, -x + xc, -y + yc, Color.Blue);
-            }
-            else if(!selected)
-            {
+
                 Form1.drawPixel(pictureBox, x + xc, y + yc, color);
                 Form1.drawPixel(pictureBox, x + xc, -y + yc, color);
                 Form1.drawPixel(pictureBox, -x + xc, y + yc, color);
                 Form1.drawPixel(pictureBox, -x + xc, -y + yc, color);
-            }
             
         }
 
@@ -90,6 +81,14 @@ namespace Painting
                     t1 += 2 * ry2;
                     p += rx2 + t1 - t2;
                 }
+            }
+
+            if (selected)
+            {
+                Rect rec = new Rect();
+                rec.InitRectangle(pictureBox, color, x0, y0, x1, y1);
+                rec.SelectShape();
+                rec.Draw();
             }
         }
 

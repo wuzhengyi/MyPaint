@@ -49,25 +49,19 @@ namespace Painting
                     p += 4 * x + 6;
                 }
             }
+
+            if (selected)
+            {
+                Rect rec = new Rect();
+                rec.InitRectangle(pictureBox, color, cx - r, cy - r, cx + r, cy + r);
+                rec.SelectShape();
+                rec.Draw();
+            }
+
         }
 
         public void DrawPixel(int x,int cx,int y,int cy)
         {
-            if (selected)
-            {
-                if (x % 10 < 5)
-                    return;
-                Form1.drawPixel(pictureBox, x + cx, y + cy, Color.Blue);
-                Form1.drawPixel(pictureBox, x + cx, -y + cy, Color.Blue);
-                Form1.drawPixel(pictureBox, y + cx, x + cy, Color.Blue);
-                Form1.drawPixel(pictureBox, y + cx, -x + cy, Color.Blue);
-                Form1.drawPixel(pictureBox, -x + cx, y + cy, Color.Blue);
-                Form1.drawPixel(pictureBox, -x + cx, -y + cy, Color.Blue);
-                Form1.drawPixel(pictureBox, -y + cx, x + cy, Color.Blue);
-                Form1.drawPixel(pictureBox, -y + cx, -x + cy, Color.Blue);
-            }
-            else
-            {
                 Form1.drawPixel(pictureBox, x + cx, y + cy, color);
                 Form1.drawPixel(pictureBox, x + cx, -y + cy, color);
                 Form1.drawPixel(pictureBox, y + cx, x + cy, color);
@@ -76,7 +70,7 @@ namespace Painting
                 Form1.drawPixel(pictureBox, -x + cx, -y + cy, color);
                 Form1.drawPixel(pictureBox, -y + cx, x + cy, color);
                 Form1.drawPixel(pictureBox, -y + cx, -x + cy, color);
-            }
+            
         }
 
         public override bool PointOnIt(int x, int y)
