@@ -37,6 +37,7 @@ namespace Painting
         private BREATH bh;
         private int x0, y0, x1, y1, x2, y2;
         private Point p;
+        private Point OldMousePosition;
         private bool IsMouseDown, IsBack;
         private Image FrontImage;
         private Shape selectedShape;
@@ -58,31 +59,6 @@ namespace Painting
             InitializeComponent();
         }
         
-        private void InitButton()
-        {
-            /*
-            //pictureBoxSize
-            pictureBoxSize = new Button();
-            pictureBoxSize.Size = new Size(5, 5);
-            pictureBoxSize.Location = new Point(pictureBox.Width, pictureBox.Height);
-            pictureBox.Controls.Add(pictureBoxSize);
-            pictureBoxSize.MouseDown += PictureBoxSize_MouseDown;
-            pictureBoxSize.MouseMove += PictureBoxSize_MouseMove;
-            pictureBoxSize.MouseUp += PictureBoxSize_MouseUp;
-
-            //ChoseSize           
-            ChoseSize = new Button();
-            ChoseSize.Size = new Size(5, 5);
-            ChoseSize.Location = new Point(x2, y2);
-            pictureBox.Controls.Add(ChoseSize);
-            ChoseSize.MouseDown += ChoseSize_MouseDown;
-            ChoseSize.MouseMove += ChoseSize_MouseMove;
-            ChoseSize.MouseUp += ChoseSize_MouseUp;
-            ChoseSize.Hide();
-            */
-        }
-
-
         private void InitForm1()
         {
             color = Color.Black;
@@ -96,7 +72,6 @@ namespace Painting
             g1.FillRectangle(Brushes.White, new Rectangle(0, 0, pictureBox.Width, pictureBox.Height));   //把b1涂成红色
             pictureBox.Image = b;
             Backgroud = (Image)b.Clone();
-            InitButton();
             selectedShape = null;
 
             

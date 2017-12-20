@@ -13,19 +13,22 @@ namespace Painting.Shapes
     {
         private int rx, ry, xc, yc;
         public void InitEllipse(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
-        {
-            //Math.Abs((x0 - e.X) / 2), Math.Abs((y0 - e.Y) / 2), (x0 + e.X) / 2, (y0 + e.Y) / 2
-            rx = Math.Abs(x0 - x1) / 2;
-            ry = Math.Abs(y0 - y1) / 2;
-            xc = (x0 + x1) / 2;
-            yc = (y0 + y1) / 2;
+        {           
             type = ShapeType.Ellipse;
             SetPictureBox(pictureBox);
             SetColor(color);
             SetLocation(x0, y0, x1, y1) ;
+            InitData();
             InitShape();
         }
 
+        private void InitData()
+        {
+            rx = Math.Abs(x0 - x1) / 2;
+            ry = Math.Abs(y0 - y1) / 2;
+            xc = (x0 + x1) / 2;
+            yc = (y0 + y1) / 2;
+        }
         private void DrawPoint(int x, int y)
         {
 
@@ -42,6 +45,7 @@ namespace Painting.Shapes
             {
                 return;
             }
+            InitData();
             int x, y, p, t1, t2;
             int rx2 = rx * rx;
             int ry2 = ry * ry;
@@ -90,6 +94,8 @@ namespace Painting.Shapes
                 rec.SelectShape();
                 rec.Draw();
             }
+            else
+                ButtonHide();
         }
 
         public override bool PointOnIt(int x, int y)
@@ -113,6 +119,17 @@ namespace Painting.Shapes
             }
             return false;
         }
+
+        public override Point NWPoint()
+        {
+            return new Point(x0, y0);
+        }
+
+        public override Point SEPoint()
+        {
+            return new Point(x1, y1);
+        }
+
     }
 
 }

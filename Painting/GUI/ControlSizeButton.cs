@@ -70,5 +70,10 @@ namespace Painting.GUI
         {
             button.Hide();
         }
+
+        public Point GetLocation()
+        {
+            return button.Location;
+        }
     }
 }

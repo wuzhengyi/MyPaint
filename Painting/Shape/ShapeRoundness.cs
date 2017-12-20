@@ -19,15 +19,23 @@ namespace Painting.Shapes
             SetPictureBox(pictureBox);
             SetColor(color);
             SetLocation(x0, y0, x1, y1);
-            Point a = new Point(x0, y0);
-            Point b = new Point(x1, y1);
-            r = (int)Form1.DistanceOfPoint(a, b) / 2;
-            cx = (x0 + x1) / 2;
-            cy = (y0 + y1) / 2;
+            InitData();
             InitShape();
         }
+
+        private void InitData()
+        {
+            /*Point a = new Point(x0, y0);
+            Point b = new Point(x1, y1);
+            r = (int)Form1.DistanceOfPoint(a, b) / 2;*/
+            r = Math.Abs(x0 - x1) / 2;
+            cx = (x0 + x1) / 2;
+            cy = (y0 + y1) / 2;
+        }
+
         public override void Draw()
         {
+            InitData();
             if (!visible)
             {
                 return;
@@ -82,6 +90,15 @@ namespace Painting.Shapes
                 return true;
             else
                 return false;
+        }
+        public override Point NWPoint()
+        {
+            return new Point(cx - r, cy - r);
+        }
+
+        public override Point SEPoint()
+        {
+            return new Point(cx + r, cy + r);
         }
     }
 }

@@ -17,9 +17,7 @@ namespace Painting.Shapes
             SetPictureBox(pictureBox);
             SetColor(color);
             SetLocation(x0, y0, x1, y1);
-            InitShape();
-            Point p0 = new Point(x0, y0);
-            
+            InitShape();           
         }
 
        
@@ -43,15 +41,12 @@ namespace Painting.Shapes
                 if (!selected)
                 {
                     Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), color);
-                    NWButton.Hide();
-                    SEButton.Hide();
+                    ButtonHide();
                 }
                 else
                 {
                     if (i % 10 < 5)
                         Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), Color.Blue);
-                    NWButton.Show();
-                    SEButton.Show();
                 }
                 
                 x += dx;
@@ -68,6 +63,16 @@ namespace Painting.Shapes
             double lbc = Form1.DistanceOfPoint(c, b);
             double lab = Form1.DistanceOfPoint(a, b);
             return (lac + lbc < lab + 0.25) ? true : false;
+        }
+
+        public override Point NWPoint()
+        {
+            return new Point(x0, y0);
+        }
+
+        public override Point SEPoint()
+        {
+            return new Point(x1, y1);
         }
     }
     

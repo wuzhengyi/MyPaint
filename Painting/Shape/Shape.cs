@@ -57,15 +57,13 @@ namespace Painting.Shapes
         public void SelectShape()
         {
             selected = true;
-            NWButton.Show();
-            SEButton.Show();
+            ButtonShow();
         }
 
         public void unSelectShape()
         {
             selected = false;
-            NWButton.Hide();
-            SEButton.Hide();
+            ButtonHide();
         }
 
         private void DrawSelectArea()
@@ -75,12 +73,36 @@ namespace Painting.Shapes
 
         public void InitButton(MouseEventHandler up, MouseEventHandler down, MouseEventHandler move)
         {
-            NWButton.InitButton(new Point(x0, y0), pictureBox, up, down, move);
-            SEButton.InitButton(new Point(x1, y1), pictureBox, up, down, move);
+            NWButton.InitButton(NWPoint(), pictureBox, up, down, move);
+            SEButton.InitButton(SEPoint(), pictureBox, up, down, move);
+        }
+
+        public void UpdateLocation()
+        {
+            x0 = NWButton.GetLocation().X;
+            y0 = NWButton.GetLocation().Y;
+            x1 = SEButton.GetLocation().X;
+            y1 = SEButton.GetLocation().Y;
+        }
+
+        protected void ButtonShow()
+        {
+            NWButton.Show();
+            SEButton.Show();
+        }
+
+        protected void ButtonHide()
+        {
+            NWButton.Hide();
+            SEButton.Hide();
         }
 
         public abstract void Draw();
         public abstract bool PointOnIt(int x,int y);
+
+        public abstract Point NWPoint();
+
+        public abstract Point SEPoint();
     }
 
     

@@ -61,5 +61,15 @@ namespace Painting.Shapes
                 return true;
             return false;
         }
+
+        public override Point NWPoint()
+        {
+            return new Point(x0, y0);
+        }
+
+        public override Point SEPoint()
+        {
+            return new Point(x1, y1);
+        }
     }
 }
