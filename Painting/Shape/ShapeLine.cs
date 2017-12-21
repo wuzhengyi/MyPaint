@@ -29,28 +29,28 @@ namespace Painting.Shapes
                 return;
             }
 
-            double dx, dy, e, x, y;
-            dx = x1 - x0;
-            dy = y1 - y0;
-            e = (Math.Abs(dx) > Math.Abs(dy)) ? Math.Abs(dx) : Math.Abs(dy);
-            dx /= e; dy /= e;
+            double tx, ty, e, x, y;
+            tx = x1 - x0;
+            ty = y1 - y0;
+            e = (Math.Abs(tx) > Math.Abs(ty)) ? Math.Abs(tx) : Math.Abs(ty);
+            tx /= e; ty /= e;
             x = x0;
             y = y0;
             for (int i = 1; i <= e; i++)
             {
                 if (!selected)
                 {
-                    Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), color);
+                    Form1.drawPixel(pictureBox, (int)(x + 0.5 + dx), (int)(y + 0.5 + dy), color);
                     ButtonHide();
                 }
                 else
                 {
                     if (i % 10 < 5)
-                        Form1.drawPixel(pictureBox, (int)(x + 0.5), (int)(y + 0.5), Color.Blue);
+                        Form1.drawPixel(pictureBox, (int)(x + 0.5 + dx), (int)(y + 0.5 + dy ), Color.Blue);
                 }
                 
-                x += dx;
-                y += dy;
+                x += tx;
+                y += ty;
             }
         }
 
@@ -65,15 +65,15 @@ namespace Painting.Shapes
             return (lac + lbc < lab + 0.25) ? true : false;
         }
 
-        public override Point NWPoint()
-        {
-            return new Point(x0, y0);
-        }
+        //public override Point NWPoint()
+        //{
+        //    return new Point(x0, y0);
+        //}
 
-        public override Point SEPoint()
-        {
-            return new Point(x1, y1);
-        }
+        //public override Point SEPoint()
+        //{
+        //    return new Point(x1, y1);
+        //}
 
         public override bool PointInIt(int x, int y)
         {

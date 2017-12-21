@@ -32,10 +32,10 @@ namespace Painting.Shapes
         private void DrawPoint(int x, int y)
         {
 
-                Form1.drawPixel(pictureBox, x + xc, y + yc, color);
-                Form1.drawPixel(pictureBox, x + xc, -y + yc, color);
-                Form1.drawPixel(pictureBox, -x + xc, y + yc, color);
-                Form1.drawPixel(pictureBox, -x + xc, -y + yc, color);
+                Form1.drawPixel(pictureBox, x + xc + dx, y + yc + dy, color);
+                Form1.drawPixel(pictureBox, x + xc + dx, -y + yc + dy, color);
+                Form1.drawPixel(pictureBox, -x + xc + dx, y + yc + dy, color);
+                Form1.drawPixel(pictureBox, -x + xc + dx, -y + yc + dy, color);
             
         }
 
@@ -120,15 +120,15 @@ namespace Painting.Shapes
             return false;
         }
 
-        public override Point NWPoint()
-        {
-            return new Point(x0, y0);
-        }
+        //public override Point NWPoint()
+        //{
+        //    return new Point(x0, y0);
+        //}
 
-        public override Point SEPoint()
-        {
-            return new Point(x1, y1);
-        }
+        //public override Point SEPoint()
+        //{
+        //    return new Point(x1, y1);
+        //}
 
         public override bool PointInIt(int x, int y)
         {

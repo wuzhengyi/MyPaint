@@ -12,7 +12,8 @@ namespace Painting
         {
             if (NowCase == CASE.selected)
             {
-                selectedShape.unSelectShape();
+                if (selectedShape != null)
+                    selectedShape.unSelectShape();
                 selectedShape = OperaStep.SelectShape(x0, y0);
                 if(selectedShape != null)
                 {                    
@@ -66,6 +67,9 @@ namespace Painting
                 case CASE.chose:
                     break;
                 case CASE.panning:
+                    selectedShape.Setdxdy(e.X - x0, e.Y - y0);
+                    selectedShape.Updatedxdy();
+                    selectedShape.Draw();
                     break;
                 default:
                     break;
@@ -114,6 +118,8 @@ namespace Painting
                     case CASE.chose:
                         break;
                     case CASE.panning:
+                        selectedShape.Setdxdy(e.X - x0, e.Y - y0);
+                        selectedShape.Draw();
                         break;
                     default:
                         break;
@@ -141,6 +147,7 @@ namespace Painting
             {
                 if (selectedShape != null && selectedShape.PointInIt(x0,y0))
                 {
+                    CaseChange(CASE.panning);
                     /*
                    TODO:case to panning or xuanzhuan  
                  */

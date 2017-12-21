@@ -80,14 +80,14 @@ namespace Painting.Shapes
         public void DrawPixel(int x, int cx, int y, int cy, Color color)
         {
 
-            Form1.drawPixel(pictureBox, x + cx, y + cy, color);
-            Form1.drawPixel(pictureBox, x + cx, -y + cy, color);
-            Form1.drawPixel(pictureBox, y + cx, x + cy, color);
-            Form1.drawPixel(pictureBox, y + cx, -x + cy, color);
-            Form1.drawPixel(pictureBox, -x + cx, y + cy, color);
-            Form1.drawPixel(pictureBox, -x + cx, -y + cy, color);
-            Form1.drawPixel(pictureBox, -y + cx, x + cy, color);
-            Form1.drawPixel(pictureBox, -y + cx, -x + cy, color);
+            Form1.drawPixel(pictureBox, x + cx + dx, y + cy + dy, color);
+            Form1.drawPixel(pictureBox, x + cx + dx, -y + cy + dy, color);
+            Form1.drawPixel(pictureBox, y + cx + dx, x + cy + dy, color);
+            Form1.drawPixel(pictureBox, y + cx + dx, -x + cy + dy, color);
+            Form1.drawPixel(pictureBox, -x + cx + dx, y + cy + dy, color);
+            Form1.drawPixel(pictureBox, -x + cx + dx, -y + cy + dy, color);
+            Form1.drawPixel(pictureBox, -y + cx + dx, x + cy + dy, color);
+            Form1.drawPixel(pictureBox, -y + cx + dx, -x + cy + dy, color);
 
         }
 
@@ -102,15 +102,15 @@ namespace Painting.Shapes
                 return false;
         }
 
-        public override Point NWPoint()
-        {
-            return new Point(x0, y0);
-        }
+        //public override Point NWPoint()
+        //{
+        //    return new Point(x0, y0);
+        //}
 
-        public override Point SEPoint()
-        {
-            return new Point(x1, y1);
-        }
+        //public override Point SEPoint()
+        //{
+        //    return new Point(x1, y1);
+        //}
 
         public override bool PointInIt(int x, int y)
         {

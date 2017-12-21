@@ -47,30 +47,30 @@ namespace Painting.Shapes
         public override bool PointOnEdge(int x, int y)
         {
             Line a = new Line();
-            a.InitLine(pictureBox, color, x0, y0, x0, y1);
+            a.InitLine(pictureBox, color, x0 + dx, y0 + dy, x0 + dx, y1 + dy);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x0, y0, x1, y0);
+            a.InitLine(pictureBox, color, x0 + dx, y0 + dy, x1 + dx, y0 + dy);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x1, y0, x1, y1);
+            a.InitLine(pictureBox, color, x1 + dx, y0 + dy, x1 + dx, y1 + dy);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x0, y1, x1, y1);
+            a.InitLine(pictureBox, color, x0 + dx, y1 + dy, x1 + dx, y1 + dy);
             if (a.PointOnEdge(x, y))
                 return true;
             return false;
         }
 
-        public override Point NWPoint()
-        {
-            return new Point(x0, y0);
-        }
+        //public override Point NWPoint()
+        //{
+        //    return new Point(x0, y0);
+        //}
 
-        public override Point SEPoint()
-        {
-            return new Point(x1, y1);
-        }
+        //public override Point SEPoint()
+        //{
+        //    return new Point(x1, y1);
+        //}
 
         public override bool PointInIt(int x, int y)
         {

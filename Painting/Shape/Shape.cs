@@ -15,7 +15,7 @@ namespace Painting.Shapes
     abstract class Shape
     {
         protected ShapeType type;
-        protected int x0, y0, x1, y1;
+        protected int x0, y0, x1, y1, dx, dy;
         protected PictureBox pictureBox;
         public Color color;
         public bool visible;
@@ -52,6 +52,7 @@ namespace Painting.Shapes
             selected = false;
             visible = true;
             replaceid = -1;
+            dx = dy = 0;
         }
 
         public void SelectShape()
@@ -92,16 +93,40 @@ namespace Painting.Shapes
             SEButton.Hide();
         }
 
+        public void Setdxdy(int dx,int dy)
+        {
+            this.dx = dx;
+            this.dy = dy;
+            NWButton.SetLocation(new Point(x0 + dx, y0 + dy));
+            SEButton.SetLocation(new Point(x1 + dx, y1 + dy));
+        }
+
+        public void Updatedxdy()
+        {
+            x0 += dx;
+            x1 += dx;
+            y0 += dy;
+            y1 += dy;
+            dx = dy = 0;
+        } 
         public abstract void Draw();
 
         public abstract bool PointOnEdge(int x,int y);
 
         public abstract bool PointInIt(int x, int y);
 
-        public abstract Point NWPoint();
+        //public abstract Point NWPoint();
 
-        public abstract Point SEPoint();
+        //public abstract Point SEPoint();
+        public Point NWPoint()
+        {
+            return new Point(x0 + dx, y0 + dx);
+        }
 
+        public Point SEPoint()
+        {
+            return new Point(x1 + dx, y1 + dy);
+        }
 
     }
 
