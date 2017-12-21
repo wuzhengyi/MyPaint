@@ -44,20 +44,20 @@ namespace Painting.Shapes
             l.Draw();
         }
 
-        public override bool PointOnIt(int x, int y)
+        public override bool PointOnEdge(int x, int y)
         {
             Line a = new Line();
             a.InitLine(pictureBox, color, x0, y0, x0, y1);
-            if (a.PointOnIt(x, y))
+            if (a.PointOnEdge(x, y))
                 return true;
             a.InitLine(pictureBox, color, x0, y0, x1, y0);
-            if (a.PointOnIt(x, y))
+            if (a.PointOnEdge(x, y))
                 return true;
             a.InitLine(pictureBox, color, x1, y0, x1, y1);
-            if (a.PointOnIt(x, y))
+            if (a.PointOnEdge(x, y))
                 return true;
             a.InitLine(pictureBox, color, x0, y1, x1, y1);
-            if (a.PointOnIt(x, y))
+            if (a.PointOnEdge(x, y))
                 return true;
             return false;
         }
@@ -70,6 +70,13 @@ namespace Painting.Shapes
         public override Point SEPoint()
         {
             return new Point(x1, y1);
+        }
+
+        public override bool PointInIt(int x, int y)
+        {
+            if (x > Math.Min(x0, x1) && x < Math.Max(x0, x1) && y > Math.Min(y0, y1) && y < Math.Max(y0, y1))
+                return true;
+            return false;
         }
     }
 }

@@ -61,15 +61,6 @@ namespace Painting.Shapes
                     p += 4 * x + 6;
                 }
             }
-            /*
-            if (selected)
-            {
-                Rect rec = new Rect();
-                rec.InitRectangle(pictureBox, color, cx - r, cy - r, cx + r, cy + r);
-                rec.SelectShape();
-                rec.Draw();
-            }*/
-
         }
 
         public void DrawPixel(int x,int cx,int y,int cy)
@@ -100,7 +91,7 @@ namespace Painting.Shapes
 
         }
 
-        public override bool PointOnIt(int x, int y)
+        public override bool PointOnEdge(int x, int y)
         {
             Point a = new Point(x, y);
             Point b = new Point(cx, cy);
@@ -110,6 +101,7 @@ namespace Painting.Shapes
             else
                 return false;
         }
+
         public override Point NWPoint()
         {
             return new Point(x0, y0);
@@ -118,6 +110,17 @@ namespace Painting.Shapes
         public override Point SEPoint()
         {
             return new Point(x1, y1);
+        }
+
+        public override bool PointInIt(int x, int y)
+        {
+            Point a = new Point(x, y);
+            Point b = new Point(cx, cy);
+            double d = Form1.DistanceOfPoint(a, b);
+            if (d < r - 2)
+                return true;
+            else
+                return false;
         }
     }
 }

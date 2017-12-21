@@ -12,13 +12,13 @@ namespace Painting
         {
             if (NowCase == CASE.selected)
             {
+                selectedShape.unSelectShape();
                 selectedShape = OperaStep.SelectShape(x0, y0);
                 if(selectedShape != null)
                 {                    
                     selectedShape.InitButton(SelectedShapeSize_MouseUp,SelectedShapeSize_MouseDown, SelectedShapeSize_MouseMove);
                     selectedShape.SelectShape();
-                }
-                    
+                }           
             }
 
             RefreshPictureBox();
@@ -139,9 +139,11 @@ namespace Painting
 
             if (NowCase == CASE.selected)
             {
-                if (selectedShape != null)
+                if (selectedShape != null && selectedShape.PointInIt(x0,y0))
                 {
-                    selectedShape.unSelectShape();
+                    /*
+                   TODO:case to panning or xuanzhuan  
+                 */
                 }
             }
         }

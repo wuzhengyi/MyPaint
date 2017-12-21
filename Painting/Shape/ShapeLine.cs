@@ -54,7 +54,7 @@ namespace Painting.Shapes
             }
         }
 
-        public override bool PointOnIt(int x, int y)
+        public override bool PointOnEdge(int x, int y)
         {
             Point a = new Point(x0, y0);
             Point b = new Point(x1, y1);
@@ -73,6 +73,11 @@ namespace Painting.Shapes
         public override Point SEPoint()
         {
             return new Point(x1, y1);
+        }
+
+        public override bool PointInIt(int x, int y)
+        {
+            return PointOnEdge(x, y);
         }
     }
     

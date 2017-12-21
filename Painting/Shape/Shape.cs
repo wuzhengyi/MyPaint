@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Painting.Shapes
 {
-    enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic};
+    enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic, Pan};
 
     abstract class Shape
     {
@@ -94,7 +94,9 @@ namespace Painting.Shapes
 
         public abstract void Draw();
 
-        public abstract bool PointOnIt(int x,int y);
+        public abstract bool PointOnEdge(int x,int y);
+
+        public abstract bool PointInIt(int x, int y);
 
         public abstract Point NWPoint();
 

@@ -28,7 +28,7 @@ namespace Painting
         {
             for (int i = 0; i <= StepImage_now; i++)
             {
-                if (((Shape)this[i]).PointOnIt(x0, y0))
+                if (((Shape)this[i]).PointOnEdge(x0, y0))
                     return (Shape)this[i];
             }
             return null;

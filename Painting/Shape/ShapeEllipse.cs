@@ -98,7 +98,7 @@ namespace Painting.Shapes
                 ButtonHide();
         }
 
-        public override bool PointOnIt(int x, int y)
+        public override bool PointOnEdge(int x, int y)
         {
             Point p1 = new Point(x, y);
             if (rx > ry)
@@ -130,6 +130,27 @@ namespace Painting.Shapes
             return new Point(x1, y1);
         }
 
+        public override bool PointInIt(int x, int y)
+        {
+            Point p1 = new Point(x, y);
+            if (rx > ry)
+            {
+                int c = (int)Math.Sqrt(rx * rx - ry * ry);
+                Point p2 = new Point(c + xc, yc);
+                Point p3 = new Point(-c + xc, yc);
+                if (Form1.DistanceOfPoint(p1, p2) + Form1.DistanceOfPoint(p1, p3) < 2 * rx - 3)
+                    return true;
+            }
+            else
+            {
+                int c = (int)Math.Sqrt(ry * ry - rx * rx);
+                Point p2 = new Point(xc, c + yc);
+                Point p3 = new Point(xc, -c + yc);
+                if (Form1.DistanceOfPoint(p1, p2) + Form1.DistanceOfPoint(p1, p3) < 2 * rx - 3)
+                    return true;
+            }
+            return false;
+        }
     }
 
 }
