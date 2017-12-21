@@ -66,11 +66,6 @@ namespace Painting.Shapes
             ButtonHide();
         }
 
-        private void DrawSelectArea()
-        {
-
-        }
-
         public void InitButton(MouseEventHandler up, MouseEventHandler down, MouseEventHandler move)
         {
             NWButton.InitButton(NWPoint(), pictureBox, up, down, move);
@@ -98,11 +93,14 @@ namespace Painting.Shapes
         }
 
         public abstract void Draw();
+
         public abstract bool PointOnIt(int x,int y);
 
         public abstract Point NWPoint();
 
         public abstract Point SEPoint();
+
+
     }
 
     

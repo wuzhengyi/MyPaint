@@ -72,8 +72,8 @@ namespace Painting
             }
         }
 
-        [DllImport("User32.dll")]
-        private static extern bool SetCursorPos(int x, int y);
+        //[DllImport("User32.dll")]
+        //private static extern bool SetCursorPos(int x, int y);
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)//鼠标移动
         {
@@ -91,46 +91,8 @@ namespace Painting
                         l.Draw();
                         break;
                     case CASE.roundness:
-                        /*
-                        if (Math.Abs(x0 - e.X) > Math.Abs(y0 - e.Y))
-                        {
-                            if (e.X > x0)                            
-                                SetCursorPos(pictureBox.Location.X + x0 + Math.Abs(y0 - e.Y), pictureBox.Location.Y + e.Y);                            
-                            else
-                                SetCursorPos(pictureBox.Location.X + x0 - Math.Abs(y0 - e.Y), pictureBox.Location.Y + e.Y);
-                        }
-                        else if(Math.Abs(x0 - e.X) < Math.Abs(y0 - e.Y))
-                        {
-                            if (e.Y > y0)
-                                SetCursorPos(pictureBox.Location.X + e.X, pictureBox.Location.Y + y0 + Math.Abs(x0 - e.X));
-                            else
-                                SetCursorPos(pictureBox.Location.X + e.X, pictureBox.Location.Y + y0 - Math.Abs(x0 - e.X));
-                        }*/
-                        Point PX = Control.MousePosition;
-                        if (Math.Abs(x0 - e.X) != Math.Abs(y0 - e.Y))
-                        {
-                            int d = Math.Abs(Cursor.Position.X - OldMousePosition.X);
-                            OldMousePosition.X += Cursor.Position.X - OldMousePosition.X;
-                            if(Cursor.Position.Y - OldMousePosition.Y>0)
-                                OldMousePosition.Y += d;
-                            else
-                                OldMousePosition.Y -= d;
-                            Cursor.Position = OldMousePosition;
-                        }                            
-                        else
-                            OldMousePosition = PX;
-
                         Roundness r = new Roundness();
-
                         r.InitRoundness(pictureBox, color, x0, y0, e.X, e.Y);
-                        /*if(Math.Abs(x0 - e.X) > Math.Abs(y0 - e.Y) && e.X > x0)
-                            r.InitRoundness(pictureBox, color, x0, y0, x0 + Math.Abs(y0 - e.Y), e.Y);
-                        else if (Math.Abs(x0 - e.X) > Math.Abs(y0 - e.Y) && e.X <= x0)
-                            r.InitRoundness(pictureBox, color, x0, y0, x0 - Math.Abs(y0 - e.Y), e.Y);
-                        else if(Math.Abs(x0 - e.X) < Math.Abs(y0 - e.Y) && e.Y > y0)
-                            r.InitRoundness(pictureBox, color, x0, y0, e.X, y0 + Math.Abs(x0 - e.X));
-                        else
-                            r.InitRoundness(pictureBox, color, x0, y0, e.X, y0 + Math.Abs(x0 - e.X));*/
                         r.Draw();
                         break;
                     case CASE.ellipse:

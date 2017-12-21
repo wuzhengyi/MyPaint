@@ -50,3 +50,16 @@ E:\MyPaint\Painting\obj\Debug\Painting.application
 E:\MyPaint\Painting\obj\Debug\Painting.exe
 E:\MyPaint\Painting\obj\Debug\Painting.pdb
 E:\MyPaint\Painting\obj\Debug\Painting.Form1.resources
+E:\大三上\MyPaint\Painting\bin\Debug\Painting.exe.config
+E:\大三上\MyPaint\Painting\obj\Debug\Painting.exe
+E:\大三上\MyPaint\Painting\obj\Debug\Painting.pdb
+E:\大三上\MyPaint\Painting\bin\Debug\Painting.exe.manifest
+E:\大三上\MyPaint\Painting\bin\Debug\Painting.application
+E:\大三上\MyPaint\Painting\bin\Debug\Painting.exe
+E:\大三上\MyPaint\Painting\bin\Debug\Painting.pdb
+E:\大三上\MyPaint\Painting\obj\Debug\Painting.csprojResolveAssemblyReference.cache
+E:\大三上\MyPaint\Painting\obj\Debug\Painting.Form1.resources
+E:\大三上\MyPaint\Painting\obj\Debug\Painting.Properties.Resources.resources
+E:\大三上\MyPaint\Painting\obj\Debug\Painting.csproj.GenerateResource.Cache
+E:\大三上\MyPaint\Painting\obj\Debug\Painting.exe.manifest
+E:\大三上\MyPaint\Painting\obj\Debug\Painting.application

@@ -25,10 +25,10 @@ namespace Painting.Shapes
 
         private void InitData()
         {
-            /*Point a = new Point(x0, y0);
+            Point a = new Point(x0, y0);
             Point b = new Point(x1, y1);
-            r = (int)Form1.DistanceOfPoint(a, b) / 2;*/
-            r = Math.Abs(x0 - x1) / 2;
+            r = (int)Form1.DistanceOfPoint(a, b) / 2;
+           // r = Math.Abs(x0 - x1) / 2;
             cx = (x0 + x1) / 2;
             cy = (y0 + y1) / 2;
         }
@@ -45,8 +45,12 @@ namespace Painting.Shapes
             p = 3 - 2 * r;
             for (; x <= y; x++)
             {
-                DrawPixel(x, cx, y, cy);
-
+                if(!selected)
+                    DrawPixel(x, cx, y, cy);
+                else if (x % 10 < 5)
+                {
+                    DrawPixel(x, cx, y, cy, Color.Blue);
+                }
                 if (p >= 0)
                 {
                     p += 4 * (x - y) + 10;
@@ -57,19 +61,20 @@ namespace Painting.Shapes
                     p += 4 * x + 6;
                 }
             }
-
+            /*
             if (selected)
             {
                 Rect rec = new Rect();
                 rec.InitRectangle(pictureBox, color, cx - r, cy - r, cx + r, cy + r);
                 rec.SelectShape();
                 rec.Draw();
-            }
+            }*/
 
         }
 
         public void DrawPixel(int x,int cx,int y,int cy)
         {
+            
                 Form1.drawPixel(pictureBox, x + cx, y + cy, color);
                 Form1.drawPixel(pictureBox, x + cx, -y + cy, color);
                 Form1.drawPixel(pictureBox, y + cx, x + cy, color);
@@ -79,6 +84,20 @@ namespace Painting.Shapes
                 Form1.drawPixel(pictureBox, -y + cx, x + cy, color);
                 Form1.drawPixel(pictureBox, -y + cx, -x + cy, color);
             
+        }
+
+        public void DrawPixel(int x, int cx, int y, int cy, Color color)
+        {
+
+            Form1.drawPixel(pictureBox, x + cx, y + cy, color);
+            Form1.drawPixel(pictureBox, x + cx, -y + cy, color);
+            Form1.drawPixel(pictureBox, y + cx, x + cy, color);
+            Form1.drawPixel(pictureBox, y + cx, -x + cy, color);
+            Form1.drawPixel(pictureBox, -x + cx, y + cy, color);
+            Form1.drawPixel(pictureBox, -x + cx, -y + cy, color);
+            Form1.drawPixel(pictureBox, -y + cx, x + cy, color);
+            Form1.drawPixel(pictureBox, -y + cx, -x + cy, color);
+
         }
 
         public override bool PointOnIt(int x, int y)
@@ -93,12 +112,12 @@ namespace Painting.Shapes
         }
         public override Point NWPoint()
         {
-            return new Point(cx - r, cy - r);
+            return new Point(x0, y0);
         }
 
         public override Point SEPoint()
         {
-            return new Point(cx + r, cy + r);
+            return new Point(x1, y1);
         }
     }
 }

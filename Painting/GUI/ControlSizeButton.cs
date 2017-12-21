@@ -13,7 +13,7 @@ namespace Painting.GUI
         private Button button;
         public ControlSizeButton(){
             button = new Button();
-            SetSize(new Size(5, 5));    
+            SetSize(new Size(10, 10));    
         }
         public void SetSize(Size size)
         {
