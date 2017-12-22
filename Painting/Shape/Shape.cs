@@ -21,8 +21,8 @@ namespace Painting.Shapes
         public bool visible;
         protected int replaceid;
         protected bool selected;
-        protected ControlSizeButton NWButton = new ControlSizeButton();
-        protected ControlSizeButton SEButton = new ControlSizeButton();
+        protected static ControlSizeButton NWButton = new ControlSizeButton();
+        protected static ControlSizeButton SEButton = new ControlSizeButton();
 
         public ShapeType GetShapeType()
         {

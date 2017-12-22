@@ -59,10 +59,6 @@ namespace Painting
                 case CASE.fill:
                     break;
                 case CASE.selected:
-                    
-                    /*TODO:
-                     * 
-                     */
                     break;
                 case CASE.chose:
                     break;
