@@ -17,9 +17,7 @@ namespace Painting.Shapes
             type = ShapeType.Rectangle;
             SetPictureBox(pictureBox);
             SetColor(color);
-            SetLocation(x0, y0, x1, y1);
-            this.x1 = x1;
-            this.y1 = y1;
+            SetLocation(Math.Min(x0, x1), Math.Min(y0, y1), Math.Max(x0, x1), Math.Max(y0, y1));
             InitShape();
         }
         public override void Draw()
@@ -97,6 +95,30 @@ namespace Painting.Shapes
 
         public override void FillColor(Color color)
         {
+            Point x1y0 = GetSpinPoint(new Point(x1, y0));
+            Point x0y1 = GetSpinPoint(new Point(x0, y1));
+            Point x1y1 = GetSpinPoint(new Point(x1, y1));
+
+            double dm = (x1y1.Y - x1y0.Y) / (x1y1.X - x1y0.X);
+
+            //for(int y;i)
+            Line l = new Line();
+            l.InitLine(pictureBox, color, x0, y0, x0y1.X, x0y1.Y);
+            if (selected) l.SelectShape();
+            l.Draw();
+
+
+            l.InitLine(pictureBox, color, x0, y0, x1y0.X, x1y0.Y);
+            if (selected) l.SelectShape();
+            l.Draw();
+
+            l.InitLine(pictureBox, color, x1y0.X, x1y0.Y, x1y1.X, x1y1.Y);
+            if (selected) l.SelectShape();
+            l.Draw();
+
+            l.InitLine(pictureBox, color, x0y1.X, x0y1.Y, x1y1.X, x1y1.Y);
+            if (selected) l.SelectShape();
+            l.Draw();
             
         }
     }
