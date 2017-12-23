@@ -7,7 +7,7 @@ using Painting.Shapes;
 namespace Painting
 {
     enum CASE { NoOperation, dot, line, roundness, ellipse,
-        rectangle, pencil, fill, selected, polygon, Panning
+        rectangle, pencil, clip, selected, polygon, Panning
         };
 
     enum BREATH { ss, s, b, bb};
@@ -34,14 +34,6 @@ namespace Painting
 
         private OperationStep OperaStep = new OperationStep();
         private Image Backgroud;
-
-        private void pictureBox_Paint(object sender, PaintEventArgs e)
-        {
-            //重绘之前操作
-            //OperaStep.DrawOperation();
-        }
-
-
 
         //private Bitmap bmp;
         public Form1()

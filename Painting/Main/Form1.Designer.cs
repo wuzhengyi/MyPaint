@@ -68,15 +68,15 @@ namespace Painting
             this.rectangle = new System.Windows.Forms.Button();
             this.polygon = new System.Windows.Forms.Button();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.fillpic = new System.Windows.Forms.Button();
+            this.clip = new System.Windows.Forms.Button();
             this.choose = new System.Windows.Forms.Button();
             this.fill = new System.Windows.Forms.Button();
+            this.spin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.spin = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -618,7 +618,7 @@ namespace Painting
             this.tableLayoutPanel7.ColumnCount = 2;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Controls.Add(this.fillpic, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.clip, 0, 1);
             this.tableLayoutPanel7.Controls.Add(this.choose, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.fill, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.spin, 1, 1);
@@ -631,19 +631,19 @@ namespace Painting
             this.tableLayoutPanel7.Size = new System.Drawing.Size(155, 80);
             this.tableLayoutPanel7.TabIndex = 17;
             // 
-            // fillpic
+            // clip
             // 
-            this.fillpic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.clip.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fillpic.Location = new System.Drawing.Point(3, 42);
-            this.fillpic.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.fillpic.Name = "fillpic";
-            this.fillpic.Size = new System.Drawing.Size(71, 36);
-            this.fillpic.TabIndex = 16;
-            this.fillpic.Text = "填充图";
-            this.fillpic.UseVisualStyleBackColor = true;
-            this.fillpic.Click += new System.EventHandler(this.button_fillpic_Click);
+            this.clip.Location = new System.Drawing.Point(3, 42);
+            this.clip.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.clip.Name = "clip";
+            this.clip.Size = new System.Drawing.Size(71, 36);
+            this.clip.TabIndex = 16;
+            this.clip.Text = "裁剪";
+            this.clip.UseVisualStyleBackColor = true;
+            this.clip.Click += new System.EventHandler(this.button_clip_Click);
             // 
             // choose
             // 
@@ -669,9 +669,23 @@ namespace Painting
             this.fill.Name = "fill";
             this.fill.Size = new System.Drawing.Size(71, 36);
             this.fill.TabIndex = 14;
-            this.fill.Text = "填充色";
+            this.fill.Text = "填充";
             this.fill.UseVisualStyleBackColor = true;
             this.fill.Click += new System.EventHandler(this.button_fill_Click);
+            // 
+            // spin
+            // 
+            this.spin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.spin.Location = new System.Drawing.Point(80, 42);
+            this.spin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.spin.Name = "spin";
+            this.spin.Size = new System.Drawing.Size(72, 36);
+            this.spin.TabIndex = 17;
+            this.spin.Text = "旋转";
+            this.spin.UseVisualStyleBackColor = true;
+            this.spin.Click += new System.EventHandler(this.spin_Click);
             // 
             // label1
             // 
@@ -712,7 +726,6 @@ namespace Painting
             this.pictureBox.Size = new System.Drawing.Size(1119, 604);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
-            this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
@@ -720,20 +733,6 @@ namespace Painting
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // spin
-            // 
-            this.spin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.spin.Location = new System.Drawing.Point(80, 42);
-            this.spin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.spin.Name = "spin";
-            this.spin.Size = new System.Drawing.Size(72, 36);
-            this.spin.TabIndex = 17;
-            this.spin.Text = "旋转";
-            this.spin.UseVisualStyleBackColor = true;
-            this.spin.Click += new System.EventHandler(this.spin_Click);
             // 
             // Form1
             // 
@@ -816,7 +815,7 @@ namespace Painting
         private System.Windows.Forms.Button choose;
         private System.Windows.Forms.Button rectangle;
         private System.Windows.Forms.Button savefile;
-        private System.Windows.Forms.Button fillpic;
+        private System.Windows.Forms.Button clip;
         private System.Windows.Forms.Button polygon;
         private System.Windows.Forms.Button spin;
     }

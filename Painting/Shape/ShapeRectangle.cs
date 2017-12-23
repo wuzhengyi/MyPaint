@@ -9,7 +9,6 @@ using System.Windows.Forms;
 
 namespace Painting.Shapes
 {
-
     class Rect : Shape
     {
         public void InitRectangle(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
@@ -120,6 +119,11 @@ namespace Painting.Shapes
             if (selected) l.SelectShape();
             l.Draw();
             
+        }
+
+        public override void Clip(int X0, int Y0, int X1, int Y1)
+        {
+            throw new NotImplementedException();
         }
     }
 }

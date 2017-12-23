@@ -80,6 +80,14 @@ namespace Painting
                 
             }
         }
+
+        public void ClipAllShapes(int x0, int y0, int x1, int y1)
+        {
+            for (int i = 0; i <= StepImage_now; i++)
+            {
+                ((Shape)this[i]).Clip(x0, y0, x1, y1);
+            }
+        }
     }
 
 }

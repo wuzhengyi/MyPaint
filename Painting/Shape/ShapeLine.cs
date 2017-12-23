@@ -11,20 +11,23 @@ namespace Painting.Shapes
 {
     class Line : Shape
     {
-
+        private bool hide;
         public void InitLine(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
         {
             type = ShapeType.Line;
             SetPictureBox(pictureBox);
             SetColor(color);
             SetLocation(x0, y0, x1, y1);
-            InitShape();           
+            InitShape();
+            hide = false;          
         }
 
        
 
         public override void Draw()
         {
+            if (hide)
+                return;
             int tempx = x1;
             int tempy = y1;
             Point temp = GetSpinPoint(new Point(x1, y1));
@@ -81,6 +84,43 @@ namespace Painting.Shapes
         public override void FillColor(Color color)
         {
             this.color = color;
+        }
+
+        public Point Intersection(int X0, int Y0, int X1, int Y1)
+        {
+            int x = (X0 * Y1 * x0 - X1 * Y0 * x0 - X0 * Y1 * x1 + X1 * Y0 * x1 - X0 * x0 * y1 + X0 * x1 * y0 + X1 * x0 * y1 - X1 * x1 * y0) / (X0 * y0 - Y0 * x0 - X0 * y1 - X1 * y0 + Y0 * x1 + Y1 * x0 + X1 * y1 - Y1 * x1);
+            int y = (X0 * Y1 * y0 - X1 * Y0 * y0 - X0 * Y1 * y1 + X1 * Y0 * y1 - Y0 * x0 * y1 + Y0 * x1 * y0 + Y1 * x0 * y1 - Y1 * x1 * y0) / (X0 * y0 - Y0 * x0 - X0 * y1 - X1 * y0 + Y0 * x1 + Y1 * x0 + X1 * y1 - Y1 * x1);
+            return new Point(x, y);    
+        }
+
+        public void LineClip(int X0, int Y0, int X1, int Y1)
+        {
+            if (hide)
+                return;
+            Point t = Intersection(X0, Y0, X1, Y1);
+            if (PointInEdge(x0, y0, X0, Y0, X1, Y1) && !PointInEdge(x1, y1, X0, Y0, X1, Y1))
+            {
+                x1 = t.X;
+                y1 = t.Y;
+            }
+            else if(!PointInEdge(x0, y0, X0, Y0, X1, Y1) && PointInEdge(x1, y1, X0, Y0, X1, Y1))
+            {
+                x0 = t.X;
+                y0 = t.Y;
+            }
+            else if (!PointInEdge(x0, y0, X0, Y0, X1, Y1) && !PointInEdge(x1, y1, X0, Y0, X1, Y1))
+            {
+                x0 = y0 = x1 = y1 = 1;
+                hide = true;
+            }
+            
+        }
+        public override void Clip(int X0, int Y0, int X1, int Y1)
+        {
+            LineClip(X0, Y1, X0, Y0);
+            LineClip(X0, Y0, X1, Y0);
+            LineClip(X1, Y0, X1, Y1);
+            LineClip(X1, Y1, X0, Y1);
         }
     }
     

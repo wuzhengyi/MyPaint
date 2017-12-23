@@ -141,6 +141,14 @@ namespace Painting.Shapes
 
         public abstract void FillColor(Color color);
 
+        protected bool PointInEdge(int x, int y, int x0, int y0, int x1, int y1)
+        {
+            int dx = x1 - x0;
+            int dy = y1 - y0;
+            return -(x - x0) * dy + (y - y0) * dx > 0;
+        }
+
+        public abstract void Clip(int X0, int Y0, int X1, int Y1);
         //public abstract Point NWPoint();
 
         //public abstract Point SEPoint();

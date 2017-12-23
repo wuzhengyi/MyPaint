@@ -215,28 +215,9 @@ namespace Painting
                 
         }
 
-        private void button_fillpic_Click(object sender, EventArgs e)
+        private void button_clip_Click(object sender, EventArgs e)
         {
-            if (NowCase != CASE.selected)
-            {
-                MessageBox.Show("请先选择填充范围！");
-            }
-            else
-            {
-                CaseChange(CASE.NoOperation);
-                openFileDialog1.InitialDirectory = "D:\\";            // 这里是初始的路径名
-                openFileDialog1.Filter = "png文件|*.png|jpg文件|*.jpg|所有文件|*.*";  //设置打开文件的类型
-                openFileDialog1.RestoreDirectory = true;              //设置是否还原当前目录
-                openFileDialog1.FilterIndex = 0;                      //设置打开文件类型的索引
-                string path = "";                                     //用于保存打开文件的路径
-                if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    path = openFileDialog1.FileName;
-                    //MessageBox.Show(path);                            //显示该路径名
-                    Bitmap FilledPic = new Bitmap(path);
-                    FillPic(FilledPic, x1, y1, x2, y2);
-                }
-            }
+            CaseChange(CASE.clip);
         }
 
         private void CaseChange(CASE temp)

@@ -128,5 +128,10 @@ namespace Painting.Shapes
                     if()
                 }*/
         }
+
+        public override void Clip(int X0, int Y0, int X1, int Y1)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

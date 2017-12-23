@@ -56,7 +56,9 @@ namespace Painting
                     break;
                 case CASE.pencil:
                     break;
-                case CASE.fill:
+                case CASE.clip:
+                    OperaStep.ClipAllShapes(Math.Min(x0, e.X), Math.Min(y0, e.Y), Math.Max(x0, e.X), Math.Max(y0, e.Y));
+                    RefreshPictureBox();
                     break;
                 case CASE.selected:
                     break;
@@ -114,7 +116,12 @@ namespace Painting
                         break;
                     case CASE.pencil:
                         break;
-                    case CASE.fill:
+                    case CASE.clip:
+                        Rect c = new Rect();
+                        c.InitRectangle(pictureBox, color, x0, y0, e.X, e.Y);
+                        c.SelectShape();
+                        c.Draw();
+                        c.unSelectShape();
                         break;
                     case CASE.selected:
                         break;
@@ -169,7 +176,7 @@ namespace Painting
                     break;
                 case CASE.pencil:
                     break;
-                case CASE.fill:
+                case CASE.clip:
                     break;
                 case CASE.selected:
                     if (selectedShape != null)
