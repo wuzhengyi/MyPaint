@@ -99,7 +99,7 @@ namespace Painting.Shapes
             Point x0y1 = GetSpinPoint(new Point(x0, y1));
             Point x1y1 = GetSpinPoint(new Point(x1, y1));
 
-            double dm = (x1y1.Y - x1y0.Y) / (x1y1.X - x1y0.X);
+            //double dm = (x1y1.Y - x1y0.Y) / (x1y1.X - x1y0.X);
 
             //for(int y;i)
             Line l = new Line();

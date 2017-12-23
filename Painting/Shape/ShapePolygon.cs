@@ -170,43 +170,56 @@ namespace Painting.Shapes
 
         public override void FillColor(Color color)
         {
-            //priority_queue<float, vector<float>, greater<float>> s;
+            ArrayList TempPoint = new ArrayList();
+            TempPoint.Add(PointList[0]);
+            int i, j;
+            int ty0 = 10000;
+            int ty1 = -1;
+            Point tp = GetSpinPoint((Point)PointList[0]);
+            ty1 = Math.Max(ty1, tp.Y);
+            ty0 = Math.Min(ty0, tp.Y);
+
+            for (i = 1; i < PointList.Count; i++)
+            {
+                tp = GetSpinPoint((Point)PointList[i]);
+                ty1 = Math.Max(ty1, tp.Y);
+                ty0 = Math.Min(ty0, tp.Y);
+                TempPoint.Add(tp);
+            }
 
             List<float> s = new List<float>();
-           
-            int i,j;
-            int N = PointList.Count;
+            int N = TempPoint.Count;
             List<Xet> pNET = new List<Xet>();
 
-            for(i=y0;i<=y1;i++)  
+            for(i=ty0;i<=ty1;i++)  
             {  
                 for(j=0;j<N;j++)  
                 {                      
-                    if(((Point)PointList[j]).Y==i)  
+                    if(((Point)TempPoint[j]).Y==i)  
                     {  
                         //按逆时针，某顶点的前一个顶点  
-                        if(((Point)PointList[(j-1+N)%N]).Y>((Point)PointList[j]).Y)  
+                        if(((Point)TempPoint[(j-1+N)%N]).Y>((Point)TempPoint[j]).Y)  
                         {  
                             Xet p = new Xet();
-                            p.xmin = ((Point)PointList[j]).X;
-                            p.ymax = ((Point)PointList[(j - 1 + N) % N]).Y;
-                            p.ymin = ((Point)PointList[j]).Y;
-                            p.dx = (float)(((Point)PointList[(j - 1 + N) % N]).X - ((Point)PointList[j]).X) / (((Point)PointList[(j - 1 + N) % N]).Y - ((Point)PointList[j]).Y);  
+                            p.xmin = ((Point)TempPoint[j]).X;
+                            p.ymax = ((Point)TempPoint[(j - 1 + N) % N]).Y;
+                            p.ymin = ((Point)TempPoint[j]).Y;
+                            p.dx = (float)(((Point)TempPoint[(j - 1 + N) % N]).X - ((Point)TempPoint[j]).X) / (((Point)TempPoint[(j - 1 + N) % N]).Y - ((Point)TempPoint[j]).Y);  
                             //判断是否为局部最值  
-                            if (((Point)PointList[(j + 1 + N) % N]).Y <= ((Point)PointList[j]).Y)  
+                            if (((Point)TempPoint[(j + 1 + N) % N]).Y <= ((Point)TempPoint[j]).Y)  
                                 p.ymin++;                              
                             pNET.Add(p);
                         }  
                         //按逆时针，某顶点的后一个顶点  
-                        if (((Point)PointList[(j + 1 + N) % N]).Y > ((Point)PointList[j]).Y)  
+                        if (((Point)TempPoint[(j + 1 + N) % N]).Y > ((Point)TempPoint[j]).Y)  
                         {
                             Xet p = new Xet();
-                            p.xmin = ((Point)PointList[j]).X;
-                            p.ymax = ((Point)PointList[(j + 1 + N) % N]).Y;
-                            p.ymin = ((Point)PointList[j]).Y;
-                            p.dx = (float)(((Point)PointList[(j + 1 + N) % N]).X - ((Point)PointList[j]).X) / (((Point)PointList[(j + 1 + N) % N]).Y - ((Point)PointList[j]).Y);
+                            p.xmin = ((Point)TempPoint[j]).X;
+                            p.ymax = ((Point)TempPoint[(j + 1 + N) % N]).Y;
+                            p.ymin = ((Point)TempPoint[j]).Y;
+                            p.dx = (float)(((Point)TempPoint[(j + 1 + N) % N]).X - ((Point)TempPoint[j]).X) / (((Point)TempPoint[(j + 1 + N) % N]).Y - ((Point)TempPoint[j]).Y);
                             //判断是否为局部最值  
-                            if (((Point)PointList[(j - 1 + N) % N]).Y <= ((Point)PointList[j]).Y)  
+                            if (((Point)TempPoint[(j - 1 + N) % N]).Y <= ((Point)TempPoint[j]).Y)  
                                 p.ymin++;
                             pNET.Add(p);
                         }  
@@ -214,7 +227,7 @@ namespace Painting.Shapes
                 }  
             }   
             //所有扫描线进行扫描  
-            for(i=y0;i<=y1;i++)  
+            for(i=ty0;i<=ty1;i++)  
             {  
                 for(j=0;j<pNET.Count;j++)  
                 {  
