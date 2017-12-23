@@ -142,6 +142,8 @@ namespace Painting.Shapes
 
         public abstract bool PointInIt(int x, int y);
 
+        public abstract void FillColor(Color color);
+
         //public abstract Point NWPoint();
 
         //public abstract Point SEPoint();

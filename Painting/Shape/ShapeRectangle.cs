@@ -54,22 +54,22 @@ namespace Painting.Shapes
 
         public override bool PointOnEdge(int x, int y)
         {
-            Point x0y0 = GetSpinPoint(new Point(x0 + dx, y0 + dy));
-            Point x1y0 = GetSpinPoint(new Point(x1 + dx, y0 + dy));
-            Point x0y1 = GetSpinPoint(new Point(x0 + dx, y1 + dy));
-            Point x1y1 = GetSpinPoint(new Point(x1 + dx, y1 + dy));
-
+            double cost = Math.Cos(-angle);
+            double sint = Math.Sin(-angle);            
+            x = (int)((x - x0) * cost + (y - y0) * sint + x0);
+            y = (int)(-sint * (x - x0) + cost * (y - y0) + y0);
+            
             Line a = new Line();
-            a.InitLine(pictureBox, color, x0y0.X, x0y0.Y, x0y1.X, x0y1.Y);
+            a.InitLine(pictureBox, color, x0 + dx, y0 + dy, x0 + dx, y1 + dy);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x0y0.X, x0y0.Y, x1y0.X, x1y0.Y);
+            a.InitLine(pictureBox, color, x0 + dx, y0 + dy, x1 + dx, y0 + dy);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x1y0.X, x1y0.Y, x1y1.X, x1y1.Y);
+            a.InitLine(pictureBox, color, x1 + dx, y0 + dy, x1 + dx, y1 + dy);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x0y1.X, x0y1.Y, x1y1.X, x1y1.Y);
+            a.InitLine(pictureBox, color, x0 + dx, y1 + dy, x1 + dx, y1 + dy);
             if (a.PointOnEdge(x, y))
                 return true;
             return false;
@@ -87,6 +87,11 @@ namespace Painting.Shapes
 
         public override bool PointInIt(int x, int y)
         {
+            double cost = Math.Cos(-angle);
+            double sint = Math.Sin(-angle);
+            x = (int)((x - x0) * cost + (y - y0) * sint + x0);
+            y = (int)(-sint * (x - x0) + cost * (y - y0) + y0);
+
             if (x > Math.Min(x0, x1) && x < Math.Max(x0, x1) && y > Math.Min(y0, y1) && y < Math.Max(y0, y1))
                 return true;
             return false;

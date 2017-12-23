@@ -64,6 +64,11 @@ namespace Painting.Shapes
 
         public override bool PointOnEdge(int x, int y)
         {
+            double cost = Math.Cos(-angle);
+            double sint = Math.Sin(-angle);
+            x = (int)((x - x0) * cost + (y - y0) * sint + x0);
+            y = (int)(-sint * (x - x0) + cost * (y - y0) + y0);
+
             Point a = new Point(x0, y0);
             Point b = new Point(x1, y1);
             Point c = new Point(x, y);

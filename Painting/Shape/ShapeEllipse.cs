@@ -104,6 +104,11 @@ namespace Painting.Shapes
 
         public override bool PointOnEdge(int x, int y)
         {
+            double cost = Math.Cos(-angle);
+            double sint = Math.Sin(-angle);
+            x = (int)((x - x0) * cost + (y - y0) * sint + x0);
+            y = (int)(-sint * (x - x0) + cost * (y - y0) + y0);
+
             Point p1 = new Point(x, y);
             if (rx > ry)
             {
@@ -136,6 +141,11 @@ namespace Painting.Shapes
 
         public override bool PointInIt(int x, int y)
         {
+            double cost = Math.Cos(-angle);
+            double sint = Math.Sin(-angle);
+            x = (int)((x - x0) * cost + (y - y0) * sint + x0);
+            y = (int)(-sint * (x - x0) + cost * (y - y0) + y0);
+
             Point p1 = new Point(x, y);
             if (rx > ry)
             {
@@ -154,6 +164,15 @@ namespace Painting.Shapes
                     return true;
             }
             return false;
+        }
+
+        public override void FillColor(Color color)
+        {
+            for(int x=x0;x<x1;x++)
+                for(int y = y0; y < y1; y++)
+                {
+                    if()
+                }
         }
     }
 

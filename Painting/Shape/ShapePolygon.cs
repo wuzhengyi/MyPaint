@@ -71,19 +71,25 @@ namespace Painting.Shapes
             for (i = 1; i < PointList.Count; i++)
             {
                 t = new Line();
-                t.InitLine(pictureBox, color, ((Point)PointList[i - 1]).X + dx, ((Point)PointList[i - 1]).Y + dy, ((Point)PointList[i]).X + dx, ((Point)PointList[i]).Y + dy);
+                Point t1 = GetSpinPoint(new Point(((Point)PointList[i - 1]).X + dx, ((Point)PointList[i - 1]).Y + dy));
+                Point t2 = GetSpinPoint(new Point(((Point)PointList[i]).X + dx, ((Point)PointList[i]).Y + dy));
+                t.InitLine(pictureBox, color, t1.X, t1.Y, t2.X, t2.Y);
                 t.Draw();
             }
             if (FinishDraw)
             {
                 t = new Line();
-                t.InitLine(pictureBox, color, ((Point)PointList[0]).X + dx, ((Point)PointList[0]).Y + dy, ((Point)PointList[PointList.Count - 1]).X + dx, ((Point)PointList[PointList.Count - 1]).Y + dy);
+                Point t1 = GetSpinPoint(new Point(((Point)PointList[0]).X + dx, ((Point)PointList[0]).Y + dy));
+                Point t2 = GetSpinPoint(new Point(((Point)PointList[PointList.Count - 1]).X + dx,((Point)PointList[PointList.Count - 1]).Y + dy));
+                
+                t.InitLine(pictureBox, color, t1.X, t1.Y, t2.X, t2.Y);
                 t.Draw();
 
                 if (selected)
                 {
                     Rect rec = new Rect();
                     rec.InitRectangle(pictureBox, color, x0 + dx, y0 + dy, x1 + dx, y1 + dy);
+                    rec.SetAngle(angle);
                     rec.SelectShape();
                     rec.Draw();
                     this.SelectShape();
@@ -104,6 +110,11 @@ namespace Painting.Shapes
         }
         public override bool PointOnEdge(int x, int y)
         {
+            double cost = Math.Cos(-angle);
+            double sint = Math.Sin(-angle);
+            x = (int)((x - x0) * cost + (y - y0) * sint + x0);
+            y = (int)(-sint * (x - x0) + cost * (y - y0) + y0);
+
             if (PointList.Count < 2)
                 return false;
             Line a = new Line();
@@ -122,6 +133,11 @@ namespace Painting.Shapes
 
         public override bool PointInIt(int x, int y)
         {
+            double cost = Math.Cos(-angle);
+            double sint = Math.Sin(-angle);
+            x = (int)((x - x0) * cost + (y - y0) * sint + x0);
+            y = (int)(-sint * (x - x0) + cost * (y - y0) + y0);
+
             int i, j = PointList.Count - 1;
             bool oddNodes = false;
 
