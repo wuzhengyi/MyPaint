@@ -25,10 +25,6 @@ namespace Painting.Shapes
 
         public override void Draw()
         {
-            if (!visible)
-            {
-                return;
-            }
             int tempx = x1;
             int tempy = y1;
             Point temp = GetSpinPoint(new Point(x1, y1));
@@ -81,6 +77,10 @@ namespace Painting.Shapes
         public override bool PointInIt(int x, int y)
         {
             return PointOnEdge(x, y);
+        }
+        public override void FillColor(Color color)
+        {
+            this.color = color;
         }
     }
     

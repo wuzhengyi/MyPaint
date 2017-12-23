@@ -19,8 +19,7 @@ namespace Painting.Shapes
         protected int rx, ry, cx, cy, r;
         protected PictureBox pictureBox;
         public Color color;
-        public bool visible;
-        protected int replaceid;
+        public Color fillcolor;
         protected bool selected;
         protected double angle;
         protected static ControlSizeButton NWButton = new ControlSizeButton();
@@ -58,8 +57,6 @@ namespace Painting.Shapes
         public void InitShape()
         {
             selected = false;
-            visible = true;
-            replaceid = -1;
             dx = dy = 0;
         }
 

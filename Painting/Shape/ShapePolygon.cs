@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Painting.Shapes;
 
 namespace Painting.Shapes
 {
@@ -98,7 +99,8 @@ namespace Painting.Shapes
                     ButtonHide();
 
             }
-            
+            if (fillcolor != null)
+                FillColor(fillcolor);
         }
 
         public void UpdateEdge(int x,int y)
@@ -165,6 +167,76 @@ namespace Painting.Shapes
             x1 = y1 = -1;
             rx = ry = 1;
         }
-    }
+
+        public override void FillColor(Color color)
+        {
+            //priority_queue<float, vector<float>, greater<float>> s;
+
+            List<float> s = new List<float>();
+           
+            int i,j;
+            int N = PointList.Count;
+            List<Xet> pNET = new List<Xet>();
+
+            for(i=y0;i<=y1;i++)  
+            {  
+                for(j=0;j<N;j++)  
+                {                      
+                    if(((Point)PointList[j]).Y==i)  
+                    {  
+                        //按逆时针，某顶点的前一个顶点  
+                        if(((Point)PointList[(j-1+N)%N]).Y>((Point)PointList[j]).Y)  
+                        {  
+                            Xet p = new Xet();
+                            p.xmin = ((Point)PointList[j]).X;
+                            p.ymax = ((Point)PointList[(j - 1 + N) % N]).Y;
+                            p.ymin = ((Point)PointList[j]).Y;
+                            p.dx = (float)(((Point)PointList[(j - 1 + N) % N]).X - ((Point)PointList[j]).X) / (((Point)PointList[(j - 1 + N) % N]).Y - ((Point)PointList[j]).Y);  
+                            //判断是否为局部最值  
+                            if (((Point)PointList[(j + 1 + N) % N]).Y <= ((Point)PointList[j]).Y)  
+                                p.ymin++;                              
+                            pNET.Add(p);
+                        }  
+                        //按逆时针，某顶点的后一个顶点  
+                        if (((Point)PointList[(j + 1 + N) % N]).Y > ((Point)PointList[j]).Y)  
+                        {
+                            Xet p = new Xet();
+                            p.xmin = ((Point)PointList[j]).X;
+                            p.ymax = ((Point)PointList[(j + 1 + N) % N]).Y;
+                            p.ymin = ((Point)PointList[j]).Y;
+                            p.dx = (float)(((Point)PointList[(j + 1 + N) % N]).X - ((Point)PointList[j]).X) / (((Point)PointList[(j + 1 + N) % N]).Y - ((Point)PointList[j]).Y);
+                            //判断是否为局部最值  
+                            if (((Point)PointList[(j - 1 + N) % N]).Y <= ((Point)PointList[j]).Y)  
+                                p.ymin++;
+                            pNET.Add(p);
+                        }  
+                    }  
+                }  
+            }   
+            //所有扫描线进行扫描  
+            for(i=y0;i<=y1;i++)  
+            {  
+                for(j=0;j<pNET.Count;j++)  
+                {  
+                    //当前扫描线在某条边之间  
+                    if(pNET[j].ymin<=i&&pNET[j].ymax>=i)  
+                    {
+                        s.Add(pNET[j].xmin);                        
+                        //更新xmin坐标  
+                        pNET[j].xmin+=pNET[j].dx;  
+                    }  
+                }
+                s.Sort();
+                for(int k=0;k+1<s.Count;k+=2){
+                    int a = (int)s[k];
+                    int b = (int)s[k+1];
+                    for(int m=a;m<=b;m++)
+                        Form1.drawPixel(pictureBox, m, i, color);
+                }
+                s.Clear();
+            }
+            fillcolor = color;
+         }
+      }
 
 }

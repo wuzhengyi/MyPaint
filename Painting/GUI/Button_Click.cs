@@ -170,11 +170,12 @@ namespace Painting
 
         private void button_fill_Click(object sender, EventArgs e)
         {
-            if (NowCase == CASE.selected)
+            if (selectedShape != null) 
             {
                 //CaseChange(CASE.NoOperation);
                 //在选择框内填充纯色
-                //FillColor(color, x1, y1, x2, y2);
+                //FillColor(color, x1, y1, x2, y2);                
+                selectedShape.FillColor(color);
             }
         }
 

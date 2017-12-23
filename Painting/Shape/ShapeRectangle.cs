@@ -24,11 +24,6 @@ namespace Painting.Shapes
         }
         public override void Draw()
         {
-            if (!visible)
-            {
-                return;
-            }
-
             Point x1y0 = GetSpinPoint(new Point(x1, y0));
             Point x0y1 = GetSpinPoint(new Point(x0, y1));
             Point x1y1 = GetSpinPoint(new Point(x1, y1));
@@ -50,6 +45,9 @@ namespace Painting.Shapes
             l.InitLine(pictureBox, color, x0y1.X, x0y1.Y, x1y1.X, x1y1.Y);
             if (selected) l.SelectShape();
             l.Draw();
+
+            if (fillcolor != null)
+                FillColor(fillcolor);
         }
 
         public override bool PointOnEdge(int x, int y)
@@ -95,6 +93,11 @@ namespace Painting.Shapes
             if (x > Math.Min(x0, x1) && x < Math.Max(x0, x1) && y > Math.Min(y0, y1) && y < Math.Max(y0, y1))
                 return true;
             return false;
+        }
+
+        public override void FillColor(Color color)
+        {
+            
         }
     }
 }

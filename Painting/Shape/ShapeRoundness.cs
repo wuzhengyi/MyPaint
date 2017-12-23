@@ -40,10 +40,7 @@ namespace Painting.Shapes
             y1 = temp.Y;
 
             InitData();
-            if (!visible)
-            {
-                return;
-            }
+
             int x, y, p;
             x = 0; y = r;
             p = 3 - 2 * r;
@@ -67,6 +64,9 @@ namespace Painting.Shapes
             }
             x1 = tempx;
             y1 = tempy;
+
+            if (fillcolor != null)
+                FillColor(fillcolor);
         }
 
         public void DrawPixel(int x,int cx,int y,int cy)
@@ -118,6 +118,15 @@ namespace Painting.Shapes
                 return true;
             else
                 return false;
+        }
+
+        public override void FillColor(Color color)
+        {
+            /*for(int x=x0;x<x1;x++)
+                for(int y = y0; y < y1; y++)
+                {
+                    if()
+                }*/
         }
     }
 }

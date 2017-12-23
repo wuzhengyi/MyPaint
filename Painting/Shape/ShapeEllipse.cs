@@ -44,10 +44,6 @@ namespace Painting.Shapes
 
         public override void Draw()
         {
-            if (!visible)
-            {
-                return;
-            }
             InitData();
             int x, y, p, t1, t2;
             int rx2 = rx * rx;
@@ -100,6 +96,8 @@ namespace Painting.Shapes
             }
             else
                 ButtonHide();
+            if (fillcolor != null)
+                FillColor(fillcolor);
         }
 
         public override bool PointOnEdge(int x, int y)
@@ -168,11 +166,11 @@ namespace Painting.Shapes
 
         public override void FillColor(Color color)
         {
-            for(int x=x0;x<x1;x++)
+            /*for(int x=x0;x<x1;x++)
                 for(int y = y0; y < y1; y++)
                 {
                     if()
-                }
+                }*/
         }
     }
 
