@@ -11,6 +11,7 @@ namespace Painting.Shapes
 {
     class Line : Shape
     {
+
         public void InitLine(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
         {
             type = ShapeType.Line;
@@ -28,6 +29,11 @@ namespace Painting.Shapes
             {
                 return;
             }
+            int tempx = x1;
+            int tempy = y1;
+            Point temp = GetSpinPoint(new Point(x1, y1));
+            x1 = temp.X;
+            y1 = temp.Y;
 
             double tx, ty, e, x, y;
             tx = x1 - x0;
@@ -52,6 +58,8 @@ namespace Painting.Shapes
                 x += tx;
                 y += ty;
             }
+            x1 = tempx;
+            y1 = tempy;
         }
 
         public override bool PointOnEdge(int x, int y)
@@ -64,16 +72,6 @@ namespace Painting.Shapes
             double lab = Form1.DistanceOfPoint(a, b);
             return (lac + lbc < lab + 0.25) ? true : false;
         }
-
-        //public override Point NWPoint()
-        //{
-        //    return new Point(x0, y0);
-        //}
-
-        //public override Point SEPoint()
-        //{
-        //    return new Point(x1, y1);
-        //}
 
         public override bool PointInIt(int x, int y)
         {

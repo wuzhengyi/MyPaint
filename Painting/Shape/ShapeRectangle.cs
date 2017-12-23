@@ -28,35 +28,48 @@ namespace Painting.Shapes
             {
                 return;
             }
-            Line l = new Line();
-            if (selected) l.SelectShape();
-            l.InitLine(pictureBox, color, x0, y0, x0, y1);
-            if (selected) l.SelectShape();
-            l.Draw();
-            l.InitLine(pictureBox, color, x0, y0, x1, y0);
-            if (selected) l.SelectShape();
-            l.Draw();
-            l.InitLine(pictureBox, color, x1, y0, x1, y1);
+
+            Point x1y0 = GetSpinPoint(new Point(x1, y0));
+            Point x0y1 = GetSpinPoint(new Point(x0, y1));
+            Point x1y1 = GetSpinPoint(new Point(x1, y1));
+
+            Line l = new Line();            
+            l.InitLine(pictureBox, color, x0, y0, x0y1.X, x0y1.Y);
             if (selected) l.SelectShape();
             l.Draw();
-            l.InitLine(pictureBox, color, x0, y1, x1, y1);
+
+                        
+            l.InitLine(pictureBox, color, x0, y0, x1y0.X, x1y0.Y);
+            if (selected) l.SelectShape();
+            l.Draw();
+
+            l.InitLine(pictureBox, color, x1y0.X, x1y0.Y, x1y1.X, x1y1.Y);
+            if (selected) l.SelectShape();
+            l.Draw();
+
+            l.InitLine(pictureBox, color, x0y1.X, x0y1.Y, x1y1.X, x1y1.Y);
             if (selected) l.SelectShape();
             l.Draw();
         }
 
         public override bool PointOnEdge(int x, int y)
         {
+            Point x0y0 = GetSpinPoint(new Point(x0 + dx, y0 + dy));
+            Point x1y0 = GetSpinPoint(new Point(x1 + dx, y0 + dy));
+            Point x0y1 = GetSpinPoint(new Point(x0 + dx, y1 + dy));
+            Point x1y1 = GetSpinPoint(new Point(x1 + dx, y1 + dy));
+
             Line a = new Line();
-            a.InitLine(pictureBox, color, x0 + dx, y0 + dy, x0 + dx, y1 + dy);
+            a.InitLine(pictureBox, color, x0y0.X, x0y0.Y, x0y1.X, x0y1.Y);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x0 + dx, y0 + dy, x1 + dx, y0 + dy);
+            a.InitLine(pictureBox, color, x0y0.X, x0y0.Y, x1y0.X, x1y0.Y);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x1 + dx, y0 + dy, x1 + dx, y1 + dy);
+            a.InitLine(pictureBox, color, x1y0.X, x1y0.Y, x1y1.X, x1y1.Y);
             if (a.PointOnEdge(x, y))
                 return true;
-            a.InitLine(pictureBox, color, x0 + dx, y1 + dy, x1 + dx, y1 + dy);
+            a.InitLine(pictureBox, color, x0y1.X, x0y1.Y, x1y1.X, x1y1.Y);
             if (a.PointOnEdge(x, y))
                 return true;
             return false;

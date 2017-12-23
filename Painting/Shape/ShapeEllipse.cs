@@ -11,7 +11,7 @@ namespace Painting.Shapes
 {
     class Ellipse : Shape
     {
-        private int rx, ry, xc, yc;
+        
         public void InitEllipse(PictureBox pictureBox, Color color, int x0, int y0, int x1, int y1)
         {           
             type = ShapeType.Ellipse;
@@ -26,16 +26,19 @@ namespace Painting.Shapes
         {
             rx = Math.Abs(x0 - x1) / 2;
             ry = Math.Abs(y0 - y1) / 2;
-            xc = (x0 + x1) / 2;
-            yc = (y0 + y1) / 2;
+            cx = (x0 + x1) / 2;
+            cy = (y0 + y1) / 2;
         }
         private void DrawPoint(int x, int y)
         {
-
-                Form1.drawPixel(pictureBox, x + xc + dx, y + yc + dy, color);
-                Form1.drawPixel(pictureBox, x + xc + dx, -y + yc + dy, color);
-                Form1.drawPixel(pictureBox, -x + xc + dx, y + yc + dy, color);
-                Form1.drawPixel(pictureBox, -x + xc + dx, -y + yc + dy, color);
+            Point temp = GetSpinPoint(new Point(x + cx + dx, y + cy + dy));
+            Form1.drawPixel(pictureBox, temp.X, temp.Y, color);
+            temp = GetSpinPoint(new Point(x + cx + dx, -y + cy + dy));
+            Form1.drawPixel(pictureBox, temp.X, temp.Y, color);
+            temp = GetSpinPoint(new Point(-x + cx + dx, y + cy + dy));
+            Form1.drawPixel(pictureBox, temp.X, temp.Y, color);
+            temp = GetSpinPoint(new Point(-x + cx + dx, -y + cy + dy));
+            Form1.drawPixel(pictureBox, temp.X, temp.Y, color);
             
         }
 
@@ -93,6 +96,7 @@ namespace Painting.Shapes
                 rec.InitRectangle(pictureBox, color, x0, y0, x1, y1);
                 rec.SelectShape();
                 rec.Draw();
+                this.SelectShape();
             }
             else
                 ButtonHide();
@@ -104,16 +108,16 @@ namespace Painting.Shapes
             if (rx > ry)
             {
                 int c = (int)Math.Sqrt(rx * rx - ry * ry);
-                Point p2 = new Point(c + xc, yc);
-                Point p3 = new Point(-c + xc, yc);
+                Point p2 = new Point(c + cx, cy);
+                Point p3 = new Point(-c + cx, cy);
                 if (Math.Abs(Form1.DistanceOfPoint(p1, p2)+ Form1.DistanceOfPoint(p1, p3) - 2*rx) < 1.5)
                     return true;                
             }
             else
             {
                 int c = (int)Math.Sqrt(ry * ry - rx * rx);
-                Point p2 = new Point(xc, c + yc);
-                Point p3 = new Point(xc, -c + yc);
+                Point p2 = new Point(cx, c + cy);
+                Point p3 = new Point(cx, -c + cy);
                 if (Math.Abs(Form1.DistanceOfPoint(p1, p2) + Form1.DistanceOfPoint(p1, p3) - 2*ry) < 1.5)
                     return true;
             }
@@ -136,16 +140,16 @@ namespace Painting.Shapes
             if (rx > ry)
             {
                 int c = (int)Math.Sqrt(rx * rx - ry * ry);
-                Point p2 = new Point(c + xc, yc);
-                Point p3 = new Point(-c + xc, yc);
+                Point p2 = new Point(c + cx, cy);
+                Point p3 = new Point(-c + cx, cy);
                 if (Form1.DistanceOfPoint(p1, p2) + Form1.DistanceOfPoint(p1, p3) < 2 * rx - 3)
                     return true;
             }
             else
             {
                 int c = (int)Math.Sqrt(ry * ry - rx * rx);
-                Point p2 = new Point(xc, c + yc);
-                Point p3 = new Point(xc, -c + yc);
+                Point p2 = new Point(cx, c + cy);
+                Point p3 = new Point(cx, -c + cy);
                 if (Form1.DistanceOfPoint(p1, p2) + Form1.DistanceOfPoint(p1, p3) < 2 * rx - 3)
                     return true;
             }

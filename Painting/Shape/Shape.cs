@@ -10,17 +10,19 @@ using System.Windows.Forms;
 
 namespace Painting.Shapes
 {
-    enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic, Pan};
+    enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic, polygon};
 
     abstract class Shape
     {
         protected ShapeType type;
         protected int x0, y0, x1, y1, dx, dy;
+        protected int rx, ry, cx, cy, r;
         protected PictureBox pictureBox;
         public Color color;
         public bool visible;
         protected int replaceid;
         protected bool selected;
+        protected double angle;
         protected static ControlSizeButton NWButton = new ControlSizeButton();
         protected static ControlSizeButton SEButton = new ControlSizeButton();
 
@@ -29,11 +31,17 @@ namespace Painting.Shapes
             return type;
         }
 
+        public static void SetMouseEvent(MouseEventHandler up, MouseEventHandler down, MouseEventHandler move)
+        {
+            NWButton.SetMouseEvent(up, down, move);
+            SEButton.SetMouseEvent(up, down, move);
+        }
+
         public void SetPictureBox(PictureBox pictureBox)
         {
             this.pictureBox = pictureBox;
         }
-
+        
         public void SetColor(Color color)
         {
             this.color = color;
@@ -65,21 +73,28 @@ namespace Painting.Shapes
         {
             selected = false;
             ButtonHide();
+            UpdatePoint();
         }
 
-        public void InitButton(MouseEventHandler up, MouseEventHandler down, MouseEventHandler move)
+        public void InitButton()
         {
-            NWButton.InitButton(NWPoint(), pictureBox, up, down, move);
-            SEButton.InitButton(SEPoint(), pictureBox, up, down, move);
+            NWButton.InitButton(NWPoint(), pictureBox);
+            SEButton.InitButton(SEPoint(), pictureBox);
         }
 
         public void UpdateLocation()
         {
+            if(type == ShapeType.polygon)
+            {
+                ((Polygon)this).InitData();
+            }
             x0 = NWButton.GetLocation().X;
             y0 = NWButton.GetLocation().Y;
             x1 = SEButton.GetLocation().X;
             y1 = SEButton.GetLocation().Y;
         }
+
+        
 
         protected void ButtonShow()
         {
@@ -101,7 +116,19 @@ namespace Painting.Shapes
             SEButton.SetLocation(new Point(x1 + dx, y1 + dy));
         }
 
-        public void Updatedxdy()
+        public void SetAngle(double t)
+        {
+            angle += t;
+        }
+
+        protected Point GetSpinPoint(Point p)
+        {
+            double cost = Math.Cos(angle);
+            double sint = Math.Sin(angle);
+            return new Point((int)((p.X-x0) * cost + (p.Y-y0) * sint + x0), (int)(-sint * (p.X - x0) + cost * (p.Y - y0) + y0));
+        }
+
+        public void UpdatePoint()
         {
             x0 += dx;
             x1 += dx;

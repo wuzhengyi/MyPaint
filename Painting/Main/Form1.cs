@@ -7,21 +7,9 @@ using Painting.Shapes;
 namespace Painting
 {
     enum CASE { NoOperation, dot, line, roundness, ellipse,
-        rectangle, pencil, fill, selected, chose, panning
+        rectangle, pencil, fill, selected, polygon, Panning
         };
-    /*  no_operation：   无操作
-     *  dot：            点
-     *  line：           线
-     *  curve：          曲线
-     *  roundness：      圆形
-     *  ellipse：        椭圆
-     *  rectangle：      矩形
-     *  pencil：         铅笔
-     *  fill：           填充
-     *  choose：         选择
-     *  chose：        选择完毕
-     *  panning：        平移
-     */
+
     enum BREATH { ss, s, b, bb};
 
     public struct point
@@ -37,12 +25,15 @@ namespace Painting
         private BREATH bh;
         private int x0, y0, x1, y1, x2, y2;
         private Point p;
-        private Point OldMousePosition;
         private bool IsMouseDown, IsBack;
         private Image FrontImage;
         private Shape selectedShape;
-        //private Button pictureBoxSize;
-        //private Button ChoseSize;
+        private Polygon pn;
+
+
+
+        private OperationStep OperaStep = new OperationStep();
+        private Image Backgroud;
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
@@ -50,8 +41,7 @@ namespace Painting
             //OperaStep.DrawOperation();
         }
 
-        private OperationStep OperaStep = new OperationStep();
-        private Image Backgroud;
+
 
         //private Bitmap bmp;
         public Form1()
@@ -73,8 +63,8 @@ namespace Painting
             pictureBox.Image = b;
             Backgroud = (Image)b.Clone();
             selectedShape = null;
-
-            
+            Shape.SetMouseEvent(SelectedShapeSize_MouseUp, SelectedShapeSize_MouseDown, SelectedShapeSize_MouseMove);
+            pn = null;
         }
         private void Form1_Load(object sender, EventArgs e)
         {

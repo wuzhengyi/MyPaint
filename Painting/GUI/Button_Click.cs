@@ -170,7 +170,7 @@ namespace Painting
 
         private void button_fill_Click(object sender, EventArgs e)
         {
-            if (NowCase != CASE.chose)
+            if (NowCase != CASE.selected)
             {
                 NowCase = CASE.fill;
             }
@@ -188,14 +188,40 @@ namespace Painting
             CaseChange(CASE.rectangle);
         }
 
+        private void button_polygon_Click(object sender, EventArgs e)
+        {
+            if (NowCase == CASE.polygon)
+            {
+                CaseChange(CASE.NoOperation);
+            }
+            else
+            {
+                CaseChange(CASE.polygon);
+                pn = new Polygon();
+                pn.InitPolygon(pictureBox, color);
+                //pn.FinishDraw = false;
+            }             
+        }
+
         private void button_selected_Click(object sender, EventArgs e)
         {
             CaseChange(CASE.selected);
         }
 
+        private void spin_Click(object sender, EventArgs e)
+        {
+            //Math.Sin(0.261799)
+            if (selectedShape != null)
+            {
+                selectedShape.SetAngle(0.2);
+                RefreshPictureBox();
+            }
+                
+        }
+
         private void button_fillpic_Click(object sender, EventArgs e)
         {
-            if (NowCase != CASE.chose)
+            if (NowCase != CASE.selected)
             {
                 MessageBox.Show("请先选择填充范围！");
             }
@@ -219,13 +245,43 @@ namespace Painting
 
         private void CaseChange(CASE temp)
         {
-            if (NowCase == CASE.chose)
+            if (NowCase == CASE.polygon && temp!=CASE.polygon)
             {
-                //pictureBox.Image = Step.RefreshStep();
-                //TODO:初始化当前步骤
-                //ChoseSize.Hide();
+                pn.FinishDraw = true;
+                OperaStep.AddStep(pn);
+                RefreshPictureBox();
+                pn = null;
             }
             NowCase = temp;
         }
+
+        public void SelectedShapeSize_MouseDown(object sender, MouseEventArgs e)
+        {
+            p = e.Location;
+        }
+        public void SelectedShapeSize_MouseUp(object sender, MouseEventArgs e)
+        {
+            p = e.Location;
+            if (selectedShape.GetShapeType() == ShapeType.polygon)
+            {
+                selectedShape.UpdateLocation();
+                RefreshPictureBox();
+            }
+                
+        }
+        public void SelectedShapeSize_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (NowCase == CASE.selected)
+            {
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    ((Button)sender).Location = new Point(((Button)sender).Left + (e.X - p.X), ((Button)sender).Top + (e.Y - p.Y));
+                    if(selectedShape.GetShapeType()!=ShapeType.polygon)
+                        selectedShape.UpdateLocation();
+                    RefreshPictureBox();
+                }
+            }
+        }
+
     }
 }

@@ -97,6 +97,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Shape\ShapeEllipse.cs" />
+    <Compile Include="Shape\ShapePolygon.cs" />
     <Compile Include="Shape\ShapeRectangle.cs" />
     <Compile Include="Shape\ShapeRoundness.cs" />
     <Compile Include="Shape\Shape.cs" />
@@ -153,9 +154,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

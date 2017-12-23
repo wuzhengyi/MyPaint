@@ -17,7 +17,7 @@ namespace Painting
                 selectedShape = OperaStep.SelectShape(x0, y0);
                 if(selectedShape != null)
                 {                    
-                    selectedShape.InitButton(SelectedShapeSize_MouseUp,SelectedShapeSize_MouseDown, SelectedShapeSize_MouseMove);
+                    selectedShape.InitButton();
                     selectedShape.SelectShape();
                 }           
             }
@@ -60,12 +60,19 @@ namespace Painting
                     break;
                 case CASE.selected:
                     break;
-                case CASE.chose:
+                case CASE.polygon:
+                    pn.AddPoint(e.X, e.Y);
+                    pn.UpdateEdge(e.X, e.Y);
+                    pn.Draw();
                     break;
-                case CASE.panning:
+                case CASE.Panning:
                     selectedShape.Setdxdy(e.X - x0, e.Y - y0);
-                    selectedShape.Updatedxdy();
+                    if (selectedShape.GetShapeType() != ShapeType.polygon)
+                        selectedShape.UpdatePoint();
+                    else
+                        ((Polygon)selectedShape).Updatedxdy();
                     selectedShape.Draw();
+                    CaseChange(CASE.selected);
                     break;
                 default:
                     break;
@@ -111,15 +118,22 @@ namespace Painting
                         break;
                     case CASE.selected:
                         break;
-                    case CASE.chose:
+                    case CASE.polygon:
                         break;
-                    case CASE.panning:
+                    case CASE.Panning:
                         selectedShape.Setdxdy(e.X - x0, e.Y - y0);
                         selectedShape.Draw();
                         break;
                     default:
                         break;
                 }
+            }
+            if(NowCase==CASE.polygon && !pn.FinishDraw && pn.GetCount()>0)
+            {
+                pictureBox.Image = FrontImage.Clone() as Image;
+                pn.AddPoint(e.X, e.Y);
+                pn.Draw();
+                pn.RemovePoint(e.X, e.Y);
             }
         }
 
@@ -139,16 +153,45 @@ namespace Painting
             //标记鼠标摁下
             IsMouseDown = true;
 
-            if (NowCase == CASE.selected)
+            switch (NowCase)
             {
-                if (selectedShape != null && selectedShape.PointInIt(x0,y0))
-                {
-                    CaseChange(CASE.panning);
-                    /*
-                   TODO:case to panning or xuanzhuan  
-                 */
-                }
+                case CASE.NoOperation:
+                    break;
+                case CASE.dot:
+                    break;
+                case CASE.line:
+                    break;
+                case CASE.roundness:
+                    break;
+                case CASE.ellipse:
+                    break;
+                case CASE.rectangle:
+                    break;
+                case CASE.pencil:
+                    break;
+                case CASE.fill:
+                    break;
+                case CASE.selected:
+                    if (selectedShape != null)
+                    {
+                        if (selectedShape.PointInIt(x0, y0))
+                            CaseChange(CASE.Panning);
+                        else
+                        {
+                            selectedShape.unSelectShape();
+                            //CaseChange(CASE.NoOperation);
+                            selectedShape = null;
+                        }                           
+                    }
+                    break;
+                case CASE.polygon:
+                    break;
+                case CASE.Panning:
+                    break;
+                default:
+                    break;
             }
+
         }
         
         private void RefreshPictureBox()
@@ -157,25 +200,6 @@ namespace Painting
             OperaStep.DrawOperation();
         }
 
-        public void SelectedShapeSize_MouseDown(object sender, MouseEventArgs e)
-        {
-            p = e.Location;
-        }
-        public void SelectedShapeSize_MouseUp(object sender, MouseEventArgs e)
-        {
-            p = e.Location;
-        }
-        public void SelectedShapeSize_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (NowCase == CASE.selected)
-            {
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                {
-                    ((Button)sender).Location = new Point(((Button)sender).Left + (e.X - p.X), ((Button)sender).Top + (e.Y - p.Y));
-                    selectedShape.UpdateLocation();
-                    RefreshPictureBox();
-                }
-            }
-        }
+        
     }
 }

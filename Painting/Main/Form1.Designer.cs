@@ -66,6 +66,7 @@ namespace Painting
             this.button_roundness = new System.Windows.Forms.Button();
             this.button_line = new System.Windows.Forms.Button();
             this.rectangle = new System.Windows.Forms.Button();
+            this.polygon = new System.Windows.Forms.Button();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.fillpic = new System.Windows.Forms.Button();
             this.choose = new System.Windows.Forms.Button();
@@ -75,6 +76,7 @@ namespace Painting
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.spin = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -529,11 +531,11 @@ namespace Painting
             this.tableLayoutPanel3.Controls.Add(this.button_roundness, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_line, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.rectangle, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.polygon, 4, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(98, 2);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(275, 80);
             this.tableLayoutPanel3.TabIndex = 11;
@@ -546,7 +548,7 @@ namespace Painting
             this.Ellipse.Location = new System.Drawing.Point(58, 2);
             this.Ellipse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Ellipse.Name = "Ellipse";
-            this.Ellipse.Size = new System.Drawing.Size(49, 36);
+            this.Ellipse.Size = new System.Drawing.Size(49, 76);
             this.Ellipse.TabIndex = 9;
             this.Ellipse.Text = "椭圆";
             this.Ellipse.UseVisualStyleBackColor = true;
@@ -560,7 +562,7 @@ namespace Painting
             this.button_roundness.Location = new System.Drawing.Point(3, 2);
             this.button_roundness.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_roundness.Name = "button_roundness";
-            this.button_roundness.Size = new System.Drawing.Size(49, 36);
+            this.button_roundness.Size = new System.Drawing.Size(49, 76);
             this.button_roundness.TabIndex = 8;
             this.button_roundness.Text = "圆";
             this.button_roundness.UseVisualStyleBackColor = true;
@@ -574,7 +576,7 @@ namespace Painting
             this.button_line.Location = new System.Drawing.Point(113, 2);
             this.button_line.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_line.Name = "button_line";
-            this.button_line.Size = new System.Drawing.Size(49, 36);
+            this.button_line.Size = new System.Drawing.Size(49, 76);
             this.button_line.TabIndex = 5;
             this.button_line.Text = "直线";
             this.button_line.UseVisualStyleBackColor = true;
@@ -588,11 +590,25 @@ namespace Painting
             this.rectangle.Location = new System.Drawing.Point(168, 2);
             this.rectangle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rectangle.Name = "rectangle";
-            this.rectangle.Size = new System.Drawing.Size(49, 36);
+            this.rectangle.Size = new System.Drawing.Size(49, 76);
             this.rectangle.TabIndex = 11;
             this.rectangle.Text = "矩形";
             this.rectangle.UseVisualStyleBackColor = true;
             this.rectangle.Click += new System.EventHandler(this.button_rectangle_Click);
+            // 
+            // polygon
+            // 
+            this.polygon.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.polygon.Location = new System.Drawing.Point(223, 2);
+            this.polygon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.polygon.Name = "polygon";
+            this.polygon.Size = new System.Drawing.Size(49, 76);
+            this.polygon.TabIndex = 12;
+            this.polygon.Text = "多边形";
+            this.polygon.UseVisualStyleBackColor = true;
+            this.polygon.Click += new System.EventHandler(this.button_polygon_Click);
             // 
             // tableLayoutPanel7
             // 
@@ -605,6 +621,7 @@ namespace Painting
             this.tableLayoutPanel7.Controls.Add(this.fillpic, 0, 1);
             this.tableLayoutPanel7.Controls.Add(this.choose, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.fill, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.spin, 1, 1);
             this.tableLayoutPanel7.Location = new System.Drawing.Point(961, 2);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -704,6 +721,20 @@ namespace Painting
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // spin
+            // 
+            this.spin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.spin.Location = new System.Drawing.Point(80, 42);
+            this.spin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.spin.Name = "spin";
+            this.spin.Size = new System.Drawing.Size(72, 36);
+            this.spin.TabIndex = 17;
+            this.spin.Text = "旋转";
+            this.spin.UseVisualStyleBackColor = true;
+            this.spin.Click += new System.EventHandler(this.spin_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -786,6 +817,8 @@ namespace Painting
         private System.Windows.Forms.Button rectangle;
         private System.Windows.Forms.Button savefile;
         private System.Windows.Forms.Button fillpic;
+        private System.Windows.Forms.Button polygon;
+        private System.Windows.Forms.Button spin;
     }
 
     

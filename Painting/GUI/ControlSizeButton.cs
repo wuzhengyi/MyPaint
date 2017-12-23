@@ -75,5 +75,11 @@ namespace Painting.GUI
         {
             return button.Location;
         }
+
+        public void InitButton(Point point, PictureBox pictureBox)
+        {
+            button.Location = point;
+            pictureBox.Controls.Add(button);
+        }
     }
 }
