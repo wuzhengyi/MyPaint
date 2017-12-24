@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Painting.Shapes
 {
-    enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic, polygon};
+    enum ShapeType {Dot, Line, Roundness, Ellipse, Rectangle, Pencil, FillCr, FillPic, polygon, Bezier};
 
     abstract class Shape
     {

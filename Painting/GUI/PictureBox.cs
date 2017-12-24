@@ -67,6 +67,11 @@ namespace Painting
                     pn.UpdateEdge(e.X, e.Y);
                     pn.Draw();
                     break;
+                case CASE.Bezier:
+                    bz.AddControlPoint(e.X, e.Y);
+                    bz.UpdateEdge(e.X, e.Y);
+                    bz.Draw();
+                    break;
                 case CASE.Panning:
                     selectedShape.Setdxdy(e.X - x0, e.Y - y0);
                     if (selectedShape.GetShapeType() != ShapeType.polygon)
@@ -81,8 +86,6 @@ namespace Painting
             }
         }
 
-        //[DllImport("User32.dll")]
-        //private static extern bool SetCursorPos(int x, int y);
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)//鼠标移动
         {
@@ -142,6 +145,14 @@ namespace Painting
                 pn.Draw();
                 pn.RemovePoint(e.X, e.Y);
             }
+            else if (NowCase == CASE.Bezier && !bz.FinishDraw && bz.GetCount() > 0)
+            {
+                RefreshPictureBox();
+                //pictureBox.Image = FrontImage.Clone() as Image;
+                bz.AddControlPoint(e.X, e.Y);
+                bz.Draw();
+                bz.RemovePoint(e.X, e.Y);
+            }
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -164,7 +175,7 @@ namespace Painting
             {
                 case CASE.NoOperation:
                     break;
-                case CASE.dot:
+                case CASE.Bezier:
                     break;
                 case CASE.line:
                     break;

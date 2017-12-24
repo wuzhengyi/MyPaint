@@ -93,14 +93,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Shape\Algorithm.cs">
+    <Compile Include="Shapes\Algorithm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Shape\ShapeEllipse.cs" />
-    <Compile Include="Shape\ShapePolygon.cs" />
-    <Compile Include="Shape\ShapeRectangle.cs" />
-    <Compile Include="Shape\ShapeRoundness.cs" />
-    <Compile Include="Shape\Shape.cs" />
+    <Compile Include="Shapes\ShapeBezier.cs" />
+    <Compile Include="Shapes\ShapeEllipse.cs" />
+    <Compile Include="Shapes\ShapePolygon.cs" />
+    <Compile Include="Shapes\ShapeRectangle.cs" />
+    <Compile Include="Shapes\ShapeRoundness.cs" />
+    <Compile Include="Shapes\Shape.cs" />
     <Compile Include="Function\Size.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,8 +114,8 @@
     </Compile>
     <Compile Include="Main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shape\ShapeLine.cs" />
-    <Compile Include="Shape\Xet.cs" />
+    <Compile Include="Shapes\ShapeLine.cs" />
+    <Compile Include="Shapes\Xet.cs" />
     <EmbeddedResource Include="Main\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

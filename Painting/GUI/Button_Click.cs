@@ -150,7 +150,7 @@ namespace Painting
 
         private void button_dot_Click(object sender, EventArgs e)//点
         {
-            CaseChange(CASE.dot);
+            CaseChange(CASE.Bezier);
         }
 
         private void button_pencil_Click(object sender, EventArgs e)
@@ -199,6 +199,20 @@ namespace Painting
             }             
         }
 
+        private void bezier_Click(object sender, EventArgs e)
+        {
+            if (NowCase == CASE.Bezier)
+            {
+                CaseChange(CASE.NoOperation);
+            }
+            else
+            {
+                CaseChange(CASE.Bezier);
+                bz = new Bezier();
+                bz.InitBezier(pictureBox, color);                
+            }
+        }
+
         private void button_selected_Click(object sender, EventArgs e)
         {
             CaseChange(CASE.selected);
@@ -228,6 +242,13 @@ namespace Painting
                 OperaStep.AddStep(pn);
                 RefreshPictureBox();
                 pn = null;
+            }
+            else if(NowCase == CASE.Bezier && temp != CASE.Bezier)
+            {
+                bz.FinishDraw = true;
+                OperaStep.AddStep(bz);
+                RefreshPictureBox();
+                bz = null;
             }
             NowCase = temp;
         }
