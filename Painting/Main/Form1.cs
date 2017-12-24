@@ -7,8 +7,9 @@ using Painting.Shapes;
 namespace Painting
 {
     enum CASE { NoOperation, Bezier, line, roundness, ellipse,
-        rectangle, pencil, clip, selected, polygon, Panning 
-        };
+        rectangle, pencil, clip, selected, polygon, Panning,
+        Bsplines
+    };
 
     enum BREATH { ss, s, b, bb};
 
@@ -30,6 +31,7 @@ namespace Painting
         private Shape selectedShape;
         private Polygon pn;
         private Bezier bz;
+        private Bsplines bs;
         private OperationStep OperaStep = new OperationStep();
         private Image Backgroud;
 

@@ -67,6 +67,7 @@ namespace Painting
             this.button_line = new System.Windows.Forms.Button();
             this.rectangle = new System.Windows.Forms.Button();
             this.polygon = new System.Windows.Forms.Button();
+            this.bezier = new System.Windows.Forms.Button();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.clip = new System.Windows.Forms.Button();
             this.choose = new System.Windows.Forms.Button();
@@ -77,7 +78,7 @@ namespace Painting
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.bezier = new System.Windows.Forms.Button();
+            this.Bsplines = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -522,16 +523,18 @@ namespace Painting
             this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.Controls.Add(this.Ellipse, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_roundness, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_line, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.rectangle, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.polygon, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.bezier, 2, 1);
+            this.tableLayoutPanel3.Controls.Add(this.rectangle, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.polygon, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.bezier, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.Bsplines, 2, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(98, 2);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -546,10 +549,10 @@ namespace Painting
             this.Ellipse.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ellipse.Location = new System.Drawing.Point(94, 2);
+            this.Ellipse.Location = new System.Drawing.Point(71, 2);
             this.Ellipse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Ellipse.Name = "Ellipse";
-            this.Ellipse.Size = new System.Drawing.Size(85, 36);
+            this.Ellipse.Size = new System.Drawing.Size(62, 36);
             this.Ellipse.TabIndex = 9;
             this.Ellipse.Text = "椭圆";
             this.Ellipse.UseVisualStyleBackColor = true;
@@ -563,7 +566,7 @@ namespace Painting
             this.button_roundness.Location = new System.Drawing.Point(3, 2);
             this.button_roundness.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_roundness.Name = "button_roundness";
-            this.button_roundness.Size = new System.Drawing.Size(85, 36);
+            this.button_roundness.Size = new System.Drawing.Size(62, 36);
             this.button_roundness.TabIndex = 8;
             this.button_roundness.Text = "圆";
             this.button_roundness.UseVisualStyleBackColor = true;
@@ -574,10 +577,10 @@ namespace Painting
             this.button_line.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_line.Location = new System.Drawing.Point(185, 2);
+            this.button_line.Location = new System.Drawing.Point(139, 2);
             this.button_line.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_line.Name = "button_line";
-            this.button_line.Size = new System.Drawing.Size(87, 36);
+            this.button_line.Size = new System.Drawing.Size(62, 36);
             this.button_line.TabIndex = 5;
             this.button_line.Text = "直线";
             this.button_line.UseVisualStyleBackColor = true;
@@ -588,10 +591,10 @@ namespace Painting
             this.rectangle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rectangle.Location = new System.Drawing.Point(3, 42);
+            this.rectangle.Location = new System.Drawing.Point(207, 2);
             this.rectangle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rectangle.Name = "rectangle";
-            this.rectangle.Size = new System.Drawing.Size(85, 36);
+            this.rectangle.Size = new System.Drawing.Size(65, 36);
             this.rectangle.TabIndex = 11;
             this.rectangle.Text = "矩形";
             this.rectangle.UseVisualStyleBackColor = true;
@@ -602,14 +605,28 @@ namespace Painting
             this.polygon.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.polygon.Location = new System.Drawing.Point(94, 42);
+            this.polygon.Location = new System.Drawing.Point(3, 42);
             this.polygon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.polygon.Name = "polygon";
-            this.polygon.Size = new System.Drawing.Size(85, 36);
+            this.polygon.Size = new System.Drawing.Size(62, 36);
             this.polygon.TabIndex = 12;
             this.polygon.Text = "多边形";
             this.polygon.UseVisualStyleBackColor = true;
             this.polygon.Click += new System.EventHandler(this.button_polygon_Click);
+            // 
+            // bezier
+            // 
+            this.bezier.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bezier.Location = new System.Drawing.Point(71, 42);
+            this.bezier.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.bezier.Name = "bezier";
+            this.bezier.Size = new System.Drawing.Size(62, 36);
+            this.bezier.TabIndex = 13;
+            this.bezier.Text = "Bezier";
+            this.bezier.UseVisualStyleBackColor = true;
+            this.bezier.Click += new System.EventHandler(this.bezier_Click);
             // 
             // tableLayoutPanel7
             // 
@@ -735,19 +752,19 @@ namespace Painting
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // bezier
+            // Bsplines
             // 
-            this.bezier.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Bsplines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.bezier.Location = new System.Drawing.Point(185, 42);
-            this.bezier.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.bezier.Name = "bezier";
-            this.bezier.Size = new System.Drawing.Size(87, 36);
-            this.bezier.TabIndex = 13;
-            this.bezier.Text = "Bezier";
-            this.bezier.UseVisualStyleBackColor = true;
-            this.bezier.Click += new System.EventHandler(this.bezier_Click);
+            this.Bsplines.Location = new System.Drawing.Point(139, 42);
+            this.Bsplines.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Bsplines.Name = "Bsplines";
+            this.Bsplines.Size = new System.Drawing.Size(62, 36);
+            this.Bsplines.TabIndex = 14;
+            this.Bsplines.Text = "B样条";
+            this.Bsplines.UseVisualStyleBackColor = true;
+            this.Bsplines.Click += new System.EventHandler(this.Bsplines_Click);
             // 
             // Form1
             // 
@@ -834,6 +851,7 @@ namespace Painting
         private System.Windows.Forms.Button polygon;
         private System.Windows.Forms.Button spin;
         private System.Windows.Forms.Button bezier;
+        private System.Windows.Forms.Button Bsplines;
     }
 
     

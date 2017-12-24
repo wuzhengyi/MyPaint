@@ -72,6 +72,11 @@ namespace Painting
                     bz.UpdateEdge(e.X, e.Y);
                     bz.Draw();
                     break;
+                case CASE.Bsplines:
+                    bs.AddControlPoint(e.X, e.Y);
+                    bs.UpdateEdge(e.X, e.Y);
+                    bs.Draw();
+                    break;
                 case CASE.Panning:
                     selectedShape.Setdxdy(e.X - x0, e.Y - y0);
                     if (selectedShape.GetShapeType() != ShapeType.polygon)
@@ -152,6 +157,14 @@ namespace Painting
                 bz.AddControlPoint(e.X, e.Y);
                 bz.Draw();
                 bz.RemovePoint(e.X, e.Y);
+            }
+            else if (NowCase == CASE.Bsplines && !bs.FinishDraw && bs.GetCount() > 0)
+            {
+                RefreshPictureBox();
+                //pictureBox.Image = FrontImage.Clone() as Image;
+                bs.AddControlPoint(e.X, e.Y);
+                bs.Draw();
+                bs.RemovePoint(e.X, e.Y);
             }
         }
 

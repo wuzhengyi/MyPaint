@@ -213,6 +213,20 @@ namespace Painting
             }
         }
 
+        private void Bsplines_Click(object sender, EventArgs e)
+        {
+            if (NowCase == CASE.Bsplines)
+            {
+                CaseChange(CASE.NoOperation);
+            }
+            else
+            {
+                CaseChange(CASE.Bsplines);
+                bs = new Bsplines();
+                bs.InitBsplines(pictureBox, color);
+            }
+        }
+
         private void button_selected_Click(object sender, EventArgs e)
         {
             CaseChange(CASE.selected);
@@ -249,6 +263,13 @@ namespace Painting
                 OperaStep.AddStep(bz);
                 RefreshPictureBox();
                 bz = null;
+            }
+            else if (NowCase == CASE.Bsplines && temp != CASE.Bsplines)
+            {
+                bs.FinishDraw = true;
+                OperaStep.AddStep(bs);
+                RefreshPictureBox();
+                bs = null;
             }
             NowCase = temp;
         }
