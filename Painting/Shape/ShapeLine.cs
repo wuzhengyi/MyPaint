@@ -93,6 +93,7 @@ namespace Painting.Shapes
             return new Point(x, y);    
         }
 
+
         public void LineClip(int X0, int Y0, int X1, int Y1)
         {
             if (hide)

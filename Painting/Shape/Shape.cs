@@ -148,6 +148,11 @@ namespace Painting.Shapes
             return -(x - x0) * dy + (y - y0) * dx > 0;
         }
 
+        protected bool PointInRect(int x, int y, int x0, int y0, int x1, int y1)
+        {
+            return (x > x0 && x < x1 && y > y0 && y > y1);
+        }
+
         public abstract void Clip(int X0, int Y0, int X1, int Y1);
         //public abstract Point NWPoint();
 

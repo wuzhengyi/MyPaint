@@ -251,9 +251,60 @@ namespace Painting.Shapes
             fillcolor = color;
          }
 
+        public void LineClip(int X0, int Y0, int X1, int Y1)
+        {
+            Line t;
+            ArrayList TempPointList = new ArrayList();
+            for (int i = 1; i < PointList.Count; i++)
+            {
+                t = new Line();
+                Point t1 = GetSpinPoint(new Point(((Point)PointList[i - 1]).X + dx, ((Point)PointList[i - 1]).Y + dy));
+                Point t2 = GetSpinPoint(new Point(((Point)PointList[i]).X + dx, ((Point)PointList[i]).Y + dy));
+                t.InitLine(pictureBox, color, t1.X, t1.Y, t2.X, t2.Y);
+                if (PointInEdge(t1.X, t1.Y, X0, Y0, X1, Y1) && PointInEdge(t2.X, t2.Y, X0, Y0, X1, Y1))
+                {
+                    TempPointList.Add(PointList[i - 1]);
+                }
+                else if (PointInEdge(t1.X, t1.Y, X0, Y0, X1, Y1) && !PointInEdge(t2.X, t2.Y, X0, Y0, X1, Y1))
+                {
+                    TempPointList.Add(PointList[i - 1]);
+                    TempPointList.Add(t.Intersection(X0, Y0, X1, Y1));
+                }
+                else if(!PointInEdge(t1.X, t1.Y, X0, Y0, X1, Y1) && PointInEdge(t2.X, t2.Y, X0, Y0, X1, Y1))
+                {
+                    TempPointList.Add(t.Intersection(X0, Y0, X1, Y1));
+                }
+            }
+            {
+                if (PointList.Count < 2)
+                    return; 
+                t = new Line();
+                Point t1 = GetSpinPoint(new Point(((Point)PointList[PointList.Count - 1]).X + dx, ((Point)PointList[PointList.Count - 1]).Y + dy));
+                Point t2 = GetSpinPoint(new Point(((Point)PointList[0]).X + dx, ((Point)PointList[0]).Y + dy));
+                t.InitLine(pictureBox, color, t1.X, t1.Y, t2.X, t2.Y);
+                if (PointInEdge(t1.X, t1.Y, X0, Y0, X1, Y1) && PointInEdge(t2.X, t2.Y, X0, Y0, X1, Y1))
+                {
+                    TempPointList.Add(PointList[PointList.Count - 1]);
+                }
+                else if (PointInEdge(t1.X, t1.Y, X0, Y0, X1, Y1) && !PointInEdge(t2.X, t2.Y, X0, Y0, X1, Y1))
+                {
+                    TempPointList.Add(PointList[PointList.Count - 1]);
+                    TempPointList.Add(t.Intersection(X0, Y0, X1, Y1));
+                }
+                else if (!PointInEdge(t1.X, t1.Y, X0, Y0, X1, Y1) && PointInEdge(t2.X, t2.Y, X0, Y0, X1, Y1))
+                {
+                    TempPointList.Add(t.Intersection(X0, Y0, X1, Y1));
+                }
+            }
+            PointList = TempPointList;
+        }
+
         public override void Clip(int X0, int Y0, int X1, int Y1)
         {
-            throw new NotImplementedException();
+            LineClip(X0, Y1, X0, Y0);
+            LineClip(X0, Y0, X1, Y0);
+            LineClip(X1, Y0, X1, Y1);
+            LineClip(X1, Y1, X0, Y1);
         }
     }
 
