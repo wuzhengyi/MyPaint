@@ -63,3 +63,17 @@ E:\大三上\MyPaint\Painting\obj\Debug\Painting.Properties.Resources.resources
 E:\大三上\MyPaint\Painting\obj\Debug\Painting.csproj.GenerateResource.Cache
 E:\大三上\MyPaint\Painting\obj\Debug\Painting.exe.manifest
 E:\大三上\MyPaint\Painting\obj\Debug\Painting.application
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\bin\Debug\Painting.exe.config
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.exe
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.pdb
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.csprojResolveAssemblyReference.cache
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.Form1.resources
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.Properties.Resources.resources
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.csproj.GenerateResource.Cache
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\bin\Debug\Painting.exe.manifest
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\bin\Debug\Painting.application
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\bin\Debug\Painting.exe
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\bin\Debug\Painting.pdb
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.exe.manifest
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.application
+C:\Users\wzy\Documents\大三上\MyPaint\Painting\obj\Debug\Painting.GUI._3D.resources

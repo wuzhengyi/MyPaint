@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Painting.Shapes;
+using Painting.GUI;
 
 namespace Painting
 {
@@ -31,6 +32,15 @@ namespace Painting
         private Shape selectedShape;
         private Polygon pn;
         private Bezier bz;
+        private _3D form3D = new _3D();
+
+        private void button3D_Click(object sender, EventArgs e)
+        {
+            if(form3D.IsDisposed || form3D == null)
+                form3D = new _3D();
+            form3D.Show();
+        }
+
         private Bsplines bs;
         private OperationStep OperaStep = new OperationStep();
         private Image Backgroud;
@@ -57,6 +67,7 @@ namespace Painting
             selectedShape = null;
             Shape.SetMouseEvent(SelectedShapeSize_MouseUp, SelectedShapeSize_MouseDown, SelectedShapeSize_MouseMove);
             pn = null;
+            button3D.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
         }
         private void Form1_Load(object sender, EventArgs e)
         {

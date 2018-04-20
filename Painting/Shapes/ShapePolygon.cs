@@ -306,6 +306,8 @@ namespace Painting.Shapes
             LineClip(X1, Y0, X1, Y1);
             LineClip(X1, Y1, X0, Y1);
         }
+
+
     }
 
 }

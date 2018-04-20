@@ -101,6 +101,7 @@ namespace Painting.Shapes
 
         public override bool PointOnEdge(int x, int y)
         {
+            return false;
             throw new NotImplementedException();
         }
     }

@@ -86,14 +86,25 @@ namespace Painting.Shapes
             this.color = color;
         }
 
+        //求交点
         public Point Intersection(int X0, int Y0, int X1, int Y1)
         {
-            int x = (X0 * Y1 * x0 - X1 * Y0 * x0 - X0 * Y1 * x1 + X1 * Y0 * x1 - X0 * x0 * y1 + X0 * x1 * y0 + X1 * x0 * y1 - X1 * x1 * y0) / (X0 * y0 - Y0 * x0 - X0 * y1 - X1 * y0 + Y0 * x1 + Y1 * x0 + X1 * y1 - Y1 * x1);
-            int y = (X0 * Y1 * y0 - X1 * Y0 * y0 - X0 * Y1 * y1 + X1 * Y0 * y1 - Y0 * x0 * y1 + Y0 * x1 * y0 + Y1 * x0 * y1 - Y1 * x1 * y0) / (X0 * y0 - Y0 * x0 - X0 * y1 - X1 * y0 + Y0 * x1 + Y1 * x0 + X1 * y1 - Y1 * x1);
-            return new Point(x, y);    
+            try
+            {
+                int x = (X0 * Y1 * x0 - X1 * Y0 * x0 - X0 * Y1 * x1 + X1 * Y0 * x1 - X0 * x0 * y1 + X0 * x1 * y0 + X1 * x0 * y1 - X1 * x1 * y0) / (X0 * y0 - Y0 * x0 - X0 * y1 - X1 * y0 + Y0 * x1 + Y1 * x0 + X1 * y1 - Y1 * x1);
+                int y = (X0 * Y1 * y0 - X1 * Y0 * y0 - X0 * Y1 * y1 + X1 * Y0 * y1 - Y0 * x0 * y1 + Y0 * x1 * y0 + Y1 * x0 * y1 - Y1 * x1 * y0) / (X0 * y0 - Y0 * x0 - X0 * y1 - X1 * y0 + Y0 * x1 + Y1 * x0 + X1 * y1 - Y1 * x1);
+                return new Point(x, y);
+            }
+            catch (DivideByZeroException)
+            {
+                return new Point(1, 1);
+            }
+
+
+
         }
 
-
+        //用一条直线来裁剪原有直线
         public void LineClip(int X0, int Y0, int X1, int Y1)
         {
             if (hide)
@@ -116,6 +127,7 @@ namespace Painting.Shapes
             }
             
         }
+        //矩形框裁剪
         public override void Clip(int X0, int Y0, int X1, int Y1)
         {
             LineClip(X0, Y1, X0, Y0);

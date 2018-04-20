@@ -63,6 +63,8 @@ namespace Painting.Shapes
         public void SelectShape()
         {
             selected = true;
+            NWButton.SetLocation(new Point(x0, y0));
+            SEButton.SetLocation(new Point(x1, y1));
             ButtonShow();
         }
 

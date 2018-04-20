@@ -301,6 +301,5 @@ namespace Painting
                 }
             }
         }
-
     }
 }

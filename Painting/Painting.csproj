@@ -78,13 +78,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="3D\3D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3D\3D.Designer.cs">
+      <DependentUpon>3D.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Button_Click.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Function\Fill.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="3D\ColorCube2.cs" />
     <Compile Include="GUI\ControlSizeButton.cs" />
+    <Compile Include="3D\Matrix3D2.cs" />
     <Compile Include="GUI\PictureBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +125,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shapes\ShapeLine.cs" />
     <Compile Include="Shapes\Xet.cs" />
+    <EmbeddedResource Include="3D\3D.resx">
+      <DependentUpon>3D.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
